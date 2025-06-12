@@ -1,2 +1,2 @@
 # SkillLink_Alumnithon
-Equipo Mandalorians Alumnithon 
+Equipo Mandalorians AlumnithoN
