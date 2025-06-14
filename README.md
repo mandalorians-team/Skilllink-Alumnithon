@@ -1,6 +1,38 @@
 # 🛡️ Guía Git Mandalorians
+---
+## 0️⃣ Clonar y colaborar
+
+Para contribuir con el proyecto, sigue estos pasos:
+
+1. Clona el repositorio:
+
+```bash
+git clone https://github.com/mandalorians-team/Skilllink-Alumnithon.git
+cd Skilllink-Alumnithon
+````
+
+2. Crea una rama nueva:
+
+```bash
+git checkout -b nombre-de-tu-rama
+```
+
+3. Haz tus cambios, guarda y haz push:
+
+```bash
+git add .
+git commit -m "feat: descripción del cambio"
+git push origin nombre-de-tu-rama
+```
+
+4. Abre un Pull Request (PR) en GitHub.
+
+> ⚠️ Todos los cambios deben ir mediante un PR. No se permite hacer `push` directo a `main`.
+
 
 ## 💥 Convención de Nombres de Ramas y Commits para Frontend y Backend
+
+
 
 > *"Así es el camino."* — Mandalorians Dev Team
 
