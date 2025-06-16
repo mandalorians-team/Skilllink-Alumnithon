@@ -1,4 +1,4 @@
-@import 'normalize.css'; /* bring in normalize.css styles */
-@import './styles/global.css';
+@import "../node_modules/normalize.css/normalize.css";
+@import "./styles/global.css";
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital@0;1&family=Orbitron:wght@400..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital@0;1&family=Orbitron:wght@400..900&display=swap");
