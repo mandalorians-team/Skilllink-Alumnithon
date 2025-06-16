@@ -1,8 +1,14 @@
 import React from 'react'
-import './App.css'
+
+import MisCursos from './pages/MisCursos'
+import './styles/global.css'
+
 
 function App() {
+  return (
+   <MisCursos/>
 
+  )
 }
 
 export default App
