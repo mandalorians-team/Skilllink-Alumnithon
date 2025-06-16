@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import BarraLateral from "../components/BarraLateral";
 import Encabezado from "../components/Encabezado";
 import TabsFiltro from "../components/TabsFiltro";
@@ -6,8 +6,19 @@ import TarjetaCurso from "../components/TarjetaCurso";
 import Paginacion from "../components/Paginacion";
 import CursoDestacado from "../components/CursoDestacado";
 import "../styles/misCursos.css";
+import { pruebaConexion } from "../services/BackendServices";
+
+
 
 const MisCursos = () => {
+  useEffect(() => {
+    pruebaConexion().then((data) => {
+      console.log('✅ Conexión exitosa:', data);
+    }).catch((error) => {
+      console.error('❌ Error al conectar con el backend:', error);
+    });
+  }, []);
+  
   const cursos = [
     {
       imagen: "/curso1.jpg",
