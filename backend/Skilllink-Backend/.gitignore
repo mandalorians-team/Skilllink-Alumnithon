@@ -31,3 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Aplication Configurations ###
+application.properties
+application-dev.yml
+application-prod.yml
+application-test.yml
