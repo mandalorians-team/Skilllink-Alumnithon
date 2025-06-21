@@ -5,9 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="60f44faa-d3a7-4d21-84a7-771059b35b61" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/Skilllink-Backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Skilllink-Backend/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Skilllink-Backend/src/main/java/com/example/skilllinkbackend/SkilllinkBackendApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Skilllink-Backend/src/main/java/com/example/skilllinkbackend/SkilllinkBackendApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Skilllink-Backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Skilllink-Backend/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Skilllink-Backend/src/main/java/model/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Skilllink-Backend/src/main/java/model/Profile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Skilllink-Backend/src/main/java/model/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Skilllink-Backend/src/main/java/model/Role.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Skilllink-Backend/src/main/java/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Skilllink-Backend/src/main/java/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Skilllink-Backend/src/test/java/tests/UserSimulationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Skilllink-Backend/src/test/java/tests/UserSimulationTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,6 +21,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -38,11 +42,16 @@
     "Application.SkilllinkBackendApplication.executor": "Run",
     "Application.UserSimulationTest.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "backend/haqui",
+    "git-widget-placeholder": "test/model/user-simulation",
     "kotlin-language-version-configured": "true",
     "settings.editor.selected.configurable": "reference.settings.project.maven.importing"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\pc\OneDrive\Escritorio\Skilllink-Alumnithon\backend\Skilllink-Backend\src\test\java" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -53,20 +62,5 @@
       <updated>1750470380191</updated>
     </task>
     <servers />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/backend/Skilllink-Backend/src/main/java/model/Profile.java</url>
-          <line>58</line>
-          <properties class="com.example.skilllinkbackend.model.Profile" method="getPortfolio">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

@@ -1,39 +1,30 @@
 package tests;
 
-import model.User;
-import model.Profile;
-import model.Role;
+import model.*;
+import service.UserService;
 
 public class UserSimulationTest {
 
     public static void main(String[] args) {
-        // Crear usuario
+        UserService userService = new UserService();
+
         User user = new User();
         user.setFirstName("Ignacio");
         user.setLastName("Pérez");
         user.setEmail("ignacio@example.com");
-        user.setPassword("secret123");
+        user.setPassword("1234");
         user.setEnabled(true);
 
-        // Crear perfil
+        Role role = new Role();
+        role.setName("MENTOR");
+        role.setDescription("Acceso a guías y espacios de revisión");
+
         Profile profile = new Profile();
         profile.setLocation("Bogotá");
-        profile.setOccupation("Desarrollador Backend");
-        profile.setLinkedin("https://linkedin.com/in/ignacio");
-        profile.setUser(user); // Enlazar perfil al usuario
-        user.setProfile(profile);
+        profile.setOccupation("Mentor Backend");
 
-        // Crear rol
-        Role role = new Role();
-        role.setName("ADMINISTRADOR");
-        role.setDescription("Acceso completo a la plataforma");
-
-        user.getRoles().add(role);
-        role.getUsers().add(user); // Relación bidireccional opcional
-
-        // Visualizar
-        System.out.println("Usuario: " + user.getFirstName() + " " + user.getLastName());
-        System.out.println("Rol asignado: " + user.getRoles().iterator().next().getName());
-        System.out.println("Ubicación: " + user.getProfile().getLocation());
+        userService.assignProfile(user, profile);
+        userService.addRole(user, role);
+        userService.printUserSummary(user);
     }
 }
