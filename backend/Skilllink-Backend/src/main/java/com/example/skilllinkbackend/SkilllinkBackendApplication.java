@@ -8,6 +8,7 @@ public class SkilllinkBackendApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(SkilllinkBackendApplication.class, args);
+        System.out.println("Hola Mundo!! Desde SkillLink App");
     }
 
 }

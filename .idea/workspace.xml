@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="60f44faa-d3a7-4d21-84a7-771059b35b61" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/backend/Skilllink-Backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Skilllink-Backend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Skilllink-Backend/src/main/java/com/example/skilllinkbackend/SkilllinkBackendApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Skilllink-Backend/src/main/java/com/example/skilllinkbackend/SkilllinkBackendApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Skilllink-Backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Skilllink-Backend/src/main/resources/application.properties" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2ynVZ6SDmeorEhe4td9wgo2ODf0" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.SkilllinkBackendApplication.executor": "Run",
+    "Application.UserSimulationTest.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "backend/haqui",
+    "kotlin-language-version-configured": "true",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.importing"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="60f44faa-d3a7-4d21-84a7-771059b35b61" name="Changes" comment="" />
+      <created>1750470380191</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1750470380191</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/backend/Skilllink-Backend/src/main/java/model/Profile.java</url>
+          <line>58</line>
+          <properties class="com.example.skilllinkbackend.model.Profile" method="getPortfolio">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
