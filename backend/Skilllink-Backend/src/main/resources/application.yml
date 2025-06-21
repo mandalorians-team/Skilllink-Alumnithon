@@ -15,3 +15,5 @@ skilllink:
 
 jwt:
   expiration: 3600000
+  refresh-token:
+    expiration: 604800000

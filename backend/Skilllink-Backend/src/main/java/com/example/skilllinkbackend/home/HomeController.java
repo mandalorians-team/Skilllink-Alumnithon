@@ -1,4 +1,4 @@
-package com.example.skilllinkbackend.features.home;
+package com.example.skilllinkbackend.home;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

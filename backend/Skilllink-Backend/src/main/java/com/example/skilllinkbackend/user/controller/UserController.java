@@ -1,5 +1,7 @@
-package com.example.skilllinkbackend.features.user;
+package com.example.skilllinkbackend.user.controller;
 
+import com.example.skilllinkbackend.user.entity.User;
+import com.example.skilllinkbackend.user.repository.UserRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
