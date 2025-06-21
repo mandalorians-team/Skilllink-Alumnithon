@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="60f44faa-d3a7-4d21-84a7-771059b35b61" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Skilllink-Backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Skilllink-Backend/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Skilllink-Backend/src/main/java/model/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Skilllink-Backend/src/main/java/model/Profile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Skilllink-Backend/src/main/java/model/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Skilllink-Backend/src/main/java/model/Role.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Skilllink-Backend/src/main/java/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Skilllink-Backend/src/main/java/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Skilllink-Backend/src/test/java/tests/UserSimulationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Skilllink-Backend/src/test/java/tests/UserSimulationTest.java" afterDir="false" />
-    </list>
+    <list default="true" id="60f44faa-d3a7-4d21-84a7-771059b35b61" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,7 +35,7 @@
     "Application.SkilllinkBackendApplication.executor": "Run",
     "Application.UserSimulationTest.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "test/model/user-simulation",
+    "git-widget-placeholder": "feature/backend/admin-seed-init",
     "kotlin-language-version-configured": "true",
     "settings.editor.selected.configurable": "reference.settings.project.maven.importing"
   }
