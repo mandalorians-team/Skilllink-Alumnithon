@@ -1,8 +1,9 @@
+// RoleRepository.java
 package repository;
 
 import model.Role;
-import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface RoleRepository extends JpaRepository<Role, Long> {
+public interface RoleRepository {
     Role findByName(String name);
+    Role save(Role role);
 }
