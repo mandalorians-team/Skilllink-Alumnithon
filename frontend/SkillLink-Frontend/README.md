@@ -4,7 +4,7 @@
 
 ---
 
-## 📁 Estructura del proyecto
+## 📁 Estructura del proyecto por parte del frontend
 
 ```bash
 src/
