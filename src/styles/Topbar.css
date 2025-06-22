@@ -1,0 +1,86 @@
+
+.topbar-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 70px;
+    background-color: #1a1f2c;
+    color: white;
+}
+
+.topbar {
+    display: flex;
+    align-items:center;
+    justify-content: flex-end;
+    background-color: #1a1f2c;
+    padding: 1rem;
+    color: white;
+    width: 100%;
+}
+
+
+.header-logo {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.topbar-icon {
+    width: 24px;
+    height: 24px;
+    margin: 0 0.5rem;
+    gap: 2rem;
+    cursor: pointer;
+}
+
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-icon {
+    position: absolute;
+    left: 10px;
+    width: 16px;
+    height: 16px;
+}
+
+.search-container input {
+    padding-left: 30px; 
+    width: 250px;
+    height: 40px;
+    border-radius: 20px;
+    border: none;
+    background-color: #2a3240;
+    color: white;
+}
+
+.text {
+    font-size: 1.2rem;
+    color: #000000;
+}
+
+.topbar input {
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: none;
+    width: 300px;
+    margin: 0 1rem;
+}
+
+.logo-title {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    background-color: #1a1f2c;
+    width: 100%;
+}
+
+.logo-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+

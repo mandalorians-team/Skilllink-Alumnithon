@@ -1,0 +1,110 @@
+/* ========== RESET & GLOBALS ========== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --color-background: #b8cfdf;
+    --color-header: #0d121c;
+    --color-font: #ffffff;
+    --color-titulo: #f4f4f6;
+    --color-subtitulo: #8c8d8b;
+    --color-borde: #8cb6d9;
+    --color-chatbox: #1d232e;
+    --color-line: #6d6d6d;
+}
+
+html, body {
+    height: auto;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.app-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* ========== LAYOUT ========== */
+
+.container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-background);
+    color: white;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.content {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    background-color: var(--color-background);
+    padding: 1rem;
+    gap: 1rem;
+}
+
+/* ========== MENSAJE FLOTANTE SOBRE UNA VENTANA EN DESARROLLO ========== */
+
+.start-chat-btn {
+    margin-top: 10px;
+    background-color: #ffffff;
+    color: #000;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.start-chat-btn:hover {
+    background-color: #e0e0e0;
+}
+
+.floating-message {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #5c95be9f;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(140, 200, 224, 0.3);
+    z-index: 9999;
+    font-size: 14px;
+    text-align: center;
+    animation: fadeSlideIn 0.5s ease, fadeOut 0.5s ease 5s forwards;
+}
+
+
+@keyframes fadeSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
