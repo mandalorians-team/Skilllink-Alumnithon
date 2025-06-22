@@ -5,12 +5,12 @@ import {
   Route,
   Outlet,
 } from "react-router-dom";
-import Header from "./components/comun/Header";
-import Footer from "./components/comun/Footer";
-import Sidebar from "./components/Sidebar/Sidebar";
+import Header from "@/components/comun/Header";
+import Footer from "@/components/comun/Footer";
+import Sidebar from "@/components/comun/Sidebar";
 import { useLocation } from "react-router-dom";
-import CurseTabs from "./components/Curso/CourseTabs";
-import AppRoutes from "./routes/AppRoutes";
+import CurseTabs from "@/components/Aprendiz/Curso/CourseTabs";
+import AppRoutes from "@/routes/AppRoutes";
 
 /**
  * El Layout principal de la aplicación.
@@ -19,11 +19,6 @@ import AppRoutes from "./routes/AppRoutes";
  */
 function Layout() {
   const location = useLocation();
-
-  // Mostrar Header en /courses, /mentorias y sus subrutas
-  const showHeader = /^\/(courses|mentorias|proyectos)(\/\d+)?$/.test(
-    location.pathname
-  );
 
   const showFooter = /^\/(courses|mentorias|proyectos)(\/\d+)?$/.test(
     location.pathname
@@ -36,9 +31,9 @@ function Layout() {
     <div className="flex bg-page-background-color min-h-screen">
       <Sidebar />
       <div className="flex-1 flex flex-col ml-64">
-        {showHeader && <Header />}
+        <Header />
         {isCourseTabs && <CurseTabs />}
-        <main className="p-6">
+        <main className="p-6 bg-blue-200 flex-grow">
           <Outlet />
         </main>
         {showFooter && <Footer />}
