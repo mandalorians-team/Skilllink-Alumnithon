@@ -37,7 +37,8 @@ public class AuthService {
         User user = new User();
         user.setUsername(request.getUsername());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setRole(request.getRole() !=null ? request.getRole() : Role.LEARNER); // Default to LEARNER if no role is provided
+       // user.setRole(request.getRole() !=null ? request.getRole() : Role.LEARNER); // Default to LEARNER if no role is provided
+        user.setRole(Role.LEARNER);
         userRepository.save(user);
 
         String token = jwtUtils.generateToken(new UserPrincipal(user));

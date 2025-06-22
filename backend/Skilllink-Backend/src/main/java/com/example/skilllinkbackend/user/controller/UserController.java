@@ -35,6 +35,8 @@ public class UserController {
     }
 }
 
+
+
 //TODO continue with:
 // 1. Set up validation and global error handling (e.g., input validations for your models).
 // 2. Configure Spring Security & JWT for authentication and authorization.
