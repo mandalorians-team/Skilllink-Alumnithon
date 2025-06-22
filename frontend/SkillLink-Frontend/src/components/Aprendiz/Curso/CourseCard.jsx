@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Star } from "lucide-react";
 import { Link } from "react-router-dom";
-import Modal from "../ui/Modal";
+import Modal from "@/components/ui/Modal";
 
 export default function CourseCard({ course, type = "enrolled" }) {
   const [showModal, setShowModal] = useState(false);
@@ -13,15 +13,17 @@ export default function CourseCard({ course, type = "enrolled" }) {
     instructor,
     description,
     rating,
-    lessonsCompleted,
-    totalLessons,
+    progress,
+    modules = [],
     weeks,
     status,
     image,
   } = course;
 
-  const progressPercentage =
-    totalLessons > 0 ? (lessonsCompleted / totalLessons) * 100 : 0;
+  const totalLessons = modules.length;
+  const lessonsCompleted = Math.round((totalLessons * (progress || 0)) / 100);
+
+  const progressPercentage = progress || 0;
 
   const handleInscribirseClick = (e) => {
     e.preventDefault();

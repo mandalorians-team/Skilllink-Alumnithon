@@ -1,12 +1,46 @@
-# React + Vite
+# 🚀 SkillLink Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**SkillLink** es una plataforma educativa que conecta a estudiantes con mentores mediante cursos, mentorías y proyectos colaborativos. Este repositorio contiene la implementación del frontend de la aplicación, desarrollada con **React** y **Tailwind CSS**, con enfoque modular y mantenible.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📁 Estructura del proyecto por parte del frontend
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+src/
+│
+├── assets/                  # Imágenes y logotipos
+│
+├── components/             # Componentes reutilizables organizados por dominio
+│   ├── Curso/              # Tarjetas, encabezados, tabs, módulos
+│   ├── Mentorías/          # Historial, estadísticas, sesiones
+│   ├── Proyectos/          # Tarjetas de proyectos y filtros
+│   ├── Sidebar/            # Sidebar del panel del estudiante
+│   ├── búsqueda/           # SearchBar y filtros
+│   ├── comun/              # Header y Footer general
+│   └── ui/                 # Botones, Inputs, Modales
+│
+├── context/                # (Opcional) Estado global
+│
+├── data/                   # Datos de prueba (ej. mentorías)
+│
+├── hooks/                  # Custom hooks (ej. título del documento)
+│
+├── interfaces/             # Tipos TypeScript para datos del backend
+│
+├── pages/                  # Páginas principales del sistema
+│   ├── curso/              # Páginas de contenido, layout, etc.
+│   ├── mentorias/          # Página de mentorías
+│   └── proyectos/          # Página de proyectos
+│
+├── routes/                 # Rutas generales y por módulo
+│
+├── services/               # Conexiones al backend/API
+│   └── BackendService.js
+│
+├── styles/                 # Estilos globales (Tailwind)
+│   └── global.css
+│
+├── tests/                  # Pruebas unitarias (ej. tarjeta de proyecto)
+│
+└── main.jsx / App.jsx      # Entradas principales de la app

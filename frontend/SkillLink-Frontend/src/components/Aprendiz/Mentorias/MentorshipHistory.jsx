@@ -3,15 +3,15 @@ import React from "react";
 export default function MentorshipHistory({ history }) {
   return (
     <div>
-      <h3 className="text-2xl font-bold text-gray-800 mb-4">
+      <h3 className="text-2xl font-bold font-orbitron text-black mb-4">
         Histórico de Mentorías
       </h3>
-      <div className="overflow-x-auto bg-white rounded-lg shadow">
-        <table className="min-w-full text-sm">
-          <thead className="bg-gray-100">
+      <div className="overflow-x-auto bg-gray-200 rounded-lg shadow">
+        <table className="min-w-full text-sm text-black">
+          <thead className="bg-gray-200">
             <tr>
               {Object.keys(history[0]).map((key) => (
-                <th key={key} className="p-3 text-left font-semibold">
+                <th key={key} className="p-3 text-left font-semibold ">
                   {key.charAt(0).toUpperCase() + key.slice(1)}
                 </th>
               ))}

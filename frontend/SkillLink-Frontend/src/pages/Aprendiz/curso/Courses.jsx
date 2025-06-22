@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import CourseCard from "../../components/Curso/CourseCard";
-import FilterTabs from "../../components/busqueda/FilterTabs";
-import Pagination from "../../components/comun/Pagination";
-import FeaturedCourse from "../../components/Curso/FeaturedCourse";
+import CourseCard from "@/components/Aprendiz/Curso/CourseCard";
+import FilterTabs from "@/components/comun/FilterTabs";
+import Pagination from "@/components/comun/Pagination";
+import FeaturedCourse from "@/components/Aprendiz/Curso/FeaturedCourse";
 import { Sparkles } from "lucide-react";
-import useDocumentTitle from "../../hooks/useDocumentTitle";
-import { getAllCourses } from "../../services/BackendServices";
-import SearchBar from "../../components/busqueda/SearchBar";
+import useDocumentTitle from "@/hooks/useDocumentTitle";
+import { getAllCourses } from "@/services/BackendServices";
+import SearchBar from "@/components/comun/SearchBar";
 
 const availableCourses = [
   {
