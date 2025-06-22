@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import Navbar from '../../components/Main/Navbar';
+import Footer from '../../components/Main/Footer';
 
 const paises = [
   "Colombia", "Argentina", "México", "Chile", "Perú", "España", "Estados Unidos", "Canadá", "Brasil", "Uruguay"

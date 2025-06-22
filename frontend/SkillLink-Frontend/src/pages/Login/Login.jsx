@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import "../index.css";
+import Navbar from "../../components/Main/Navbar";
+import Footer from "../../components/Main/Footer";
+import "../../index.css";
 
 export default function Login() {
   const navigate = useNavigate();
