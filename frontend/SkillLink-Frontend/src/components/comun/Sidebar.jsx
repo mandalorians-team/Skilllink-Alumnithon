@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import avatar from "@/assets/img/Avatar.png";
 import { useLocation, Link } from "react-router-dom";
-import { useAuth } from "@/context/AuthContext";
+import useAuth from "@/hooks/useAuth";
 
 import {
   Home,
