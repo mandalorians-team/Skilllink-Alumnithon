@@ -25,7 +25,7 @@ import {
 // A futuro, esto podría venir de un archivo de configuración o ser filtrado según permisos.
 
 const apprenticeLinks = [
-  { path: "/", icon: Home, label: "Panel" },
+  { path: "/dashboard", icon: Home, label: "Panel" },
   { path: "/mentores", icon: Users, label: "Mentores" },
   { path: "/courses", icon: BookOpen, label: "Mis Cursos" },
   { path: "/mentorias", icon: MessageCircle, label: "Mentorias" },
