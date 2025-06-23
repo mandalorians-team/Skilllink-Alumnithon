@@ -3,13 +3,15 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Bell, MessageSquare, Search } from "lucide-react";
 import logo from "@/assets/img/logo.png";
 import avatar from "@/assets/img/Avatar.png";
-import { useAuth } from "@/context/AuthContext";
+import useAuth from "@/hooks/useAuth";
+import ModalAvatar from "@/components/ui/ModalAvatar";
 
 export default function Header() {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
   const { role, isAuthenticated } = useAuth();
+  const [showAvatarModal, setShowAvatarModal] = useState(false);
 
   const getHeaderText = () => {
     switch (role) {
@@ -35,14 +37,16 @@ export default function Header() {
   const showSearch = !hideSearchOnPaths.includes(location.pathname);
 
   return (
-    <header className="bg-header">
-      <div className="flex items-center px-6 py-3">
+    <header className="bg-header w-full">
+      <div className="flex flex-col sm:flex-row items-center sm:items-center px-2 sm:px-4 md:px-6 py-2 sm:py-3 w-full">
         {/* Logo, Título y Subtítulo */}
-        <div className="flex items-center space-x-4 min-w-max">
+        <div className="flex items-center space-x-2 sm:space-x-4 min-w-max justify-center sm:justify-start w-full sm:w-auto mb-2 sm:mb-0">
           <img src={logo} alt="SkillLink Logo" className="h-8 w-8" />
-          <span className="text-xl font-bold text-white">SkillLink</span>
+          <span className="text-lg sm:text-xl font-bold text-white">
+            SkillLink
+          </span>
           {role && (
-            <span className="text-lg text-white font-medium">
+            <span className="text-base sm:text-lg text-white font-medium">
               {getHeaderText()}
             </span>
           )}
@@ -53,16 +57,16 @@ export default function Header() {
           <>
             {/* Renderizado condicional: Muestra la barra de búsqueda o un espaciador */}
             {showSearch ? (
-              <div className="flex-1 flex justify-center px-8">
+              <div className="w-full sm:flex-1 flex justify-center px-0 sm:px-8 mt-2 sm:mt-0">
                 <form
                   onSubmit={handleSearchSubmit}
-                  className="relative w-full max-w-xl">
+                  className="relative w-full max-w-xs sm:max-w-xl">
                   <input
                     type="text"
                     placeholder="Buscar cursos, mentores..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="absolute right-2 top-1/2 transform -translate-y-1/2 px-7 py-2 rounded-lg bg-gray-700 text-card-title placeholder-card-subtitle focus:outline-none focus:ring-2 focus:ring-card-border"
+                    className="w-full px-4 py-2 rounded-lg bg-gray-700 text-card-title placeholder-card-subtitle focus:outline-none focus:ring-2 focus:ring-card-border"
                   />
                   <button
                     type="submit"
@@ -77,7 +81,7 @@ export default function Header() {
             )}
 
             {/* Acciones de usuario */}
-            <div className="flex items-center space-x-6 min-w-max">
+            <div className="flex items-center space-x-2 sm:space-x-6 min-w-max mt-2 sm:mt-0">
               <button className="p-2 hover:bg-gray-700 rounded-full transition-colors relative">
                 <Bell className="h-6 w-6 text-white" />
                 <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
@@ -94,13 +98,18 @@ export default function Header() {
                 <img
                   src={avatar}
                   alt="User Avatar"
-                  className="h-6 w-6 rounded-full bg-white"
+                  className="h-6 w-6 rounded-full bg-white cursor-pointer"
+                  onClick={() => setShowAvatarModal(true)}
                 />
               </div>
             </div>
           </>
         )}
       </div>
+      <ModalAvatar
+        isOpen={showAvatarModal}
+        onClose={() => setShowAvatarModal(false)}
+      />
     </header>
   );
 }

@@ -1,7 +1,7 @@
 import React from "react";
-import StatsSection from "@/components/Aprendiz/Mentorias/StatsSection";
-import UpcomingSessions from "@/components/Aprendiz/Mentorias/UpcomingSessions";
-import MentorshipHistory from "@/components/Aprendiz/Mentorias/MentorshipHistory";
+import StatsSection from "@/components/Aprendiz/Proyectos/Mentorias/StatsSection";
+import UpcomingSessions from "@/components/Aprendiz/Proyectos/Mentorias/UpcomingSessions";
+import MentorshipHistory from "@/components/Aprendiz/Proyectos/Mentorias/MentorshipHistory";
 import { stats, upcomingSessions, history } from "@/data/mentoriasData";
 import useDocumentTitle from "@/hooks/useDocumentTitle";
 
