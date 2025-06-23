@@ -29,10 +29,12 @@ function Layout() {
   const showFooter = showHeader;
   const isCourseTabs = /^\/courses\/[^/]+(\/.*)?$/.test(location.pathname);
 
+  const hideSidebar = /^(\/login|\/registro|\/registro-basico|\/restablecer|\/cambiar-password|\/)$/.test(location.pathname);
+
   return (
     <div className="flex bg-page-background-color min-h-screen">
-      <Sidebar />
-      <div className="flex-1 flex flex-col ml-64">
+      {!hideSidebar && <Sidebar />}
+      <div className={`flex-1 flex flex-col ${!hideSidebar ? 'ml-64' : ''}`}>
         {showHeader && <Header />}
         {isCourseTabs && <CurseTabs />}
         <main className="p-6">
@@ -68,7 +70,7 @@ export default function App() {
         <Route path="mentorias" element={<MentoriasPage />} />
         <Route path="proyectos" element={<ProyectsPage />} />
         <Route path="search" element={<SearchPage />} />
-        
+
         {/* 404 */}
         <Route path="*" element={<div>Página no encontrada</div>} />
       </Route>
