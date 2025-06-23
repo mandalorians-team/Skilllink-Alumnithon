@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, useParams } from "react-router-dom";
 import { Play, CheckCircle, Lock, Edit3, Circle } from "lucide-react";
 
 // Insignia para el nivel de dificultad
@@ -32,18 +33,24 @@ const StatusIcon = ({ status }) => {
 };
 
 export default function ModuleItem({ module }) {
+  const { courseId } = useParams(); // Obtenemos el courseId de la URL
   if (!module) return null;
 
+  // Asumimos que cada módulo es una lección y tiene un 'id'
+  const lessonId = module.id;
+
   return (
-    <li className="bg-gray-800 p-4 rounded-lg flex items-center gap-4 mb-3 hover:bg-gray-700 transition-colors cursor-pointer">
+    <li className="bg-gray-800 p-4 rounded-lg flex items-center gap-4 mb-3 hover:bg-gray-700 transition-colors">
       <StatusIcon status={module.status} />
       <div className="flex-grow">
         <h3 className="font-semibold text-white">{module.title}</h3>
         <p className="text-sm text-gray-400">{module.level}</p>
       </div>
-      <button className="text-white text-sm font-semibold hover:text-blue-400">
+      <Link
+        to={`/courses/${courseId}/leccion/${lessonId}`}
+        className="text-white text-sm font-semibold hover:text-blue-400 bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
         Ver Lección
-      </button>
+      </Link>
     </li>
   );
 }

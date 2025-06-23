@@ -1,28 +1,23 @@
 import React from "react";
-import { Routes, Route, Outlet, useLocation } from "react-router-dom";
-import Header from "@/components/comun/Header";
-import Footer from "@/components/Main/Footer";
-import Sidebar from "@/components/Sidebar/Sidebar";
-import CurseTabs from "@/components/Curso/CourseTabs";
-import AppRoutes from "@/routes/AppRoutes";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Outlet,
+} from "react-router-dom";
+import Header from "./components/comun/Header";
+import Footer from "./components/comun/Footer";
+import Sidebar from "./components/comun/Sidebar";
+import { useLocation } from "react-router-dom";
+import CurseTabs from "./components/Aprendiz/Curso/CourseTabs";
+import AppRoutes from "./routes/AppRoutes";
 
-import MainPage from "./pages/Login/MainPage";
-import Registro from "./pages/Login/Registro";
-import Login from "./pages/Login/Login";
-import FormularioRegistro from "./pages/Login/FormularioRegistro";
-import ResetPassword from "./pages/Login/ResetPassword";
-import ChangePassword from "./pages/Login/ChangePassword";
-
-import Courses from "./pages/curso/Courses";
-import CourseLayoutPage from "./pages/curso/CourseLayoutPage";
-import CourseContentPage from "./pages/curso/CourseContentPage";
-import CourseMentoriasPage from "./pages/curso/CourseMentoriasPage";
-import CourseProyectsPage from "./pages/curso/CourseProyectsPage";
-import MentoriasPage from "./pages/mentorias/MentoriasPage";
-import ProyectsPage from "./pages/proyectos/ProyectsPage";
-import SearchPage from "./pages/SearchPage";
-
-export function Layout() {
+/**
+ * El Layout principal de la aplicación.
+ * Contiene los elementos persistentes como el Sidebar y el Header.
+ * El componente <Outlet> renderizará el componente de la ruta actual.
+ */
+function Layout() {
   const location = useLocation();
 
   const showHeader = /^\/(courses|mentorias|proyectos)(\/\d+)?$/.test(

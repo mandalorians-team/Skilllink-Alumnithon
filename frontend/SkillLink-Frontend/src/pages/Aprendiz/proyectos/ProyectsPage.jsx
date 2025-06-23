@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Plus } from "lucide-react";
-import ProjectFilterTabs from "../../components/proyectos/ProjectFilterTabs";
-import SearchBar from "../../components/busqueda/SearchBar";
-import ProyectsCard from "../../components/Proyectos/ProyectsCard";
-import useDocumentTitle from "../../hooks/useDocumentTitle";
+import ProjectFilterTabs from "@/components/Aprendiz/Proyectos/ProjectFilterTabs";
+import SearchBar from "@/components/comun/SearchBar";
+import ProyectsCard from "@/components/Aprendiz/Proyectos/ProyectsCard";
+import useDocumentTitle from "@/hooks/useDocumentTitle";
 
 // Se definen los datos de ejemplo para los proyectos.
 // En una aplicación real, estos datos vendrían de una API.

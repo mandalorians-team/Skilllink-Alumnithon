@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Outlet, useParams } from "react-router-dom";
-import { getCourseById } from "../../services/BackendServices";
-import CourseHeader from "../../components/Curso/CourseHeader";
+import { getCourseById } from "@/services/BackendServices";
 
 export default function CourseLayoutPage() {
   const { courseId } = useParams();
@@ -35,7 +34,6 @@ export default function CourseLayoutPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <CourseHeader course={course} />
       <div className="mt-8">
         <Outlet context={{ course }} />
       </div>
