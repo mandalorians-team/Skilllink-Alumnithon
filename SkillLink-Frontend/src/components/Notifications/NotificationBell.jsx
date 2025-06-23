@@ -1,6 +1,6 @@
 import React from 'react';
 import { ReactComponent as BellIcon } from '../assets/icons/bell.svg';
-import '../styles/NotificationBell.css';
+import '../../styles/NotificationBell.css';
 
 const NotificationBell = ({ count }) => {
     return (
