@@ -4,6 +4,9 @@ import ProjectFilterTabs from "@/components/Aprendiz/Proyectos/ProjectFilterTabs
 import SearchBar from "@/components/comun/SearchBar";
 import ProyectsCard from "@/components/Aprendiz/Proyectos/ProyectsCard";
 import useDocumentTitle from "@/hooks/useDocumentTitle";
+import ModalNuevoProyecto from "@/components/ui/ModalNuevoProyecto";
+import ModalDetalleProyecto from "@/components/ui/ModalDetalleProyecto";
+import { useNavigate } from "react-router-dom";
 
 // Se definen los datos de ejemplo para los proyectos.
 // En una aplicación real, estos datos vendrían de una API.
@@ -74,24 +77,76 @@ export default function ProyectsPage() {
   useDocumentTitle("Mis Proyectos");
 
   // Define las pestañas para el componente de filtros.
-  const tabs = ["Todo", "Activo", "Completado", "Atrasado"];
+  const tabs = ["Todos", "Activo", "Completado", "Atrasado"];
 
   // Estado para almacenar la lista de proyectos. Inicializado con datos de ejemplo.
   // En el futuro, 'setProjects' se podría usar para actualizar la lista (ej: al filtrar).
-  const [projects] = useState(sampleProjects);
+  const [projects, setProjects] = useState(sampleProjects);
   const [searchTerm, setSearchTerm] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [showDetalle, setShowDetalle] = useState(false);
+  const [proyectoDetalle, setProyectoDetalle] = useState(null);
+  const navigate = useNavigate();
 
   // Re-introducimos la lógica de filtrado local
-  const filteredProjects = projects.filter((project) =>
-    project.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const [activeTab, setActiveTab] = useState("Todos");
+  const filteredProjects = projects
+    .filter((project) => {
+      // Filtrado por tab
+      if (activeTab === "Todos") return true;
+      if (activeTab === "Activo") return project.status === "activo";
+      if (activeTab === "Completado") return project.status === "completado";
+      if (activeTab === "Atrasado") return project.status === "vencido";
+      return true;
+    })
+    .filter((project) =>
+      project.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+  const handleCreateProyecto = (nuevoProyecto) => {
+    // Puedes agregar lógica para generar un id único
+    const id =
+      projects.length > 0 ? Math.max(...projects.map((p) => p.id)) + 1 : 1;
+    setProjects([
+      ...projects,
+      {
+        id,
+        title: nuevoProyecto.nombre,
+        description: nuevoProyecto.descripcion,
+        image:
+          "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=800&q=60", // Imagen por defecto
+        status: "activo",
+        dueDate: nuevoProyecto.fechaInicio || "",
+        progress: 0,
+        members: [],
+      },
+    ]);
+  };
+
+  const handleVerDetalle = (proyecto) => {
+    setProyectoDetalle(proyecto);
+    setShowDetalle(true);
+  };
+
+  const handleIrPaginaDetalle = (proyecto) => {
+    setShowDetalle(false);
+    navigate(`/proyectos/${proyecto.id}`);
+  };
+
+  const handleUnirse = (proyecto) => {
+    // Simulación: podrías agregar el usuario actual a los miembros aquí
+    alert("¡Te has unido al proyecto!");
+    setShowDetalle(false);
+  };
 
   return (
     <div className="p-6 bg-blue-200 min-h-screen">
       {/* Encabezado de la página */}
       <header className="flex justify-between items-center mb-6">
-        <h1 className="text-4xl font-bold text-white">Mis Proyectos</h1>
-        <button className="bg-blue-400 text-white flex items-center px-4 py-2 rounded-lg hover:bg-blue-500 transition-colors">
+        <h1 className="text-4xl font-bold text-black">Mis Proyectos</h1>
+        <button
+          className="bg-blue-400 text-black flex items-center px-4 py-2 rounded-lg hover:bg-blue-500 transition-colors"
+          onClick={() => setShowModal(true)}>
           <Plus className="w-5 h-5 mr-2" />
           Crear Nuevo Proyecto
         </button>
@@ -99,7 +154,11 @@ export default function ProyectsPage() {
 
       {/* Volvemos a poner los filtros y la barra de búsqueda juntos */}
       <div className="flex justify-between items-center mb-6">
-        <ProjectFilterTabs tabs={tabs} />
+        <ProjectFilterTabs
+          tabs={tabs}
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
+        />
         <SearchBar
           value={searchTerm}
           onSearchChange={(e) => setSearchTerm(e.target.value)}
@@ -110,7 +169,12 @@ export default function ProyectsPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {filteredProjects.length > 0 ? (
           filteredProjects.map((project) => (
-            <ProyectsCard key={project.id} proyect={project} />
+            <ProyectsCard
+              key={project.id}
+              proyect={project}
+              onVerDetalle={handleVerDetalle}
+              onUnirse={handleUnirse}
+            />
           ))
         ) : (
           <div className="text-center text-gray-500 mt-20 col-span-full">
@@ -118,6 +182,19 @@ export default function ProyectsPage() {
           </div>
         )}
       </div>
+
+      <ModalNuevoProyecto
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        onCreate={handleCreateProyecto}
+      />
+      <ModalDetalleProyecto
+        isOpen={showDetalle}
+        onClose={() => setShowDetalle(false)}
+        proyecto={proyectoDetalle}
+        onUnirse={handleUnirse}
+        onIrPaginaDetalle={handleIrPaginaDetalle}
+      />
     </div>
   );
 }
