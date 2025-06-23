@@ -5,12 +5,12 @@ import {
   Route,
   Outlet,
 } from "react-router-dom";
-import Header from "@/components/comun/Header";
-import Footer from "@/components/comun/Footer";
-import Sidebar from "@/components/comun/Sidebar";
+import Header from "./components/comun/Header";
+import Footer from "./components/comun/Footer";
+import Sidebar from "./components/comun/Sidebar";
 import { useLocation } from "react-router-dom";
-import CurseTabs from "@/components/Aprendiz/Curso/CourseTabs";
-import AppRoutes from "@/routes/AppRoutes";
+import CurseTabs from "./components/Aprendiz/Curso/CourseTabs";
+import AppRoutes from "./routes/AppRoutes";
 
 /**
  * El Layout principal de la aplicación.
@@ -20,20 +20,25 @@ import AppRoutes from "@/routes/AppRoutes";
 function Layout() {
   const location = useLocation();
 
-  const showFooter = /^\/(courses|mentorias|proyectos)(\/\d+)?$/.test(
+
+  const showHeader = /^\/(courses|mentorias|proyectos)(\/\d+)?$/.test(
     location.pathname
   );
-
-  // Mostrar CourseTabs solo en /courses/:id o subrutas, pero no en /courses
+  const showFooter = showHeader;
   const isCourseTabs = /^\/courses\/[^/]+(\/.*)?$/.test(location.pathname);
+
+  const hideSidebar =
+    /^(\/login|\/registro|\/registro-basico|\/restablecer|\/cambiar-password|\/)$/.test(
+      location.pathname
+    );
 
   return (
     <div className="flex bg-page-background-color min-h-screen">
-      <Sidebar />
-      <div className="flex-1 flex flex-col ml-0 md:ml-64 transition-all duration-300">
-        <Header />
+      {!hideSidebar && <Sidebar />}
+      <div className={`flex-1 flex flex-col ${!hideSidebar ? "ml-64" : ""}`}>
+        {showHeader && <Header />}
         {isCourseTabs && <CurseTabs />}
-        <main className="p-2 sm:p-4 md:p-6 bg-blue-200 flex-grow">
+        <main className="p-6 bg-blue-200 flex-grow">
           <Outlet />
         </main>
         {showFooter && <Footer />}
@@ -42,18 +47,34 @@ function Layout() {
   );
 }
 
-/**
- * Componente raíz de la aplicación.
- * Configura el enrutador y las rutas principales.
- */
-function App() {
+export default function App() {
   return (
-    <div className="min-h-screen bg-page-background-color text-gray-100">
-      <AppRoutes />
-    </div>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        {/* Login / Registro */}
+        <Route index element={<MainPage />} />
+        <Route path="registro-basico" element={<Registro />} />
+        <Route path="registro" element={<FormularioRegistro />} />
+        <Route path="login" element={<Login />} />
+        <Route path="restablecer" element={<ResetPassword />} />
+        <Route path="cambiar-password" element={<ChangePassword />} />
+
+        {/* Cursos y sus subrutas */}
+        <Route path="courses" element={<Courses />} />
+        <Route path="courses/:courseId" element={<CourseLayoutPage />}>
+          <Route path="content" element={<CourseContentPage />} />
+          <Route path="mentorias" element={<CourseMentoriasPage />} />
+          <Route path="proyectos" element={<CourseProyectsPage />} />
+        </Route>
+
+        {/* Otras secciones */}
+        <Route path="mentorias" element={<MentoriasPage />} />
+        <Route path="proyectos" element={<ProyectsPage />} />
+        <Route path="search" element={<SearchPage />} />
+
+        {/* 404 */}
+        <Route path="*" element={<div>Página no encontrada</div>} />
+      </Route>
+    </Routes>
   );
 }
-
-// Exportamos Layout para que AppRoutes pueda usarlo.
-export { Layout };
-export default App;
