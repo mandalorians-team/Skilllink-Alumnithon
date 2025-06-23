@@ -30,10 +30,10 @@ function Layout() {
   return (
     <div className="flex bg-page-background-color min-h-screen">
       <Sidebar />
-      <div className="flex-1 flex flex-col ml-64">
+      <div className="flex-1 flex flex-col ml-0 md:ml-64 transition-all duration-300">
         <Header />
         {isCourseTabs && <CurseTabs />}
-        <main className="p-6 bg-blue-200 flex-grow">
+        <main className="p-2 sm:p-4 md:p-6 bg-blue-200 flex-grow">
           <Outlet />
         </main>
         {showFooter && <Footer />}
