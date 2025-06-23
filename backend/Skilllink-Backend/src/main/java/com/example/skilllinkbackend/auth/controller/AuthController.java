@@ -41,11 +41,17 @@ public class AuthController {
      * @param request The registration request containing user details.
      * @return ResponseEntity containing the authentication response with token and user ID.
      */
+    // In AuthController.java
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request) {
-        AuthResponse authResponse = authService.register(request);
-        return ResponseEntity.ok(authResponse); // Return token + user ID
+        System.err.println("Received registration request for user: {} with role: {}" +
+                request.getUsername() + " " +  request.getRole());
+        AuthResponse response = authService.register(request);
+        System.err.println("Successfully registered user: {} with role: {}" +
+                request.getUsername() + " " + request.getRole());
+        return ResponseEntity.ok(response);
     }
+
 
 
     /**

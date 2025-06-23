@@ -4,6 +4,7 @@ import com.example.skilllinkbackend.learner.dto.LearnerRequest;
 import com.example.skilllinkbackend.learner.dto.LearnerResponse;
 import com.example.skilllinkbackend.learner.entity.Learner;
 import com.example.skilllinkbackend.learner.repository.LearnerRepository;
+import com.example.skilllinkbackend.mentor.entity.Mentor;
 import com.example.skilllinkbackend.user.entity.User;
 import com.example.skilllinkbackend.user.model.Role;
 import com.example.skilllinkbackend.user.repository.UserRepository;
@@ -36,22 +37,17 @@ public class LearnerService {
      */
     @Transactional
     public LearnerResponse createLearnerProfile(LearnerRequest learnerRequest) {
-        // Validate the incoming request
-        if (learnerRequest.getUserId() == null) {
-            throw new IllegalArgumentException("User ID in the request must not be null");
-        }
-
         User user = userRepository.findById(learnerRequest.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        if (user.getRole() != null) {
-            throw new RuntimeException("User already has a role assigned");
-        }
-        user.setRole(Role.LEARNER);
-        userRepository.save(user);
+        System.out.println("Creating learner profile for user ID: " + user.getId()); // Debug Log
 
         Learner learner = mapToLearnerEntity(learnerRequest, user);
         learnerRepository.save(learner);
+
+        System.out.println("Mentor saved with ID: " + learner.getId()); // Debug Log
+        System.out.println("Mentor user: " + learner.getUser());
+
         return mapToLearnerResponse(learner);
     }
 
@@ -86,10 +82,12 @@ public class LearnerService {
      * @return A list of all learner profiles.
      */
     public List<LearnerResponse> getAllLearners() {
-        List<Learner> learners = learnerRepository.findAll();
+        List<Learner> learners = learnerRepository.findAllLearners();
+
         return learners.stream()
                 .map(this::mapToLearnerResponse)
-                .collect(Collectors.toList());
+                .toList();
+
     }
 
     /**
@@ -170,6 +168,7 @@ public class LearnerService {
     private LearnerResponse mapToLearnerResponse(Learner learner) {
         LearnerResponse response = new LearnerResponse();
         response.setId(learner.getId());
+        response.setUsername(learner.getUser().getUsername());
         response.setFirstName(learner.getFirstName());
         response.setLastName(learner.getLastName());
         response.setEmail(learner.getEmail());

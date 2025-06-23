@@ -41,23 +41,20 @@ public class MentorService {
      */
     @Transactional
     public MentorResponse createMentorProfile(MentorRequest mentorRequest) {
-     User user = userRepository.findById(mentorRequest.getUserId())
-             .orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepository.findById(mentorRequest.getUserId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
+        System.out.println("Creating mentor profile for user ID: " + user.getId()); // Debug Log
 
-     if (user.getRole() != null) {
-         throw new RuntimeException("User already has a role assigned");
-     }
-
-     user.setRole(Role.MENTOR);
-     userRepository.save(user);
-
-     Mentor mentor = mapToMentorEntity(mentorRequest, user);
+        Mentor mentor = mapToMentorEntity(mentorRequest, user);
         mentorRepository.save(mentor);
 
-     return mapToMentorResponse(mentor);
+        System.out.println("Mentor saved with ID: " + mentor.getId()); // Debug Log
+        System.out.println("Mentor user: " + mentor.getUser());
 
+        return mapToMentorResponse(mentor);
     }
+
 
     /**
      * Updates an existing mentor profile.
@@ -121,14 +118,12 @@ public class MentorService {
      * @return A list of mentor profile responses.
      */
     public List<MentorResponse> getAllMentors() {
-        // Retrieve all mentor profiles
-        List<Mentor> mentors = mentorRepository.findAll();
-
-        // Map the list of Mentor entities to a list of response DTOs
+        List<Mentor> mentors = mentorRepository.findAllMentors();
         return mentors.stream()
                 .map(this::mapToMentorResponse)
                 .toList();
     }
+
 
 
 
