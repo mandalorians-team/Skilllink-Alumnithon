@@ -9,7 +9,8 @@
   }
 
   body {
-    @apply bg-gray-50 text-gray-900 font-sans;
+    /* Quite el bg-gray-50 para que no meta fondo global */
+    @apply text-gray-900 font-sans;
   }
 
   h1 {
