@@ -14,6 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * Service class for managing mentor profiles.
+ * Provides methods to create, update, retrieve, and delete mentor profiles.
+ */
 @Service
 public class MentorService {
 
@@ -29,57 +33,61 @@ public class MentorService {
 
 
 
+    /**
+     * Creates a new mentor profile.
+     *
+     * @param mentorRequest The request containing mentor details.
+     * @return The created mentor profile response.
+     */
     @Transactional
     public MentorResponse createMentorProfile(MentorRequest mentorRequest) {
-        // Validate the request, e.g., check if the user already exists
-        if (userRepository.existsByUsername(mentorRequest.getUsername())) {
-            throw new RuntimeException("User with this username already exists");
-        }
-        if (userRepository.existsByEmail(mentorRequest.getEmail())) {
-            throw new RuntimeException("User with this email already exists");
-        }
-        // Create a new User entity from the request
-        User user = new User();
-        user.setUsername(mentorRequest.getUsername());
-        user.setPassword(passwordEncoder.encode(mentorRequest.getPassword()));
-        user.setEmail(mentorRequest.getEmail());
-        user.setRole(Role.MENTOR);
-        userRepository.save(user);
+        User user = userRepository.findById(mentorRequest.getUserId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // Map MentorRequest to Mentor entity
+        System.out.println("Creating mentor profile for user ID: " + user.getId()); // Debug Log
+
         Mentor mentor = mapToMentorEntity(mentorRequest, user);
-
-        // Save the mentor entity
         mentorRepository.save(mentor);
 
-        // Return a response DTO
+        System.out.println("Mentor saved with ID: " + mentor.getId()); // Debug Log
+        System.out.println("Mentor user: " + mentor.getUser());
+
         return mapToMentorResponse(mentor);
     }
 
+
+    /**
+     * Updates an existing mentor profile.
+     *
+     * @param mentorId The ID of the mentor to update.
+     * @param mentorRequest The request containing updated mentor details.
+     * @return The updated mentor profile response.
+     */
     @Transactional
     public MentorResponse updateMentorProfile(Long mentorId, MentorRequest mentorRequest) {
-        // Find the existing mentor profile
-        Mentor mentor = mentorRepository.findById(mentorId)
-                .orElseThrow(() -> new RuntimeException("Mentor not found"));
+        User user = userRepository.findById(mentorRequest.getUserId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // Update the mentor profile with new data
-        mentor.setFirstName(mentorRequest.getFirstName());
-        mentor.setLastName(mentorRequest.getLastName());
-        mentor.setEmail(mentorRequest.getEmail());
-        mentor.setPhotoUrl(mentorRequest.getPhotoUrl());
-        mentor.setBio(mentorRequest.getBio());
-        mentor.setExperience(mentorRequest.getExperience());
-        mentor.setEducation(mentorRequest.getEducation());
-       // mentor.setSkills(List.of(mentorRequest.getSkills().split(","))); // Assuming skills are comma-separated
-        mentor.setLinkedinProfile(mentorRequest.getLinkedinProfile());
+        System.out.println("Saving mentor for user ID: " + user.getId()); // Debug log
+        if (user.getRole() == null || user.getRole() != Role.MENTOR) {
+            user.setRole(Role.MENTOR);
+            userRepository.save(user);
+        }
 
-        // Save the updated mentor entity
+        Mentor mentor = mapToMentorEntity(mentorRequest, user);
         mentorRepository.save(mentor);
 
-        // Return a response DTO
+        System.out.println("Mentor saved with ID: " + mentor.getId()); // Debug log
         return mapToMentorResponse(mentor);
+
     }
 
+    /**
+     * Retrieves a mentor profile by ID.
+     *
+     * @param mentorId The ID of the mentor to retrieve.
+     * @return The mentor profile response.
+     */
     public MentorResponse getMentorProfile(Long mentorId) {
         // Retrieve the mentor profile by ID
         Mentor mentor = mentorRepository.findById(mentorId)
@@ -89,6 +97,12 @@ public class MentorService {
         return mapToMentorResponse(mentor);
     }
 
+    /**
+     * Retrieves a mentor profile by email.
+     *
+     * @param email The email of the mentor to retrieve.
+     * @return The mentor profile response.
+     */
     public MentorResponse getMentorProfileByEmail(String email) {
         // Retrieve the mentor profile by username
         Mentor mentor = mentorRepository.findByEmail(email)
@@ -98,43 +112,54 @@ public class MentorService {
         return mapToMentorResponse(mentor);
     }
 
+    /**
+     * Retrieves all mentor profiles.
+     *
+     * @return A list of mentor profile responses.
+     */
     public List<MentorResponse> getAllMentors() {
-        // Retrieve all mentor profiles
-        List<Mentor> mentors = mentorRepository.findAll();
-
-        // Map the list of Mentor entities to a list of response DTOs
+        List<Mentor> mentors = mentorRepository.findAllMentors();
         return mentors.stream()
                 .map(this::mapToMentorResponse)
                 .toList();
     }
 
-//    public List<MentorResponse> getMentorsBySkill(String skill) {
-//        // Retrieve mentors by skill
-//        List<Mentor> mentors = mentorRepository.findBySkillsContaining(skill);
-//
-//        // Map the list of Mentor entities to a list of response DTOs
-//        return mentors.stream()
-//                .map(this::mapToMentorResponse)
-//                .toList();
-//    }
 
 
 
+    /**
+     * Deletes a mentor profile by ID.
+     *
+     * @param mentorId The ID of the mentor to delete.
+     */
     @Transactional
     public void deleteMentorProfile(Long mentorId) {
-        // Check if the mentor exists
-        if (!mentorRepository.existsById(mentorId)) {
-            throw new RuntimeException("Mentor not found");
+        // Find the mentor profile by ID
+        Mentor mentor = mentorRepository.findById(mentorId)
+                .orElseThrow(() -> new RuntimeException("Mentor not found"));
+
+        // Optionally, you can also delete the associated user
+        User user = mentor.getUser();
+        if (user != null) {
+            user.setRole(null); // Remove the role
+            userRepository.save(user);
         }
 
         // Delete the mentor profile
-        mentorRepository.deleteById(mentorId);
+        mentorRepository.delete(mentor);
     }
 
 
 
 
     //Helper methods to convert MentorRequest to Mentor entity and vice versa
+    /**
+     * Maps MentorRequest to Mentor entity.
+     *
+     * @param mentorRequest The request containing mentor details.
+     * @param user The user associated with the mentor.
+     * @return The mapped Mentor entity.
+     */
     private Mentor mapToMentorEntity(MentorRequest mentorRequest, User user) {
         Mentor mentor = new Mentor();
         mentor.setUser(user);
@@ -151,6 +176,12 @@ public class MentorService {
         return mentor;
     }
 
+    /**
+     * Maps Mentor entity to MentorResponse DTO.
+     *
+     * @param mentor The mentor entity to map.
+     * @return The mapped MentorResponse DTO.
+     */
     private MentorResponse mapToMentorResponse(Mentor mentor) {
         MentorResponse response = new MentorResponse();
         response.setId(mentor.getId());
@@ -169,6 +200,12 @@ public class MentorService {
     }
 
     // Utility method
+    /**
+     * Parses a comma-separated string of skills into a list.
+     *
+     * @param skills The comma-separated string of skills.
+     * @return A list of skills.
+     */
     private List<String> parseSkills(String skills) {
         if (skills == null || skills.isBlank()) {
             return List.of();

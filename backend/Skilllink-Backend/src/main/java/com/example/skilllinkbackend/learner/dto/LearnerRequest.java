@@ -1,5 +1,4 @@
-package com.example.skilllinkbackend.mentor.dto;
-
+package com.example.skilllinkbackend.learner.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,8 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-// This class is a placeholder for the MentorRequest DTO.
-public class MentorRequest {
+public class LearnerRequest {
     private Long userId; // Assuming this is the ID of the User entity
     private String username;
     private String password;
@@ -21,10 +19,6 @@ public class MentorRequest {
     private String bio;
     private String experience;
     private String education;
-   // private String skills; // Assuming skills is a comma-separated string for simplicity
+    // private String skills; // Assuming skills is a comma-separated string for simplicity
     private String linkedinProfile;
-
-
-
-
 }

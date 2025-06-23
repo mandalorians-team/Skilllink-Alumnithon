@@ -21,6 +21,14 @@ public class SecurityConfig {
         this.jwtAuthFilter = jwtAuthFilter;
     }
 
+    /**
+     * Configures the security filter chain for the application.
+     * This method sets up the security rules for different endpoints.
+     *
+     * @param http the HttpSecurity object to configure
+     * @return the configured SecurityFilterChain
+     * @throws Exception if an error occurs during configuration
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -28,15 +36,22 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/api/mentors/**", "/mentors/**", "/").permitAll()
+                        //.requestMatchers("/api/auth/**").permitAll()
+                        //.requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        //.requestMatchers("/api/mentors/**", "/mentors/**", "/").permitAll()
+                        .requestMatchers("/api/**").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated());
-        //TODO establish endpoints permissionn all can get the submissions, only mentors can get to mentors dashboard, only admin can get to admin dashboard, leartners can get to their own dashboard
+        //TODO establish endpoints permission all can get the submissions, only mentors can get to mentors dashboard, only admin can get to admin dashboard, leartners can get to their own dashboard
         return http.build();
     }
 
+    /**
+     * Provides a PasswordEncoder bean for encoding passwords.
+     * This method uses BCryptPasswordEncoder for secure password hashing.
+     *
+     * @return a PasswordEncoder instance
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

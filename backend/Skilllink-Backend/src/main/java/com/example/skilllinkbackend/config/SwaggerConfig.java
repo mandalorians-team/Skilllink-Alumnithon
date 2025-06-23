@@ -10,6 +10,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SwaggerConfig {
 
+    /**
+     * Swagger configuration for the SkillLink application.
+     * This configuration sets up the OpenAPI documentation with security requirements.
+     */
     private static final String SECURITY_SCHEME_NAME = "bearerAuth";
 
     @Bean

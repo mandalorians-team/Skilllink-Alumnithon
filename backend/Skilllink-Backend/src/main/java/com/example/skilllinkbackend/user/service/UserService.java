@@ -17,6 +17,10 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
 
 
+    /**
+     * UserService implements UserDetailsService to load user-specific data.
+     * It provides methods to retrieve user details by username.
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)
