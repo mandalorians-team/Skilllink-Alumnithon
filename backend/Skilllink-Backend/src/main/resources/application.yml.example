@@ -1,0 +1,66 @@
+# Main configuration
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  application:
+    name: SkillLink-Backend
+  profiles:
+    active: dev  # Change to 'prod' for production
+
+---
+# Development profile
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+server:
+  port: 8081
+
+jwt:
+  secret: your_dev_jwt_secret_here
+  expiration: 3600000
+  refresh-token:
+    expiration: 604800000
+
+---
+# Production profile
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    url: jdbc:postgresql://localhost:5432/skilllink_db
+    username: your_prod_username
+    password: your_prod_password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+
+skilllink:
+  cors:
+    allowed-origins: http://localhost:5173
+    allowed-methods: GET,POST,PUT,DELETE,OPTIONS
+    allowed-headers: "*"
+
+jwt:
+  secret: your_prod_jwt_secret_here
+  expiration: 3600000
+  refresh-token:
+    expiration: 604800000

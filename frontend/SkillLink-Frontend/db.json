@@ -1,0 +1,185 @@
+{
+  "courses": [
+    {
+      "id": 1,
+      "title": "Fundamentos de Machine Learning",
+      "description": "Este curso exhaustivo te proporcionará una base sólida en los principios y técnicas esenciales del Machine Learning, desde los algoritmos básicos hasta la introducción al Deep Learning y las consideraciones éticas.",
+      "image": "ttps://images.unsplash.com/photo-1633356122102-3fe601e05bd2?auto=format&fit=crop&w=1200&q=80",
+      "progress": 75,
+      "instructor": "Juan Pérez",
+      "modules": [
+        {
+          "id": 1,
+          "title": "Introducción al Machine Learning",
+          "status": "completado",
+          "level": "Básico",
+          "content": {
+            "text": "El Machine Learning (ML) es una rama de la Inteligencia Artificial (AI) que permite a los sistemas aprender y mejorar a partir de la experiencia sin ser programados explícitamente. Se basa en algoritmos que analizan datos, encuentran patrones y toman decisiones o predicciones. Desde el reconocimiento de voz hasta los sistemas de recomendación, el ML está transformando industrias y nuestra vida diaria. Comprender sus fundamentos es crucial en el mundo tecnológico actual.",
+            "image": "https://plus.unsplash.com/premium_photo-1678565999332-1cde462f7b24?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          }
+        },
+        {
+          "id": 2,
+          "title": "Tipos de Aprendizaje",
+          "status": "completado",
+          "level": "Básico",
+          "content": {
+            "text": "El Machine Learning se clasifica principalmente en tres tipos: Aprendizaje Supervisado, donde el algoritmo aprende de datos etiquetados; Aprendizaje No Supervisado, donde trabaja con datos no etiquetados para encontrar patrones; y Aprendizaje por Refuerzo, donde un agente aprende a tomar decisiones interactuando con un entorno para maximizar una recompensa.",
+            "image": "https://images.unsplash.com/photo-1526374965328-5f61d4dc16c6?auto=format&fit=crop&w=1200&q=80"
+          }
+        },
+        {
+          "id": 3,
+          "title": "Modelos Básicos",
+          "status": "pendiente",
+          "level": "Intermedio",
+          "content": {
+            "text": "Aquí se exploran modelos fundamentales como la Regresión Lineal, Regresión Logística y K-Nearest Neighbors (KNN). Estos algoritmos son la base para comprender técnicas más complejas y resolver una amplia variedad de problemas de clasificación y regresión.",
+            "image": "https://images.unsplash.com/photo-1614741118884-85814d4374a2?auto=format&fit=crop&w=1200&q=80"
+          }
+        },
+        {
+          "id": 4,
+          "title": "Modelos Avanzados",
+          "status": "pendiente",
+          "level": "Avanzado",
+          "content": { "text": "Contenido no disponible todavía." }
+        },
+        {
+          "id": 5,
+          "title": "Redes Neuronales y Deep Learning",
+          "status": "bloqueado",
+          "level": "Avanzado",
+          "content": { "text": "Contenido no disponible todavía." }
+        },
+        {
+          "id": 6,
+          "title": "Ética y Buenas Prácticas en IA",
+          "status": "bloqueado",
+          "level": "Intermedio",
+          "content": { "text": "Contenido no disponible todavía." }
+        },
+        {
+          "id": 7,
+          "title": "Proyecto Final con Datos Reales",
+          "status": "bloqueado",
+          "level": "Avanzado",
+          "content": { "text": "Contenido no disponible todavía." }
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Curso de React desde Cero",
+      "description": "Aprende a construir aplicaciones web interactivas con React, la librería de JavaScript más popular.",
+      "image": "https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?auto=format&fit=crop&w=1200&q=80",
+      "progress": 40,
+      "instructor": "Ana Martínez",
+      "modules": [
+        {
+          "id": 1,
+          "title": "Configuración del Entorno",
+          "status": "completado",
+          "level": "Básico",
+          "content": { "text": "Aquí aprenderás a configurar tu entorno de desarrollo para React." }
+        },
+        {
+          "id": 2,
+          "title": "Componentes y Props",
+          "status": "completado",
+          "level": "Básico",
+          "content": { "text": "Entiende los bloques de construcción fundamentales de React." }
+        },
+        {
+          "id": 3,
+          "title": "Estado y Ciclo de Vida",
+          "status": "en progreso",
+          "level": "Intermedio",
+          "content": { "text": "Domina el manejo del estado y el ciclo de vida de los componentes." }
+        },
+        {
+          "id": 4,
+          "title": "Hooks de React",
+          "status": "pendiente",
+          "level": "Intermedio",
+          "content": { "text": "Aprende a usar los Hooks para escribir componentes más limpios y funcionales." }
+        },
+        {
+          "id": 5,
+          "title": "Routing con React Router",
+          "status": "bloqueado",
+          "level": "Avanzado",
+          "content": { "text": "Contenido no disponible todavía." }
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Curso de Python desde Cero",
+      "description": "Aprende a programar en Python, la lengua de programación más popular del mundo.",
+      "image": "",
+      "progress": 40,
+      "instructor": "Ana Martínez",
+      "modules": [
+        {
+          "id": 1,
+          "title": "Configuración del Entorno",
+          "status": "completado",
+          "level": "Básico",
+          "content": { "text": "Aquí aprenderás a configurar tu entorno de desarrollo para Python." }
+        },
+        {
+          "id": 2,
+          "title": "Variables y Tipos de Datos",
+          "status": "completado",
+          "level": "Básico",
+          "content": { "text": "Entiende los tipos de datos y cómo usar variables en Python." }
+        },
+        {
+          "id": 3,
+          "title": "Control de Flujo",
+          "status": "completado",
+          "level": "Intermedio",
+          "content": { "text": "Domina el manejo de control de flujo en Python." }
+        },
+        {
+          "id": 4,
+          "title": "Funciones y Modulos",
+          "status": "completado",
+          "level": "Intermedio",
+          "content": { "text": "Domina el manejo de funciones y modulos en Python." }
+        },
+        {
+          "id": 5,
+          "title": "Programación Orientada a Objetos",
+          "status": "completado",
+          "level": "Intermedio",
+          "content": { "text": "Domina la programación orientada a objetos en Python." }
+        }
+      ]
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "email": "aprendiz@skilllink.com",
+      "password": "password123",
+      "name": "Maria Fernanda",
+      "role": "aprendiz"
+    },
+    {
+      "id": 2,
+      "email": "mentor@skilllink.com",
+      "password": "password123",
+      "name": "Carlos Perez",
+      "role": "mentor"
+    },
+    {
+      "id": 3,
+      "email": "admin@skilllink.com",
+      "password": "password123",
+      "name": "Admin User",
+      "role": "admin"
+    }
+  ]
+}
