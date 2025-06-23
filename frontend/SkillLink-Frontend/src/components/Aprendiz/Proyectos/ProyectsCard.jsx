@@ -85,7 +85,7 @@ const TeamMembers = ({ members }) => (
  * Une todos los sub-componentes para mostrar la información completa del proyecto.
  * @param {{ proyect: object }} props - El objeto completo del proyecto.
  */
-export default function ProyectsCard({ proyect }) {
+export default function ProyectsCard({ proyect, onVerDetalle, onUnirse }) {
   // Medida de seguridad: si no hay datos del proyecto, no renderizar nada.
   if (!proyect) return null;
 
@@ -102,7 +102,7 @@ export default function ProyectsCard({ proyect }) {
 
   return (
     // Contenedor principal de la tarjeta con Flexbox para organizar el contenido verticalmente
-    <div className="bg-gray-800 text-white p-4 rounded-lg flex flex-col gap-4 shadow-lg h-full">
+    <div className="bg-header text-white p-4 rounded-lg flex flex-col gap-4 shadow-lg h-full hover:shadow-xl transition-shadow duration-300">
       {/* Encabezado con título y botón de opciones */}
       <div className="flex justify-between items-start">
         <h3 className="font-bold text-lg leading-tight">{title}</h3>
@@ -138,10 +138,14 @@ export default function ProyectsCard({ proyect }) {
 
       {/* Botones de acción. 'mt-auto' empuja los botones al final de la tarjeta */}
       <div className="grid grid-cols-2 gap-2 mt-auto">
-        <button className="bg-gray-700 hover:bg-gray-600 text-white text-sm font-semibold py-1.5 px-3 rounded-md transition-colors">
+        <button
+          onClick={() => onVerDetalle(proyect)}
+          className="bg-gray-700 hover:bg-gray-600 text-white text-sm font-semibold py-1.5 px-3 rounded-md transition-colors">
           Ver Detalles
         </button>
-        <button className="bg-blue-400 hover:bg-blue-500 text-gray-900 text-sm font-semibold py-1.5 px-3 rounded-md transition-colors">
+        <button
+          onClick={() => onUnirse(proyect)}
+          className="bg-blue-400 hover:bg-blue-500 text-gray-900 text-sm font-semibold py-1.5 px-3 rounded-md transition-colors">
           Unirse
         </button>
       </div>
