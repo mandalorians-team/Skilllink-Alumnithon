@@ -1,11 +1,12 @@
-/**import "../styles/CourseCard.css";**/
 import React, { useState } from "react";
 import { Star } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Modal from "@/components/ui/Modal";
+import defaultCourseImg from "@/assets/img/curso-js.png";
 
-export default function CourseCard({ course, type = "enrolled" }) {
+export default function CourseCard({ course, type = "enrolled", onEnroll }) {
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
 
   const {
     id,
@@ -33,24 +34,34 @@ export default function CourseCard({ course, type = "enrolled" }) {
   const handleConfirmInscription = () => {
     setShowModal(false);
     // Aquí iría la lógica para inscribir al usuario
+    if (onEnroll) onEnroll(id);
     console.log(`Inscripción confirmada para el curso: ${title}`);
+    navigate(`/courses/${id}/content`);
   };
 
   return (
     <>
       <div className="bg-[#2D3748] rounded-2xl overflow-hidden shadow-lg flex flex-col h-full font-sans">
-        <img src={image} alt={title} className="w-full h-48 object-cover" />
+        <img
+          src={image || defaultCourseImg}
+          alt={title || "Imagen del curso"}
+          className="w-full h-48 object-cover"
+        />
         <div className="p-5 text-white flex flex-col flex-grow">
           <div className="flex justify-between items-center mb-2">
-            <p className="text-gray-400 text-sm">{instructor}</p>
+            <p className="text-gray-400 text-sm">
+              {instructor || "Instructor desconocido"}
+            </p>
             {status === "en progreso" && (
               <span className="bg-yellow-400 text-gray-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">
                 {status}
               </span>
             )}
           </div>
-          <h3 className="text-xl font-bold mb-2">{title}</h3>
-          <p className="text-gray-400 text-sm mb-4 flex-grow">{description}</p>
+          <h3 className="text-xl font-bold mb-2">{title || "Sin título"}</h3>
+          <p className="text-gray-400 text-sm mb-4 flex-grow">
+            {description || "Sin descripción"}
+          </p>
 
           {type === "enrolled" ? (
             <>
