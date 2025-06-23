@@ -1,11 +1,9 @@
-package com.example.skilllinkbackend.mentor.dto;
-
+package com.example.skilllinkbackend.learner.dto;
 
 import lombok.Data;
 
-// This class is a placeholder for the MentorResponse DTO.
 @Data
-public class MentorResponse {
+public class LearnerResponse {
     private Long id;
     private String username;
     private String firstName;
@@ -15,8 +13,6 @@ public class MentorResponse {
     private String bio;
     private String experience;
     private String education;
-  //  private String skills; // Assuming skills is a comma-separated string for simplicity
+    //  private String skills; // Assuming skills is a comma-separated string for simplicity
     private String linkedinProfile;
-
-    // Additional fields can be added as needed
 }

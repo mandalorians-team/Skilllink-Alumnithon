@@ -16,6 +16,10 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
+    /**
+     * UserController handles HTTP requests related to User entities.
+     * It provides endpoints to add a new user and retrieve all users.
+     */
     @PostMapping
     @io.swagger.v3.oas.annotations.Operation(
             summary = "Add a new user",
@@ -25,6 +29,11 @@ public class UserController {
         return userRepository.save(user);
     }
 
+    /**
+     * Retrieves all users from the database.
+     *
+     * @return a list of all users
+     */
     @GetMapping
     @io.swagger.v3.oas.annotations.Operation(
             summary = "List all users",
