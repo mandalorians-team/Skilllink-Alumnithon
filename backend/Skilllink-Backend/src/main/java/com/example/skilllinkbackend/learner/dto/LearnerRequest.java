@@ -1,7 +1,5 @@
-package com.example.skilllinkbackend.auth.dto;
+package com.example.skilllinkbackend.learner.dto;
 
-
-import com.example.skilllinkbackend.user.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,30 +7,18 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegisterRequest {
-
-
+public class LearnerRequest {
+    private Long userId; // Assuming this is the ID of the User entity
     private String username;
-
     private String password;
-
-    private String email;
-
-    private Role role; // Role (MENTOR, LEARNER)
-
-    // Mentor-specific fields
+    private String passwordConfirmation;
     private String firstName;
-
     private String lastName;
-
+    private String email;
     private String photoUrl;
-
     private String bio;
-
     private String experience;
-
     private String education;
-
+    // private String skills; // Assuming skills is a comma-separated string for simplicity
     private String linkedinProfile;
 }
-
