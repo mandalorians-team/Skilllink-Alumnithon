@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Bell, MessageSquare, Search } from "lucide-react";
 import logo from "@/assets/img/logo.png";
 import avatar from "@/assets/img/Avatar.png";
-import { useAuth } from "@/context/AuthContext";
+import useAuth from "@/hooks/useAuth";
 
 export default function Header() {
   const [searchTerm, setSearchTerm] = useState("");
