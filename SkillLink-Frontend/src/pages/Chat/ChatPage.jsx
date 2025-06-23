@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Sidebar from '../components/Sidebar';
-import Topbar from '../components/Topbar';
-import Conversations from '../components/chat/Conversations';
-import ChatBox from '../components/chat/ChatBox';
-import '../styles/ChatPage.css';
+import Sidebar from '../../components/comun/Sidebar';
+import Topbar from '../../components/comun/Header';
+import Conversations from '../../components/chat/Conversations';
+import ChatBox from '../../components/chat/ChatBox';
+import '../../styles/ChatPage.css';
 
 export default function ChatPage() {
     const [selectedContact, setSelectedContact] = useState(null);
