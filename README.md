@@ -11,7 +11,8 @@ _Este proyecto fue elaborado con🥇_
     <img src="https://img.shields.io/badge/OpenAI-98d4bc?logo=openai&logoColor=000000&style=for-the-badge" />
     <img src="https://img.shields.io/badge/WebSocket-FFFFFF?logo=websocket&logoColor=000000&style=for-the-badge" />
 </div>
-*******************************************************************************************************************************************************
+
+------------------------------------------------------
 
 <h1>🧾 Documentación de Participación – Proyecto Skill Link </h1>
 
