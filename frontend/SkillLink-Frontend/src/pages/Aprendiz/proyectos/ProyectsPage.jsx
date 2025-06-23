@@ -133,7 +133,7 @@ export default function ProyectsPage() {
     navigate(`/proyectos/${proyecto.id}`);
   };
 
-  const handleUnirse = (proyecto) => {
+  const handleUnirse = () => {
     // Simulación: podrías agregar el usuario actual a los miembros aquí
     alert("¡Te has unido al proyecto!");
     setShowDetalle(false);
