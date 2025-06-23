@@ -14,11 +14,13 @@ export default function Modal({ isOpen, onClose, onConfirm, title, children }) {
             onClick={onClose}>
             Cancelar
           </button>
-          <button
-            className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700"
-            onClick={onConfirm}>
-            Confirmar
-          </button>
+          {onConfirm && (
+            <button
+              className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700"
+              onClick={onConfirm}>
+              Confirmar
+            </button>
+          )}
         </div>
       </div>
     </div>
