@@ -32,12 +32,12 @@ function Layout() {
   const hideSidebar = /^(\/login|\/registro|\/registro-basico|\/restablecer|\/cambiar-password|\/)$/.test(location.pathname);
 
   return (
-    <div className="flex bg-page-background-color min-h-screen">
+    <div className="flex min-h-screen">
       {!hideSidebar && <Sidebar />}
       <div className={`flex-1 flex flex-col ${!hideSidebar ? 'ml-64' : ''}`}>
         {showHeader && <Header />}
         {isCourseTabs && <CurseTabs />}
-        <main className="p-6">
+        <main className={`${!hideSidebar ? 'p-6' : ''}`}>
           <Outlet />
         </main>
         {showFooter && <Footer />}
