@@ -36,13 +36,13 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
-                        //.requestMatchers("/api/auth/**").permitAll()
-                        //.requestMatchers("/api/admin/**").hasRole("ADMIN")
-                        //.requestMatchers("/api/mentors/**", "/mentors/**", "/").permitAll()
-                        .requestMatchers("/api/**").permitAll()
+                        .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                        .anyRequest().authenticated());
-        //TODO establish endpoints permission all can get the submissions, only mentors can get to mentors dashboard, only admin can get to admin dashboard, leartners can get to their own dashboard
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/mentors/**").hasRole("MENTOR")
+                        .requestMatchers("/api/learners/**").hasRole("LEARNER")
+                        .anyRequest().authenticated()
+                );
         return http.build();
     }
 
