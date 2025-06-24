@@ -44,7 +44,7 @@ export function Layout() {
   const isCourseTabs = /^\/courses\/[^/]+(\/.*)?$/.test(location.pathname);
 
   const hideSidebar =
-    /^(\/login|\/registro|\/registro-basico|\/restablecer|\/cambiar-password|\/panelestudiante|\/perfilestudiante|\/)$/.test(
+    /^(\/login|\/registro|\/registro-basico|\/restablecer|\/cambiar-password|\/panelestudiante|\/perfilestudiante|\/perfil|\/)$/.test(
       location.pathname
     );
 

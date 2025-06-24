@@ -20,7 +20,7 @@ export default function Login() {
     setError(null);
 
     if (email === dummyEmail && password === dummyPassword) {
-      navigate("/perfilestudiante");
+      navigate("/perfil"); // NO MODIFICAR
     } else {
       setError("Email o contraseña incorrectos");
     }
