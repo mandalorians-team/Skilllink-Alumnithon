@@ -51,17 +51,28 @@ export default function PerfilEstudiante() {
       <Header />
 
       <div className="flex flex-1 mt-14">
-        <aside className="w-64 bg-[#19191F] p-4 hidden sm:block border-2 border-primary shadow-2xl rounded-lg">
-          <nav className="space-y-2">
-            {["Perfil", "Panel", "Cursos", "Mentorías", "Proyectos", "Chat", "Configuración"].map((item, i) => (
-              <div
-                key={i}
-                className={`p-2 rounded ${item === "Perfil" ? "bg-primary text-white font-bold font-orbitron" : "hover:bg-gray-800 text-[#8C8D8B]"}`}
-              >
-                {item}
-              </div>
-            ))}
-          </nav>
+        <aside className="w-64 bg-[#19191F] p-4 hidden sm:flex flex-col justify-between border-2 border-primary shadow-2xl rounded-lg">
+          <div>
+            <nav className="space-y-2">
+              {["Perfil", "Panel", "Cursos", "Mentorías", "Proyectos", "Chat", "Configuración"].map((item, i) => (
+                <div
+                  key={i}
+                  className={`p-2 rounded ${item === "Perfil" ? "bg-primary text-white font-bold font-orbitron" : "hover:bg-gray-800 text-[#8C8D8B]"}`}
+                >
+                  {item}
+                </div>
+              ))}
+            </nav>
+          </div>
+          {/* Resumen en el sidebar con imagen */}
+          <div className="mt-4 text-xs text-gray-400 flex flex-col items-center text-center">
+            <img src="/images/Mentor 3.jpg" alt="Avatar Sidebar" className="w-12 h-12 rounded-full object-cover mb-2" />
+            <p className="font-bold text-white">Javier Delgado</p>
+            <p className="text-[#8C8D8B]">Desarrollador Web</p>
+            <p>
+              javier.delgado@skillLink.com
+            </p>
+          </div>
         </aside>
 
         <main className="flex-1 p-4 space-y-4">
@@ -75,7 +86,7 @@ export default function PerfilEstudiante() {
               Editar Perfil
             </Link>
             <div className="flex items-center space-x-4">
-              <img src="../images/mentor 3.jpg" alt="Avatar" className="w-16 h-16 rounded-full object-cover" />
+              <img src="/images/Mentor 3.jpg" alt="Avatar" className="w-16 h-16 rounded-full object-cover" />
               <div>
                 <p className="font-bold text-lg text-white">Javier Delgado</p>
                 <p className="text-sm text-[#8C8D8B]">Desarrollador Web</p>
