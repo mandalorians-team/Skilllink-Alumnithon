@@ -15,7 +15,7 @@ import DashboardPage from "@/pages/DashboardPage";
 import LoginPage from "@/pages/LoginPage";
 
 // Importar la nueva página de Mentor
-import MentorDashboardPage from "@/pages/mentor/DashboardPage";
+import MentorDashboardPage from "@/pages/mentor/MentorDashboardPage";
 import MisAlumnosPage from "@/pages/mentor/MisAlumnosPage";
 import MisCursosPage from "@/pages/mentor/MisCursosPage";
 import AgendaPage from "@/pages/mentor/AgendaPage";
@@ -49,7 +49,7 @@ export default function AppRoutes() {
         <Route path="courses/:courseId" element={<CourseLayoutPage />}>
           {/* Rutas anidadas que se renderizarán dentro del Outlet de CourseLayoutPage */}
           <Route path="content" element={<CourseContentPage />} />
-          <Route path="mentorias" element={<CourseMentoriasPage />} />
+          <Route path="course-mentorias" element={<CourseMentoriasPage />} />
           <Route path="proyectos" element={<CourseProyectsPage />} />
           <Route path="leccion/:lessonId" element={<LessonPage />} />
         </Route>
