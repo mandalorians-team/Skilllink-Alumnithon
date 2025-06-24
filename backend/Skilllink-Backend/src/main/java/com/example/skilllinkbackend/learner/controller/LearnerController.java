@@ -17,17 +17,8 @@ public class LearnerController {
         this.learnerService = learnerService;
     }
 
-    // Define endpoints for learner operations here
 
-    /**
-     * Test endpoint to verify if the API is working.
-     *
-     * @return A simple message indicating the API is working.
-     */
-    @RequestMapping("/test")
-    public String testEndpoint() {
-        return "Learner API is working!";
-    }
+
 
     /**
      * Endpoint to get all learners.

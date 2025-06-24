@@ -18,12 +18,6 @@ public class MentorController {
         this.mentorService = mentorService;
     }
 
-    // Define endpoints for mentor operations here
-    @GetMapping("/test")
-    public String testEndpoint() {
-        return "Mentor API is working!";
-    }
-
 
     /**
      * Endpoint to get all mentors.
