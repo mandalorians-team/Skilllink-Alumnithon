@@ -9,7 +9,9 @@ export { AuthContext };
 
 // 2. Crear el Proveedor del Contexto
 export function AuthProvider({ children }) {
+ 
   const [user, setUser] = useState(() => {
+
     // Al iniciar, intentamos leer el usuario desde localStorage
     try {
       const storedUser = localStorage.getItem("user");
@@ -39,6 +41,7 @@ export function AuthProvider({ children }) {
   // El valor que se pasará a los componentes hijos
   const value = {
     user,
+    setUser,
     isAuthenticated: !!user, // Booleano para saber si hay un usuario
     role: import.meta.env.VITE_SHOW_ROLES === "true" ? user?.role : null, // El rol del usuario o null
     login,
@@ -48,7 +51,7 @@ export function AuthProvider({ children }) {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
-// 3. Crear un Hook personalizado para usar el contexto fácilmente
+//  un Hook personalizado para usar el contexto fácilmente
 export function useAuth() {
   const context = useContext(AuthContext);
   if (!context) {
