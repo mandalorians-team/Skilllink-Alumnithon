@@ -6,11 +6,11 @@
 @layer base {
   html {
     @apply antialiased;
+    background-color: theme('colors.background'); /* Fondo standard*/
   }
 
   body {
-    /* Quite el bg-gray-50 para que no meta fondo global */
-    @apply text-gray-900 font-sans;
+    @apply text-gray-900 font-sans antialiased;
   }
 
   h1 {
@@ -67,5 +67,43 @@
 
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-accent-500;
+  }
+
+  .pause-spin {
+    animation-play-state: paused;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .animate-flip-slow {
+    animation: flip 10s linear infinite;
+  }
+
+  .spin-slow {
+    animation: spin 10s linear infinite;
+  }
+}
+
+@keyframes flip {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
