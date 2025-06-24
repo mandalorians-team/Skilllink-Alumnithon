@@ -2,26 +2,34 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Main/Navbar";
 import Footer from "../../components/Main/Footer";
+import { useAuth } from "../../context/AuthContext";
 import "../../index.css";
 
 export default function Login() {
+  const { login } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
   // Usuario y contraseña de prueba, debe ser eliminado cuando se integre con el backend
-  // y se implemente la autenticación real.
   const dummyEmail = "test@skilllink.com";
   const dummyPassword = "123456";
-
-  const handleLogin = (e) => {
+  // y se implemente la autenticación real.
+  const handleLogin = async (e) => {
     e.preventDefault();
     setError(null);
-
-    if (email === dummyEmail && password === dummyPassword) {
-      navigate("/perfilestudiante");
-    } else {
+    try {
+      // Si quieres usar el dummy login para pruebas:
+      if (email === dummyEmail && password === dummyPassword) {
+        await login(email, password);
+        navigate("/dashboard");
+      } else {
+        // Si tienes backend, usa solo esto:
+        await login(email, password);
+        navigate("/dashboard");
+      }
+    } catch (err) {
       setError("Email o contraseña incorrectos");
     }
   };
@@ -64,8 +72,7 @@ export default function Login() {
               />
               <button
                 type="submit"
-                className="w-full py-2 bg-gradient-to-r from-[#799EB8] to-[#678a9d] text-white rounded-md mb-4 text-sm font-semibold hover:scale-105 hover:brightness-110 transition-all duration-500 relative overflow-hidden"
-              >
+                className="w-full py-2 bg-gradient-to-r from-[#799EB8] to-[#678a9d] text-white rounded-md mb-4 text-sm font-semibold hover:scale-105 hover:brightness-110 transition-all duration-500 relative overflow-hidden">
                 <span className="relative z-10">Iniciar Sesión</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 blur-sm"></div>
               </button>
@@ -76,8 +83,7 @@ export default function Login() {
               ].map(({ img, label }) => (
                 <button
                   key={label}
-                  className="w-full py-2 mb-2 border text-sm rounded-md flex items-center justify-center gap-2 bg-white hover:bg-gray-100 hover:scale-105 transition-transform duration-300"
-                >
+                  className="w-full py-2 mb-2 border text-sm rounded-md flex items-center justify-center gap-2 bg-white hover:bg-gray-100 hover:scale-105 transition-transform duration-300">
                   <img src={`/images/${img}`} alt={label} className="h-5 w-5" />{" "}
                   Continuar con {label}
                 </button>
@@ -85,16 +91,14 @@ export default function Login() {
 
               <p
                 className="text-center text-[#799EB8] text-sm hover:underline cursor-pointer mb-2 transition"
-                onClick={() => navigate("/restablecer")}
-              >
+                onClick={() => navigate("/restablecer")}>
                 ¿Olvidaste tu contraseña?
               </p>
               <p className="text-center text-white text-sm">
                 ¿No tienes una cuenta?{" "}
                 <span
                   className="text-[#799EB8] hover:underline cursor-pointer transition"
-                  onClick={() => navigate("/registro")}
-                >
+                  onClick={() => navigate("/registro")}>
                   Regístrate
                 </span>
               </p>
