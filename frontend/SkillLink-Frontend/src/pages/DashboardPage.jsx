@@ -1,13 +1,13 @@
 import React from "react";
 
-import Dashboard from "@/components/Main/Dashboard";
+import PanelEstudiante from "./Aprendiz/PanelEstudiante";
 
 
 export default function DashboardPage() {
   return (
     <div>
       
-      <Dashboard />
+      <PanelEstudiante/>
     </div>
   );
 }
