@@ -1,0 +1,49 @@
+.contact-list {
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #ccc;
+    width: 250px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.contact-item {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.contact-item:hover {
+    background-color: #f8f8f8;
+}
+
+.contact-item.selected {
+    background-color: #e0f2ff;
+}
+
+.contact-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.last-message {
+    font-size: 0.875rem;
+    color: #666;
+    margin-top: 4px;
+}
+
+.contact-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.unread-badge {
+    background-color: #a8f380;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-size: 12px;
+    margin-left: 8px;
+}
