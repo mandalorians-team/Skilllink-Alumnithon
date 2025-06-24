@@ -1,0 +1,90 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital@0;1&family=Orbitron:wght@400..900&display=swap");
+
+body {
+    --color-background: #b8cfdf;
+    --color-header: #0d121c;
+    --color-font: #ffffff;
+    --color-titulo: #f4f4f6;
+    --color-subtitulo: #8c8d8b;
+    --color-borde: #8cb6d9;
+    --color-chatbox: #1d232e;
+    --color-line: #6d6d6d;
+}
+
+.mentor-search-section {
+    background-color: var(--color-header);
+    padding: 2rem;
+    border-radius: 12px;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 2rem;
+}
+
+.mentor-search-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.mentor-search-header h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-family: 'orbitron', sans-serif;
+}
+
+.mentor-search-header p {
+    font-size: 1rem;
+    color: #ccc;
+}
+
+.mentor-search-input {
+    width: 100%;
+    padding: 0.8rem;
+    margin-top: 1rem;
+    border-radius: 8px;
+    border: none;
+    background-color: #111;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+    border: 1px solid #444;
+}
+
+.mentor-filters,
+.mentor-sort {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: left;
+    margin-top: 1.5rem;
+}
+
+.mentor-filters select,
+.mentor-sort select {
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    border: none;
+    background-color: #111;
+    color: white;
+    font-size: 0.9rem;
+    border: 1px solid #444;
+}
+
+.apply-btn,
+.clear-btn {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.apply-btn {
+background-color: var(--color-background);
+color: #000;
+}
+
+.clear-btn {
+background-color: #333;
+    color: #fff;
+}
+
