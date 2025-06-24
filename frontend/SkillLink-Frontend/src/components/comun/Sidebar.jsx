@@ -140,7 +140,11 @@ export default function Sidebar() {
 
           {isAuthenticated && user && (
             <div className="flex items-center justify-between h-full pt-20">
-              <img src={avatar} alt="logo" className="w-10 h-10 rounded-full" />
+              <img
+                src={user.imagen || avatar}
+                alt="logo"
+                className="w-10 h-10 rounded-full object-cover"
+              />
 
               <Link
                 to="/perfil"
