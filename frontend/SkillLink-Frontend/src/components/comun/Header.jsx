@@ -10,7 +10,7 @@ export default function Header() {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
-  const { role, isAuthenticated } = useAuth();
+  const { user, role, isAuthenticated } = useAuth();
   const [showAvatarModal, setShowAvatarModal] = useState(false);
 
   const getHeaderText = () => {
@@ -96,9 +96,9 @@ export default function Header() {
               </button>
               <div className="flex items-center space-x-2">
                 <img
-                  src={avatar}
+                  src={user?.imagen || avatar}
                   alt="User Avatar"
-                  className="h-6 w-6 rounded-full bg-white cursor-pointer"
+                  className="h-6 w-6 rounded-full bg-white object-cover cursor-pointer"
                   onClick={() => setShowAvatarModal(true)}
                 />
               </div>
