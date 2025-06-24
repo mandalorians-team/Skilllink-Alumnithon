@@ -2,6 +2,7 @@ package com.example.skilllinkbackend.learner.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,5 +31,8 @@ public class LearnerRequest {
     private String experience;
     private String education;
     // private String skills; // Assuming skills is a comma-separated string for simplicity
+
+    @Pattern(regexp = "^(https?://)?(www\\.)?linkedin\\.com/in/[^\\s/$.?#].[^\\s]*$",
+            message = "Invalid LinkedIn profile URL")
     private String linkedinProfile;
 }

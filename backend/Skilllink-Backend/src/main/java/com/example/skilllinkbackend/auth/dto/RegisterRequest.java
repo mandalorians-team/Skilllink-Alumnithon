@@ -4,6 +4,7 @@ package com.example.skilllinkbackend.auth.dto;
 import com.example.skilllinkbackend.user.model.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -41,6 +42,9 @@ public class RegisterRequest {
 
     private String education;
 
+    //validations
+    @Pattern(regexp = "^(https?://)?(www\\.)?linkedin\\.com/in/[^\\s/$.?#].[^\\s]*$",
+             message = "Invalid LinkedIn profile URL")
     private String linkedinProfile;
 }
 
