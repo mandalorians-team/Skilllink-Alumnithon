@@ -10,5 +10,4 @@ public class SkilllinkBackendApplication {
         SpringApplication.run(SkilllinkBackendApplication.class, args);
         System.out.println("Hola Mundo desde SkillLink!! ");
     }
-
 }
