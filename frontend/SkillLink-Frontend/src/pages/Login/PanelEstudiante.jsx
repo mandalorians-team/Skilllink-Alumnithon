@@ -1,5 +1,5 @@
-import Header from '../components/Navbar';
-import Footer from '../components/Footer';
+import Header from '../../components/Main/Navbar';
+import Footer from '../../components/Main/Footer';
 
 export default function PanelEstudiante() {
   return (
