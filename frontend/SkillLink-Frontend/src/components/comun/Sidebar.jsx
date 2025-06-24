@@ -41,6 +41,7 @@ const mentorLinks = [
   { path: "/mentor/cursos", icon: BookCopy, label: "Mis Cursos" },
   { path: "/mentor/agenda", icon: CalendarDays, label: "Agenda" },
   { path: "/mentor/chat", icon: MessageSquare, label: "Chat" },
+  { path: "/mentor/perfil", icon: User, label: "Perfil" },
   { path: "/mentor/configuracion", icon: Settings, label: "Configuración" },
 ];
 
@@ -49,6 +50,7 @@ const adminLinks = [
   { path: "/admin/usuarios", icon: Users, label: "Usuarios" },
   { path: "/admin/cursos", icon: BookCopy, label: "Cursos" },
   { path: "/admin/agenda", icon: CalendarDays, label: "Agenda" },
+  { path: "/admin/perfil", icon: User, label: "Perfil" },
   { path: "/admin/chat", icon: MessageSquare, label: "Chat" },
 ];
 // --- Componente NavLink reutilizable ---
