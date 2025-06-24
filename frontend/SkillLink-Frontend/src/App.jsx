@@ -26,6 +26,8 @@ import MentoriasPage from "./pages/Aprendiz/mentorias/MentoriasPage";
 import ProyectsPage from "./pages/Aprendiz/proyectos/ProyectsPage";
 import SearchPage from "./pages/SearchPage";
 import DashboardPage from "./pages/DashboardPage";
+import PerfilEstudiante from "./pages/Login/PerfilEstudiante";
+import PanelEstudiante from "./pages/Login/PanelEstudiante";
 
 /**
  * El Layout principal de la aplicación.
@@ -86,6 +88,8 @@ export default function App() {
         <Route path="mentorias" element={<MentoriasPage />} />
         <Route path="proyectos" element={<ProyectsPage />} />
         <Route path="search" element={<SearchPage />} />
+        <Route path="perfilestudiante" element={<PerfilEstudiante />} />
+        <Route path="panelestudiante" element={<PanelEstudiante />} /> 
 
         {/* 404 */}
         <Route path="*" element={<div>Página no encontrada</div>} />
