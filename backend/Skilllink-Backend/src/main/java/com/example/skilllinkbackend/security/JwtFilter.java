@@ -25,6 +25,10 @@ public class  JwtFilter extends OncePerRequestFilter {
     private final JwtUtils jwtUtils;
 
 
+    /**
+     * This method is called for every request to check if the JWT token is present and valid.
+     * If valid, it sets the authentication in the security context.
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = getTokenFromRequest(request);
@@ -46,6 +50,11 @@ public class  JwtFilter extends OncePerRequestFilter {
 
     }
 
+    /**
+     * Extracts the JWT token from the Authorization header of the request.
+     * @param request The HTTP request containing the Authorization header.
+     * @return The JWT token if present, otherwise null.
+     */
     private String getTokenFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
         if (bearerToken !=null && bearerToken.startsWith("Bearer ")) {

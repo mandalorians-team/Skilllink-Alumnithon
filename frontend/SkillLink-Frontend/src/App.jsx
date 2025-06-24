@@ -33,6 +33,8 @@ import ConfiguracionPage from "./pages/mentor/ConfiguracionPage";
 import MisAlumnosPage from "./pages/mentor/MisAlumnosPage";
 import MentoriasPage from "./pages/Aprendiz/mentorias/MentoriasPage";
 import MentorDashboardPage from "./pages/mentor/MentorDashboardPage";
+import PerfilEstudiante from "./pages/Login/PerfilEstudiante";
+import PanelEstudiante from "./pages/Login/PanelEstudiante";
 
 /**
  * El Layout principal de la aplicación.
@@ -49,7 +51,7 @@ export function Layout() {
   const isCourseTabs = /^\/courses\/[^/]+(\/.*)?$/.test(location.pathname);
 
   const hideSidebar =
-    /^(\/login|\/registro|\/registro-basico|\/restablecer|\/cambiar-password|\/)$/.test(
+    /^(\/login|\/registro|\/registro-basico|\/restablecer|\/cambiar-password|\/panelestudiante|\/perfilestudiante|\/)$/.test(
       location.pathname
     );
 
@@ -102,9 +104,8 @@ export default function App() {
         {/*Proyectos y sus subrutas*/}
         <Route path="proyectos" element={<ProyectsPage />} />
         <Route path="search" element={<SearchPage />} />
-
-        {/*Mentorías*/}
-        <Route path="mentorias" element={<MentoriasPage />} />
+        <Route path="perfilestudiante" element={<PerfilEstudiante />} />
+        <Route path="panelestudiante" element={<PanelEstudiante />} />
 
         {/* 404 */}
         <Route path="*" element={<div>Página no encontrada</div>} />
