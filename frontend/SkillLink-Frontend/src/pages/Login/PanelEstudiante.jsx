@@ -12,16 +12,15 @@ export default function PanelEstudiante() {
     { label: "Mentorías", to: "/mentorias" },
     { label: "Proyectos", to: "/proyectos" },
     { label: "Perfil", to: "/perfilestudiante" },
-    { label: "Configuración", to: "/configuracion" } // Asegúrate de tener esta ruta
+    { label: "Configuración", to: "/configuracion" }
   ];
 
   return (
     <div className="flex flex-col min-h-screen bg-[#B8CFDF]">
       <Header />
 
-      <div className="flex flex-1">
-        {/* Sidebar */}
-        <aside className="w-64 bg-[#19191F] p-4 hidden sm:block shadow-lg mt-4">
+      <div className="flex flex-1 mt-14"> {/* <-- Aquí el margen para evitar que se monte el Navbar */}
+        <aside className="w-64 bg-[#19191F] p-4 hidden sm:block shadow-lg">
           <nav className="space-y-2">
             {links.map((item, i) => (
               <Link
@@ -39,7 +38,6 @@ export default function PanelEstudiante() {
           </nav>
         </aside>
 
-        {/* Main content */}
         <main className="flex-1 p-6 space-y-6">
           <h1 className="text-3xl font-bold text-[#171A1F] font-orbitron">Vista del Panel</h1>
 
