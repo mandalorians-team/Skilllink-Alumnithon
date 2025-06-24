@@ -1,7 +1,20 @@
+import { Link, useLocation } from 'react-router-dom';
 import Header from '../../components/Main/Navbar';
 import Footer from '../../components/Main/Footer';
 
 export default function PanelEstudiante() {
+  const location = useLocation();
+
+  const links = [
+    { label: "Panel", to: "/panelestudiante" },
+    { label: "Mentores", to: "/mentorias" },
+    { label: "Cursos", to: "/courses" },
+    { label: "Mentorías", to: "/mentorias" },
+    { label: "Proyectos", to: "/proyectos" },
+    { label: "Perfil", to: "/perfilestudiante" },
+    { label: "Configuración", to: "/configuracion" } // Asegúrate de tener esta ruta
+  ];
+
   return (
     <div className="flex flex-col min-h-screen bg-[#B8CFDF]">
       <Header />
@@ -10,13 +23,18 @@ export default function PanelEstudiante() {
         {/* Sidebar */}
         <aside className="w-64 bg-[#19191F] p-4 hidden sm:block shadow-lg mt-4">
           <nav className="space-y-2">
-            {["Panel", "Mentores", "Cursos", "Mentorías", "Proyectos", "Perfil", "Configuración"].map((item, i) => (
-              <div
+            {links.map((item, i) => (
+              <Link
                 key={i}
-                className={`p-2 rounded ${item === "Panel" ? "bg-[#799EB8] text-white font-bold" : "hover:bg-gray-800 text-[#8C8D8B]"}`}
+                to={item.to}
+                className={`block p-2 rounded ${
+                  location.pathname === item.to
+                    ? "bg-[#799EB8] text-white font-bold"
+                    : "hover:bg-gray-800 text-[#8C8D8B]"
+                }`}
               >
-                {item}
-              </div>
+                {item.label}
+              </Link>
             ))}
           </nav>
         </aside>
