@@ -13,12 +13,12 @@ import SearchPage from "../pages/SearchPage";
 import DashboardPage from "@/pages/DashboardPage";
 
 // Importar la nueva página de Mentor
-import MentorDashboardPage from "@/pages/mentor/DashboardPage";
-import MisAlumnosPage from "@/pages/mentor/MisAlumnosPage";
-import MisCursosPage from "@/pages/mentor/MisCursosPage";
-import AgendaPage from "@/pages/mentor/AgendaPage";
-import ChatPage from "@/pages/mentor/ChatPage";
-import ConfiguracionPage from "@/pages/mentor/ConfiguracionPage";
+import MentorDashboardPage from "@/pages/mentor_Alejo/DashboardPage";
+import MisAlumnosPage from "@/pages/mentor_Alejo/MisAlumnosPage";
+import MisCursosPage from "@/pages/mentor_Alejo/MisCursosPage";
+import AgendaPage from "@/pages/mentor_Alejo/AgendaPage";
+import ChatPage from "@/pages/mentor_Alejo/ChatPage";
+import ConfiguracionPage from "@/pages/mentor_Alejo/ConfiguracionPage";
 
 export default function AppRoutes() {
   return (
