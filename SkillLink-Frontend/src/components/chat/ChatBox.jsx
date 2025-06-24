@@ -1,84 +1,65 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import EmojiPicker from 'emoji-picker-react';
-import '../../styles/App.css';
 
-function ChatBox() {
+function ChatBox({ selectedContact, messages, onSendMessage, currentUserId }) {
     const [showEmojiPicker, setShowEmojiPicker] = useState(false);
     const [message, setMessage] = useState('');
     const [file, setFile] = useState(null);
-    const [showFloatingMessage, setShowFloatingMessage] = useState(false);
-    const [chatHistory, setChatHistory] = useState([
-        { from: 'mentor', text: 'Hola Maya, solo quería saber cómo vas con el curso "React Avanzado"?' },
-        { from: 'user', text: 'Hola Mentor Alex, muy bien, recién comienzo con la gestión de estados' },
-        { from: 'mentor', text: '¡Qué bueno saberlo! La gestión de estados puede ser complicada. No dudes en contactarnos si te atascas o necesitas profundizar en algún concepto.' },
-        { from: 'user', text: 'Ok gracias, lo tendré presente' },
-        { from: 'mentor', text: 'Recuerda usar los foros de la comunidad si tienes preguntas fuera de nuestras sesiones de mentoría.' },
-        { from: 'user', text: 'Por supuesto, mil gracias Mentor' },
-    ]);
-
-    const fileInputRef = useRef(null);
     const messagesEndRef = useRef(null);
 
     useEffect(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, [chatHistory]);
+        messagesEndRef.current?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'end',
+            inline: 'nearest'
+        });
+    }, [messages]);
 
-    const toggleEmojiPicker = () => {
-        setShowEmojiPicker(prev => !prev);
-    };
-
-    const handleEmojiClick = (emojiData) => {
-        setMessage(prev => prev + emojiData.emoji);
-    };
-
-    const handleInputChange = (e) => {
-        setMessage(e.target.value);
-    };
-
-    const handleAttachClick = () => {
-        fileInputRef.current.click();
-    };
+    const toggleEmojiPicker = () => setShowEmojiPicker(prev => !prev);
+    const handleEmojiClick = (emojiData) => setMessage(prev => prev + emojiData.emoji);
+    const handleInputChange = (e) => setMessage(e.target.value);
+    const handleAttachClick = () => fileInputRef.current.click();
+    const fileInputRef = useRef(null);
 
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];
-        if (selectedFile) {
-            setFile(selectedFile);
-        }
+        if (selectedFile) setFile(selectedFile);
     };
 
-    const handleRemoveFile = () => {
-        setFile(null);
-    };
+    const handleRemoveFile = () => setFile(null);
 
     const handleSend = () => {
-        if (message.trim() === '' && !file) return;
+        if (!message.trim() && !file) return;
 
-        const newMessage = { from: 'user' };
-        if (message.trim() !== '') newMessage.text = message;
-        if (file) newMessage.image = URL.createObjectURL(file);
+        const newMessage = {
+            from: currentUserId,
+            to: selectedContact,
+            content: message.trim(),
+            image: file ? URL.createObjectURL(file) : null,
+            timestamp: new Date().toISOString()
+        };
 
-        setChatHistory([...chatHistory, newMessage]);
+        onSendMessage(newMessage); // Enviamos por WebSocket
         setMessage('');
         setFile(null);
         setShowEmojiPicker(false);
     };
 
-    const handleStartChat = () => {
-        setShowFloatingMessage(true);
-        setTimeout(() => setShowFloatingMessage(false), 5000);
-    };
+    if (!selectedContact) {
+        return <div className="chat"><p style={{ padding: '1rem' }}>Selecciona un contacto para iniciar conversación.</p></div>;
+    }
 
     return (
         <div className="chat">
-            <div className="chat-header">Mentor Alex - En línea</div>
+            <div className="chat-header">{selectedContact} - En línea</div>
 
             <div className="chat-messages">
-                {chatHistory.map((msg, index) => (
+                {messages.map((msg, index) => (
                     <div
                         key={index}
-                        className={msg.from === 'user' ? 'message-user' : 'message'}
+                        className={msg.from === currentUserId ? 'message-user' : 'message'}
                     >
-                        {msg.text && <p>{msg.text}</p>}
+                        {msg.content && <p>{msg.content}</p>}
                         {msg.image && (
                             <img
                                 src={msg.image}
@@ -148,8 +129,6 @@ function ChatBox() {
                 />
                 <button className="send" onClick={handleSend}>Enviar</button>
             </div>
-
-            
         </div>
     );
 }
