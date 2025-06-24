@@ -12,13 +12,19 @@ import ProyectsPage from "../pages/Aprendiz/proyectos/ProyectsPage";
 import SearchPage from "../pages/SearchPage";
 import DashboardPage from "@/pages/DashboardPage";
 
-// Importar la nueva página de Mentor
+// Páginas de mentor_Alejo
 import MentorDashboardPage from "@/pages/mentor_Alejo/DashboardPage";
 import MisAlumnosPage from "@/pages/mentor_Alejo/MisAlumnosPage";
 import MisCursosPage from "@/pages/mentor_Alejo/MisCursosPage";
 import AgendaPage from "@/pages/mentor_Alejo/AgendaPage";
 import ChatPage from "@/pages/mentor_Alejo/ChatPage";
 import ConfiguracionPage from "@/pages/mentor_Alejo/ConfiguracionPage";
+
+// Nuevas rutas de Aleja
+import MentorPage from "../pages/Mentor/MentorPage";
+import MentorProfilePage from "../pages/Mentor/MentorProfilePage";
+import Error404 from "../pages/Error404/Error404";
+import ChatPageStandalone from "../pages/Chat/ChatPage";
 
 export default function AppRoutes() {
   return (
@@ -27,9 +33,7 @@ export default function AppRoutes() {
         <Route index element={<DashboardPage />} />
         <Route path="courses" element={<Courses />} />
 
-        {/* Ruta Layout para un curso específico */}
         <Route path="courses/:courseId" element={<CourseLayoutPage />}>
-          {/* Rutas anidadas que se renderizarán dentro del Outlet de CourseLayoutPage */}
           <Route path="content" element={<CourseContentPage />} />
           <Route path="mentorias" element={<CourseMentoriasPage />} />
           <Route path="proyectos" element={<CourseProyectsPage />} />
@@ -40,7 +44,7 @@ export default function AppRoutes() {
         <Route path="proyectos" element={<ProyectsPage />} />
         <Route path="search" element={<SearchPage />} />
 
-        {/* Rutas de Mentor */}
+        {/* Rutas de mentor_Alejo */}
         <Route path="mentor/dashboard" element={<MentorDashboardPage />} />
         <Route path="mentor/alumnos" element={<MisAlumnosPage />} />
         <Route path="mentor/cursos" element={<MisCursosPage />} />
@@ -48,6 +52,12 @@ export default function AppRoutes() {
         <Route path="mentor/chat" element={<ChatPage />} />
         <Route path="mentor/configuracion" element={<ConfiguracionPage />} />
 
+        {/* Rutas añadidas desde el segundo archivo */}
+        <Route path="mentor" element={<MentorPage />} />
+        <Route path="mentor/profile" element={<MentorProfilePage />} />
+        <Route path="chat" element={<ChatPageStandalone />} />
+
+        {/* Página 404 */}
         <Route
           path="*"
           element={
