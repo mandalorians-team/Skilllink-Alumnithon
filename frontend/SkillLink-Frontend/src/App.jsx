@@ -24,18 +24,8 @@ import CourseProyectsPage from "./pages/Aprendiz/curso/CourseProyectsPage";
 import ProyectsPage from "./pages/Aprendiz/proyectos/ProyectsPage";
 import SearchPage from "./pages/SearchPage";
 import DashboardPage from "./pages/DashboardPage";
-import MentorRoutes from "./routes/MentorRoutes";
-import MentorLayout from "./pages/mentor/MentorLayout";
-import AgendaPage from "./pages/mentor/AgendaPage";
-import ChatPage from "./pages/mentor/ChatPage";
-import MisCursosPage from "./pages/mentor/MisCursosPage";
-import ConfiguracionPage from "./pages/mentor/ConfiguracionPage";
-import MisAlumnosPage from "./pages/mentor/MisAlumnosPage";
-import MentoriasPage from "./pages/Aprendiz/mentorias/MentoriasPage";
-import MentorDashboardPage from "./pages/mentor/MentorDashboardPage";
 import PerfilEstudiante from "./pages/Aprendiz/PerfilEstudiante";
 import PanelEstudiante from "./pages/Aprendiz/PanelEstudiante";
-import DesafiosRoutes from "./routes/DesafiosRoutes";
 
 /**
  * El Layout principal de la aplicación.
@@ -45,10 +35,9 @@ import DesafiosRoutes from "./routes/DesafiosRoutes";
 export function Layout() {
   const location = useLocation();
 
-  const showHeader =
-    /^\/(dashboard|courses|mentorias|proyectos|perfil|panel)(\/\d+)?$/.test(
-      location.pathname
-    );
+  const showHeader = /^\/(dashboard|courses|mentorias|proyectos)(\/\d+)?$/.test(
+    location.pathname
+  );
   const showFooter = showHeader;
   const isCourseTabs = /^\/courses\/[^/]+(\/.*)?$/.test(location.pathname);
 
@@ -106,14 +95,8 @@ export default function App() {
         {/*Proyectos y sus subrutas*/}
         <Route path="proyectos" element={<ProyectsPage />} />
         <Route path="search" element={<SearchPage />} />
-
-        {/*Mentorías*/}
-        <Route path="mentorias" element={<MentoriasPage />} />
-        <Route path="perfil" element={<PerfilEstudiante />} />
-        <Route path="panel" element={<PanelEstudiante />} />
-
-        {/*Desafíos*/}
-        <Route path="desafios/*" element={<DesafiosRoutes />} />
+        <Route path="perfilestudiante" element={<PerfilEstudiante />} />
+        <Route path="panelestudiante" element={<PanelEstudiante />} />
 
         {/* 404 */}
         <Route path="*" element={<div>Página no encontrada</div>} />
