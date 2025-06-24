@@ -86,11 +86,10 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- PostgreSQL JDBC Driver -->
         <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
+            <version>3.3.3</version>
         </dependency>
 
         <!-- WebSocket Support -->
