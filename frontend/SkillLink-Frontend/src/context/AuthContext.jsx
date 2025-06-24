@@ -4,6 +4,9 @@ import { loginUser as apiLogin } from "@/services/BackendServices";
 // 1. Crear el Contexto
 const AuthContext = createContext(null);
 
+// Exportar el contexto para que pueda ser usado por otros archivos
+export { AuthContext };
+
 // 2. Crear el Proveedor del Contexto
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {
@@ -37,7 +40,7 @@ export function AuthProvider({ children }) {
   const value = {
     user,
     isAuthenticated: !!user, // Booleano para saber si hay un usuario
-    role: user?.role, // El rol del usuario o null
+    role: import.meta.env.VITE_SHOW_ROLES === "true" ? user?.role : null, // El rol del usuario o null
     login,
     logout,
   };

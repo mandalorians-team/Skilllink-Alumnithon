@@ -1,5 +1,6 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
 import { Layout } from "../App";
 import Courses from "../pages/Aprendiz/curso/Courses";
 import CourseLayoutPage from "../pages/Aprendiz/curso/CourseLayoutPage";
@@ -11,6 +12,7 @@ import MentoriasPage from "../pages/Aprendiz/mentorias/MentoriasPage";
 import ProyectsPage from "../pages/Aprendiz/proyectos/ProyectsPage";
 import SearchPage from "../pages/SearchPage";
 import DashboardPage from "@/pages/DashboardPage";
+import LoginPage from "@/pages/LoginPage";
 
 // Importar la nueva página de Mentor
 import MentorDashboardPage from "@/pages/mentor/DashboardPage";
@@ -20,11 +22,27 @@ import AgendaPage from "@/pages/mentor/AgendaPage";
 import ChatPage from "@/pages/mentor/ChatPage";
 import ConfiguracionPage from "@/pages/mentor/ConfiguracionPage";
 
+const ProtectedRoute = ({ children }) => {
+  const { isAuthenticated } = useAuth();
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+  return children;
+};
+
 export default function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<DashboardPage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <Layout />
+          </ProtectedRoute>
+        }>
+        <Route index element={<Navigate to="/dashboard" replace />} />
+        <Route path="dashboard" element={<DashboardPage />} />
         <Route path="courses" element={<Courses />} />
 
         {/* Ruta Layout para un curso específico */}

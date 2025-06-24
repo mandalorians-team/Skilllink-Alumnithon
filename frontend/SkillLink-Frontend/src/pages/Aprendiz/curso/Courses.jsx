@@ -79,6 +79,19 @@ export default function Courses() {
     setCurrentPage(1); // Resetear a la primera página al cambiar de filtro
   };
 
+  const handleEnroll = (courseId) => {
+    setCourses((prevCourses) =>
+      prevCourses.map((course) =>
+        course.id === courseId ? { ...course, status: "en progreso" } : course
+      )
+    );
+    // Si el curso inscrito debe ser destacado
+    setFeaturedCourse((prev) => {
+      if (!prev || prev.id !== courseId) return prev;
+      return { ...prev, status: "en progreso" };
+    });
+  };
+
   const filteredCourses = courses.filter((course) => {
     // No mostrar el curso destacado en la lista principal
     if (featuredCourse && course.id === featuredCourse.id) {
@@ -94,7 +107,7 @@ export default function Courses() {
   const totalPages = Math.ceil(filteredCourses.length / ITEMS_PER_PAGE);
   // Obtener solo los cursos para la página actual
   const paginatedCourses = filteredCourses.slice(
-    (currentPage - 1) * ITEMS_PER_PAGE,
+    (currentPage - 6) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE
   );
 
@@ -139,7 +152,12 @@ export default function Courses() {
           </div>
         ) : (
           paginatedCourses.map((course) => (
-            <CourseCard key={course.id} course={course} type="enrolled" />
+            <CourseCard
+              key={course.id}
+              course={course}
+              type="enrolled"
+              onEnroll={handleEnroll}
+            />
           ))
         )}
       </div>
@@ -150,7 +168,12 @@ export default function Courses() {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
           {availableCourses.map((course) => (
-            <CourseCard key={course.id} course={course} type="available" />
+            <CourseCard
+              key={course.id}
+              course={course}
+              type="available"
+              onEnroll={handleEnroll}
+            />
           ))}
         </div>
       </div>
