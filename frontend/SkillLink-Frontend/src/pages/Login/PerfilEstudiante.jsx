@@ -1,42 +1,30 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Header from '../../components/Main/Navbar';
 import Footer from '../../components/Main/Footer';
 
 export default function PerfilEstudiante() {
+  const location = useLocation();
+
+  const links = [
+    { label: "Perfil", to: "/perfilestudiante" },
+    { label: "Panel", to: "/panelestudiante" },
+    { label: "Cursos", to: "/courses" },
+    { label: "Mentorías", to: "/mentorias" },
+    { label: "Proyectos", to: "/proyectos" },
+    { label: "Chat", to: "/chat" }, // Asegúrate de tener esta ruta o ajusta
+    { label: "Configuración", to: "/configuracion" } // Igual verifica o ajusta
+  ];
+
   const habilidades = [
     'JavaScript', 'React', 'TypeScript', 'Tailwind CSS', 'Node.js',
     'Express.js', 'MongoDB', 'GraphQL', 'Docker', 'Git'
   ];
 
   const cursos = [
-    { 
-      img: "/images/perfil1.png", 
-      title: "Cursos Esenciales de React", 
-      desc: "Aprende los fundamentos de React para construir interfaces modernas.", 
-      progress: 100, 
-      status: "Completado: Julio 2023" 
-    },
-    { 
-      img: "/images/perfil2.png", 
-      title: "Node.js Backend Avanzado", 
-      desc: "Crea APIs robustas y escalables con Node.js.", 
-      progress: 60, 
-      status: "En Progreso: Agosto 2023" 
-    },
-    { 
-      img: "/images/perfil3.png", 
-      title: "Principios de Diseño UI/UX", 
-      desc: "Domina los conceptos clave para experiencias de usuario efectivas.", 
-      progress: 100, 
-      status: "Completado: Junio 2023" 
-    },
-    { 
-      img: "/images/perfil4.png", 
-      title: "Gestión de Proyectos Ágil", 
-      desc: "Implementa metodologías ágiles en tus proyectos.", 
-      progress: 30, 
-      status: "En Progreso: Septiembre 2023" 
-    }
+    { img: "/images/perfil1.png", title: "Cursos Esenciales de React", desc: "Aprende los fundamentos de React para construir interfaces modernas.", progress: 100, status: "Completado: Julio 2023" },
+    { img: "/images/perfil2.png", title: "Node.js Backend Avanzado", desc: "Crea APIs robustas y escalables con Node.js.", progress: 60, status: "En Progreso: Agosto 2023" },
+    { img: "/images/perfil3.png", title: "Principios de Diseño UI/UX", desc: "Domina los conceptos clave para experiencias de usuario efectivas.", progress: 100, status: "Completado: Junio 2023" },
+    { img: "/images/perfil4.png", title: "Gestión de Proyectos Ágil", desc: "Implementa metodologías ágiles en tus proyectos.", progress: 30, status: "En Progreso: Septiembre 2023" }
   ];
 
   const insignias = [
@@ -54,24 +42,26 @@ export default function PerfilEstudiante() {
         <aside className="w-64 bg-[#19191F] p-4 hidden sm:flex flex-col justify-between border-2 border-primary shadow-2xl rounded-lg">
           <div>
             <nav className="space-y-2">
-              {["Perfil", "Panel", "Cursos", "Mentorías", "Proyectos", "Chat", "Configuración"].map((item, i) => (
-                <div
+              {links.map((item, i) => (
+                <Link
                   key={i}
-                  className={`p-2 rounded ${item === "Perfil" ? "bg-primary text-white font-bold font-orbitron" : "hover:bg-gray-800 text-[#8C8D8B]"}`}
+                  to={item.to}
+                  className={`block p-2 rounded ${
+                    location.pathname === item.to
+                      ? "bg-primary text-white font-bold font-orbitron"
+                      : "hover:bg-gray-800 text-[#8C8D8B]"
+                  }`}
                 >
-                  {item}
-                </div>
+                  {item.label}
+                </Link>
               ))}
             </nav>
           </div>
-          {/* Resumen en el sidebar con imagen */}
           <div className="mt-4 text-xs text-gray-400 flex flex-col items-center text-center">
             <img src="/images/Mentor 3.jpg" alt="Avatar Sidebar" className="w-12 h-12 rounded-full object-cover mb-2" />
             <p className="font-bold text-white">Javier Delgado</p>
             <p className="text-[#8C8D8B]">Desarrollador Web</p>
-            <p>
-              javier.delgado@skillLink.com
-            </p>
+            <p>javier.delgado@skillLink.com</p>
           </div>
         </aside>
 
