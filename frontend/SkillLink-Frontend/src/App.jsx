@@ -10,7 +10,6 @@ import Footer from "./components/comun/Footer";
 import Sidebar from "./components/comun/Sidebar";
 import { useLocation } from "react-router-dom";
 import CurseTabs from "./components/Aprendiz/Curso/CourseTabs";
-import AppRoutes from "./routes/AppRoutes";
 import MainPage from "./pages/Login/MainPage";
 import Registro from "./pages/Login/Registro";
 import FormularioRegistro from "./pages/Login/FormularioRegistro";
@@ -22,10 +21,18 @@ import CourseLayoutPage from "./pages/Aprendiz/curso/CourseLayoutPage";
 import CourseContentPage from "./pages/Aprendiz/curso/CourseContentPage";
 import CourseMentoriasPage from "./pages/Aprendiz/curso/CourseMentoriasPage";
 import CourseProyectsPage from "./pages/Aprendiz/curso/CourseProyectsPage";
-import MentoriasPage from "./pages/Aprendiz/mentorias/MentoriasPage";
 import ProyectsPage from "./pages/Aprendiz/proyectos/ProyectsPage";
 import SearchPage from "./pages/SearchPage";
 import DashboardPage from "./pages/DashboardPage";
+import MentorRoutes from "./routes/MentorRoutes";
+import MentorLayout from "./pages/mentor/MentorLayout";
+import AgendaPage from "./pages/mentor/AgendaPage";
+import ChatPage from "./pages/mentor/ChatPage";
+import MisCursosPage from "./pages/mentor/MisCursosPage";
+import ConfiguracionPage from "./pages/mentor/ConfiguracionPage";
+import MisAlumnosPage from "./pages/mentor/MisAlumnosPage";
+import MentoriasPage from "./pages/Aprendiz/mentorias/MentoriasPage";
+import MentorDashboardPage from "./pages/mentor/MentorDashboardPage";
 
 /**
  * El Layout principal de la aplicación.
@@ -78,14 +85,26 @@ export default function App() {
         <Route path="courses" element={<Courses />} />
         <Route path="courses/:courseId" element={<CourseLayoutPage />}>
           <Route path="content" element={<CourseContentPage />} />
-          <Route path="mentorias" element={<CourseMentoriasPage />} />
+          <Route path="course-mentorias" element={<CourseMentoriasPage />} />
           <Route path="proyectos" element={<CourseProyectsPage />} />
         </Route>
 
-        {/* Otras secciones */}
-        <Route path="mentorias" element={<MentoriasPage />} />
+        {/*Mentor y sus subrutas*/}
+        <Route path="mentor" element={<MentorRoutes />}>
+          <Route path="dashboard" element={<MentorDashboardPage />} />
+          <Route path="agenda" element={<AgendaPage />} />
+          <Route path="chat" element={<ChatPage />} />
+          <Route path="cursos" element={<MisCursosPage />} />
+          <Route path="configuracion" element={<ConfiguracionPage />} />
+          <Route path="alumnos" element={<MisAlumnosPage />} />
+        </Route>
+
+        {/*Proyectos y sus subrutas*/}
         <Route path="proyectos" element={<ProyectsPage />} />
         <Route path="search" element={<SearchPage />} />
+
+        {/*Mentorías*/}
+        <Route path="mentorias" element={<MentoriasPage />} />
 
         {/* 404 */}
         <Route path="*" element={<div>Página no encontrada</div>} />
