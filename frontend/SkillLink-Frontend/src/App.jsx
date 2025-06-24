@@ -26,8 +26,8 @@ import MentoriasPage from "./pages/Aprendiz/mentorias/MentoriasPage";
 import ProyectsPage from "./pages/Aprendiz/proyectos/ProyectsPage";
 import SearchPage from "./pages/SearchPage";
 import DashboardPage from "./pages/DashboardPage";
-import PerfilEstudiante from "./pages/Login/PerfilEstudiante";
-import PanelEstudiante from "./pages/Login/PanelEstudiante";
+import PerfilEstudiante from "./pages/Aprendiz/PerfilEstudiante";
+import PanelEstudiante from "./pages/Aprendiz/PanelEstudiante";
 
 /**
  * El Layout principal de la aplicación.
@@ -37,7 +37,7 @@ import PanelEstudiante from "./pages/Login/PanelEstudiante";
 export function Layout() {
   const location = useLocation();
 
-  const showHeader = /^\/(dashboard|courses|mentorias|proyectos)(\/\d+)?$/.test(
+  const showHeader = /^\/(dashboard|courses|mentorias|proyectos|perfil|panel)(\/\d+)?$/.test(
     location.pathname
   );
   const showFooter = showHeader;
@@ -88,8 +88,8 @@ export default function App() {
         <Route path="mentorias" element={<MentoriasPage />} />
         <Route path="proyectos" element={<ProyectsPage />} />
         <Route path="search" element={<SearchPage />} />
-        <Route path="perfilestudiante" element={<PerfilEstudiante />} />
-        <Route path="panelestudiante" element={<PanelEstudiante />} /> 
+        <Route path="perfil" element={<PerfilEstudiante />} />
+        <Route path="panel" element={<PanelEstudiante />} /> 
 
         {/* 404 */}
         <Route path="*" element={<div>Página no encontrada</div>} />
