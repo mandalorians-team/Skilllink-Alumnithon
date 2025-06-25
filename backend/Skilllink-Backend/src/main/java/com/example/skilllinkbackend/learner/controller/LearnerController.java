@@ -3,6 +3,7 @@ package com.example.skilllinkbackend.learner.controller;
 import com.example.skilllinkbackend.learner.dto.LearnerRequest;
 import com.example.skilllinkbackend.learner.dto.LearnerResponse;
 import com.example.skilllinkbackend.learner.service.LearnerService;
+import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,6 +54,7 @@ public class LearnerController {
      * @param learnerRequest The request containing learner details.
      * @return The created learner profile.
      */
+    @Hidden
     @PostMapping("/create")
     public ResponseEntity<LearnerResponse> createLearnerProfile(@RequestBody LearnerRequest learnerRequest) {
         LearnerResponse createdLearner = learnerService.createLearnerProfile(learnerRequest);

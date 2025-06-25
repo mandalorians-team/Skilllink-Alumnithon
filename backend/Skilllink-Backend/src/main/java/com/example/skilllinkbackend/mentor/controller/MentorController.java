@@ -3,6 +3,7 @@ package com.example.skilllinkbackend.mentor.controller;
 import com.example.skilllinkbackend.mentor.dto.MentorRequest;
 import com.example.skilllinkbackend.mentor.dto.MentorResponse;
 import com.example.skilllinkbackend.mentor.service.MentorService;
+import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,6 +53,7 @@ public class MentorController {
      * @param mentorRequest The request containing mentor details.
      * @return The created mentor profile.
      */
+    @Hidden
     @PostMapping("/create")
     public ResponseEntity<MentorResponse> createMentorProfile(@RequestBody MentorRequest mentorRequest) {
         MentorResponse mentorResponse = mentorService.createMentorProfile(mentorRequest);
