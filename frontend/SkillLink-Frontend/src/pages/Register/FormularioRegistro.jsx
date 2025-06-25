@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import Navbar from '../../components/Main/Navbar';
 import Footer from '../../components/Main/Footer';
 
-
 const paises = [
   "Colombia", "Argentina", "México", "Chile", "Perú", "España", "Estados Unidos", "Canadá", "Brasil", "Uruguay"
 ];
@@ -59,8 +58,6 @@ const FormularioRegistro = () => {
     }
   };
 
-
-/*Funcion para validar los campos del formulario*/
   const validar = () => {
     const nuevosErrores = {};
     if (!formData.rol) nuevosErrores.rol = 'Selecciona un rol';
@@ -75,8 +72,6 @@ const FormularioRegistro = () => {
     return nuevosErrores;
   };
 
-  /*Funcion para manejar el envio del formulario*/
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const erroresValidados = validar();
@@ -85,9 +80,9 @@ const FormularioRegistro = () => {
     } else {
       setErrores({});
       setIsLoading(true);
-      // Construir el payload según lo espera el backend
+
       const payload = {
-        username: formData.correo, // O puedes pedir un campo username propio
+        username: formData.correo,
         password: formData.contraseña,
         email: formData.correo,
         role: formData.rol === "Mentor" ? "MENTOR" : formData.rol === "Estudiante" ? "LEARNER" : "",
@@ -101,7 +96,7 @@ const FormularioRegistro = () => {
       };
 
       try {
-          const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/register`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/register`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -139,7 +134,7 @@ const FormularioRegistro = () => {
         alert("Error de conexión con el servidor.");
       }
       setIsLoading(false);
-      }
+    }
   };
 
   return (
@@ -147,8 +142,6 @@ const FormularioRegistro = () => {
       <Navbar />
       <main className="flex-grow flex justify-center items-start px-4 py-8 pt-20">
         <div className="flex w-full max-w-6xl gap-4 items-stretch">
-
-          {/* Imagen izquierda */}
           <div className="hidden md:flex">
             <img
               src="/images/mandalorian2.jpg"
@@ -158,7 +151,6 @@ const FormularioRegistro = () => {
             />
           </div>
 
-          {/* Formulario */}
           <div
             ref={formRef}
             className="bg-[#19191F] text-white rounded-2xl shadow-2xl p-8 w-full max-w-3xl border border-white/20"
@@ -279,7 +271,6 @@ const FormularioRegistro = () => {
             </form>
           </div>
 
-          {/* Imagen derecha */}
           <div className="hidden md:flex">
             <img
               src="/images/mandalorian2.jpg"

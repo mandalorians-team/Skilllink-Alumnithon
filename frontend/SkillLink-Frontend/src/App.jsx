@@ -66,8 +66,8 @@ export default function App() {
     <Routes>
       {/* Rutas sin Layout */}
       <Route path="/" element={<MainPage />} />
-      <Route path="/registro-basico" element={<Registro />} />
-      <Route path="/registro" element={<FormularioRegistro />} />
+      <Route path="/formularioregistro" element={<FormularioRegistro />} />
+      <Route path="/registro" element={<Registro />} />
       <Route path="/login" element={<Login />} />
       <Route path="/restablecer" element={<ResetPassword />} />
       <Route path="/cambiar-password" element={<ChangePassword />} />

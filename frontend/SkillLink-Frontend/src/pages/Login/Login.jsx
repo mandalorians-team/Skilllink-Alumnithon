@@ -1,31 +1,42 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../../components/Main/Navbar";
-import Footer from "../../components/Main/Footer";
-import { useAuth } from "../../context/AuthContext";
-
+import Navbar from "../../components/Main/Navbar";  // Asegúrate que esta ruta es la correcta
+import Footer from "../../components/Main/Footer";  // O ajusta la ruta real
 import "../../index.css";
 
 export default function Login() {
-  const { login } = useAuth();
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
-  // Usuario y contraseña de prueba, debe ser eliminado cuando se integre con el backend
-  // y se implemente la autenticación real.
-  const dummyEmail = "test@skilllink.com";
-  const dummyPassword = "123456";
-
   const handleLogin = async (e) => {
     e.preventDefault();
     setError(null);
 
-    if (email === dummyEmail && password === dummyPassword) {
-      navigate("/perfilestudiante");
-    } else {
-      setError("Email o contraseña incorrectos");
+    try {
+      const response = await fetch("http://localhost:8081/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          password,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Credenciales inválidas o error del servidor");
+      }
+
+      const data = await response.json();
+      console.log("Login exitoso:", data);
+
+      // Redirige al perfil (o ajusta según tu flujo)
+      navigate("/perfil");
+    } catch (err) {
+      setError(err.message || "Ocurrió un error inesperado");
     }
   };
 
@@ -36,13 +47,6 @@ export default function Login() {
       <main className="flex flex-col md:flex-row flex-grow pt-[55px]">
         <div className="md:w-[40%] w-full flex justify-end pr-4 items-center relative z-10">
           <div className="bg-[#19191F] rounded-lg p-8 shadow-2xl w-full max-w-md my-8 animate-fade-in-up">
-            <div className="flex justify-center mb-4">
-              <img
-                src="/images/logo.jpg"
-                alt="Logo"
-                className="h-14 w-14 rounded-full border border-[#799EB8] p-1 animate-pulse"
-              />
-            </div>
             <h2 className="text-center text-[#799EB8] font-bold text-2xl mb-1">
               ¡Bienvenido!
             </h2>
@@ -50,27 +54,12 @@ export default function Login() {
               Inicia sesión y únete a la aventura SkillLink.
             </p>
 
-            {/* Notificación del estado del servidor
-            {!serverStatus && (
-              <div className="mb-4 p-3 bg-red-500/20 border border-red-500/50 rounded-md">
-                <p className="text-red-400 text-sm text-center">
-                  ⚠️ El servidor no está disponible. Algunas funciones pueden no
-                  funcionar correctamente.
-                </p>
-              </div>
-            )}
-              */}
-
-            {/* Ayuda de credenciales de prueba
-            <TestCredentialsHelper />
-            */}
-
             <form onSubmit={handleLogin}>
               <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="tu.email@ejemplo.com"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Nombre de usuario"
                 className="w-full mb-3 px-4 py-2 rounded bg-black border border-[#393D47] text-[#8C8D8B] text-sm focus:outline-none focus:ring-2 focus:ring-[#799EB8] focus:border-[#799EB8] transition duration-300"
                 required
               />
@@ -78,7 +67,7 @@ export default function Login() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Ingresa tu contraseña"
+                placeholder="Contraseña"
                 className="w-full mb-4 px-4 py-2 rounded bg-black border border-[#393D47] text-[#8C8D8B] text-sm focus:outline-none focus:ring-2 focus:ring-[#799EB8] focus:border-[#799EB8] transition duration-300"
                 required
               />
@@ -86,41 +75,27 @@ export default function Login() {
                 type="submit"
                 className="w-full py-2 bg-gradient-to-r from-[#799EB8] to-[#678a9d] text-white rounded-md mb-4 text-sm font-semibold hover:scale-105 hover:brightness-110 transition-all duration-500 relative overflow-hidden"
               >
-                <span className="relative z-10">Iniciar Sesión</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 blur-sm"></div>
+                Iniciar Sesión
               </button>
-
-              {[
-                { img: "github.png", label: "Github" },
-                { img: "google.png", label: "Google" },
-              ].map(({ img, label }) => (
-                <button
-                  key={label}
-                  className="w-full py-2 mb-2 border text-sm rounded-md flex items-center justify-center gap-2 bg-white hover:bg-gray-100 hover:scale-105 transition-transform duration-300"
-                >
-                  <img src={`/images/${img}`} alt={label} className="h-5 w-5" />{" "}
-                  Continuar con {label}
-                </button>
-              ))}
-
-              <p
-                className="text-center text-[#799EB8] text-sm hover:underline cursor-pointer mb-2 transition"
-                onClick={() => navigate("/restablecer")}
-              >
-                ¿Olvidaste tu contraseña?
-              </p>
-              <p className="text-center text-white text-sm">
-                ¿No tienes una cuenta?{" "}
-                <span
-                  className="text-[#799EB8] hover:underline cursor-pointer transition"
-                  onClick={() => navigate("/registro")}
-                >
-                  Regístrate
-                </span>
-              </p>
             </form>
 
-            {error && <p className="text-red-500 text-center">{error}</p>}
+            {error && <p className="text-red-500 text-center mt-2">{error}</p>}
+
+            <p
+              className="text-center text-[#799EB8] text-sm hover:underline cursor-pointer mb-2 transition"
+              onClick={() => navigate("/restablecer")}
+            >
+              ¿Olvidaste tu contraseña?
+            </p>
+            <p className="text-center text-white text-sm">
+              ¿No tienes una cuenta?{" "}
+              <span
+                className="text-[#799EB8] hover:underline cursor-pointer transition"
+                onClick={() => navigate("/registro")}
+              >
+                Regístrate
+              </span>
+            </p>
           </div>
         </div>
 
@@ -133,9 +108,8 @@ export default function Login() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
         </div>
       </main>
+
       <Footer />
-
-
     </div>
   );
 }
