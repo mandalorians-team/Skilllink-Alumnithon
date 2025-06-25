@@ -1,36 +1,56 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Main/Navbar";
 import Footer from "../../components/Main/Footer";
 import { useAuth } from "../../context/AuthContext";
+import TestCredentialsHelper from "../../components/Login/TestCredentialsHelper";
 import "../../index.css";
 
 export default function Login() {
-  const { login } = useAuth();
+  const { login, serverStatus } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Usuario y contraseña de prueba, debe ser eliminado cuando se integre con el backend
-  const dummyEmail = "test@skilllink.com";
-  const dummyPassword = "123456";
-  // y se implemente la autenticación real.
+  // Escuchar eventos para llenar credenciales de prueba
+  useEffect(() => {
+    const handleFillCredentials = (event) => {
+      const { email, password } = event.detail;
+      setEmail(email);
+      setPassword(password);
+    };
+
+    window.addEventListener("fillCredentials", handleFillCredentials);
+    return () => {
+      window.removeEventListener("fillCredentials", handleFillCredentials);
+    };
+  }, []);
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setError(null);
+    setIsLoading(true);
+
     try {
-      // Si quieres usar el dummy login para pruebas:
-      if (email === dummyEmail && password === dummyPassword) {
-        await login(email, password);
-        navigate("/dashboard");
-      } else {
-        // Si tienes backend, usa solo esto:
-        await login(email, password);
-        navigate("/dashboard");
+      // Validación básica
+      if (!email || !password) {
+        throw new Error("Por favor, completa todos los campos");
       }
+
+      // Verificar si el servidor está disponible
+      if (!serverStatus) {
+        throw new Error("El servidor no está disponible. Inténtalo más tarde.");
+      }
+
+      // Intentar iniciar sesión con el backend
+      await login(email, password);
+      navigate("/dashboard");
     } catch (err) {
-      setError("Email o contraseña incorrectos");
+      setError(err.message || "Email o contraseña incorrectos");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -55,6 +75,19 @@ export default function Login() {
               Inicia sesión y únete a la aventura SkillLink.
             </p>
 
+            {/* Notificación del estado del servidor */}
+            {!serverStatus && (
+              <div className="mb-4 p-3 bg-red-500/20 border border-red-500/50 rounded-md">
+                <p className="text-red-400 text-sm text-center">
+                  ⚠️ El servidor no está disponible. Algunas funciones pueden no
+                  funcionar correctamente.
+                </p>
+              </div>
+            )}
+
+            {/* Ayuda de credenciales de prueba */}
+            <TestCredentialsHelper />
+
             <form onSubmit={handleLogin}>
               <input
                 type="email"
@@ -72,8 +105,11 @@ export default function Login() {
               />
               <button
                 type="submit"
-                className="w-full py-2 bg-gradient-to-r from-[#799EB8] to-[#678a9d] text-white rounded-md mb-4 text-sm font-semibold hover:scale-105 hover:brightness-110 transition-all duration-500 relative overflow-hidden">
-                <span className="relative z-10">Iniciar Sesión</span>
+                disabled={isLoading}
+                className="w-full py-2 bg-gradient-to-r from-[#799EB8] to-[#678a9d] text-white rounded-md mb-4 text-sm font-semibold hover:scale-105 hover:brightness-110 transition-all duration-500 relative overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100">
+                <span className="relative z-10">
+                  {isLoading ? "Iniciando sesión..." : "Iniciar Sesión"}
+                </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 blur-sm"></div>
               </button>
 
