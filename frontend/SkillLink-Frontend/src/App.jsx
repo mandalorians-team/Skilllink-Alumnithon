@@ -30,27 +30,25 @@ import DashboardPage from "./pages/Aprendiz/DashboardPage";
 import PerfilEstudiante from "./pages/Aprendiz/PerfilEstudiante";
 import PanelEstudiante from "./pages/Aprendiz/PanelEstudiante";
 import TestCertificacion from "./components/TestCertificacion";
+import NavbarInterno from "./components/Main/NavbarInterno";
 
 function Layout() {
   const location = useLocation();
 
-  // Páginas donde quieres que aparezca el Navbar
   const showNavbar = /^(\/|\/registro|\/registro-basico|\/login|\/restablecer)$/.test(location.pathname);
-
-  const showHeader = !showNavbar && /^\/(dashboard|courses|mentorias|proyectos|perfil|panel)(\/\d+)?$/.test(
-    location.pathname
-  );
-
+  const showHeader = !showNavbar && /^\/(dashboard|courses|mentorias|proyectos|panel)(\/\d+)?$/.test(location.pathname);
   const showFooter = showHeader || showNavbar;
-
   const isCourseTabs = /^\/courses\/[^/]+(\/.*)?$/.test(location.pathname);
+
+  const hideSidebar = /^\/(perfil|panel)$/.test(location.pathname);
+  const hideHeader = /^\/perfil$/.test(location.pathname); // 👈 Oculta header solo en /perfil
 
   return (
     <div className="flex min-h-screen bg-page-background-color">
-      <Sidebar />
-      <div className="flex-1 flex flex-col ml-64">
+      {!hideSidebar && <Sidebar />}
+      <div className={`flex-1 flex flex-col ${!hideSidebar ? "ml-64" : ""}`}>
         {showNavbar && <Navbar />}
-        {showHeader && <Header />}
+        {!hideHeader && showHeader && <Header />}
         {isCourseTabs && <CurseTabs />}
         <main className="p-6 bg-blue-200 flex-grow">
           <Outlet />
@@ -72,6 +70,7 @@ export default function App() {
       <Route path="/restablecer" element={<ResetPassword />} />
       <Route path="/cambiar-password" element={<ChangePassword />} />
       <Route path="/test-cert" element={<TestCertificacion />} />
+      <Route path="/navbar-interno" element={<NavbarInterno />} />
 
       {/* Rutas con Layout */}
       <Route element={<Layout />}>
