@@ -41,7 +41,7 @@ const FormularioRegistro = () => {
     if (formRef.current) {
       setFormHeight(formRef.current.clientHeight);
     }
-  }, [formData]); 
+  }, [formData]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -71,16 +71,65 @@ const FormularioRegistro = () => {
     return nuevosErrores;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const erroresValidados = validar();
     if (Object.keys(erroresValidados).length > 0) {
       setErrores(erroresValidados);
     } else {
       setErrores({});
-      console.log('Formulario enviado ✅', formData);
-      setShowPopup(true);
-      setTimeout(() => setShowPopup(false), 3000);
+      // Construir el payload según lo espera el backend
+      const payload = {
+        username: formData.correo, // O puedes pedir un campo username propio
+        password: formData.contraseña,
+        email: formData.correo,
+        role: formData.rol === "Mentor" ? "MENTOR" : formData.rol === "Estudiante" ? "LEARNER" : "",
+        firstName: formData.nombres,
+        lastName: formData.apellidos,
+        photoUrl: "",
+        bio: "",
+        experience: "",
+        education: "",
+        linkedinProfile: ""
+      };
+
+      try {
+        const response = await fetch('http://localhost:8081/api/auth/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (response.ok) {
+          setShowPopup(true);
+          setTimeout(() => setShowPopup(false), 3000);
+          setFormData({
+            nombres: '',
+            apellidos: '',
+            correo: '',
+            contraseña: '',
+            confirmarContraseña: '',
+            telefono: '',
+            pais: '',
+            habilidades: [],
+            intereses: [],
+            idioma: 'es',
+            suscripcion: false,
+            aceptoTerminos: false,
+            rol: ''
+          });
+        } else {
+          const errorData = await response.json();
+          alert(
+            errorData.message ||
+            "Error en el registro. Verifica los datos ingresados o intenta más tarde."
+          );
+        }
+      } catch (err) {
+        alert("Error de conexión con el servidor.");
+      }
     }
   };
 
@@ -89,7 +138,7 @@ const FormularioRegistro = () => {
       <Navbar />
       <main className="flex-grow flex justify-center items-start px-4 py-8 pt-20">
         <div className="flex w-full max-w-6xl gap-4 items-stretch">
-          
+
           {/* Imagen izquierda */}
           <div className="hidden md:flex">
             <img
