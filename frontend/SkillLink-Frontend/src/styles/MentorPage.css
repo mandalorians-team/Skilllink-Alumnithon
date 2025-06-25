@@ -40,6 +40,7 @@ body {
 
 .app-container {
     display: flex;
+    flex-direction: column;
     background-color: var(--color-background);
     align-items: center;
     margin: 3rem;
