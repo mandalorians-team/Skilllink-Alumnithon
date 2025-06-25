@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import CourseCard from '../../components/MentorProfile/CourseCard';
+import SatisfactionChart from '../../components/MentorProfile/SatisfactionChart';
 import { FaCode, FaChartLine, FaPaintBrush, FaBullhorn } from 'react-icons/fa';
 import EditCourseModal from '../../components/MentorProfile/EditCourseModal';
-
+import StudentListPanel from '../../components/MentorProfile/StudentListPanel';
+import '../../styles/DashboardMentor.css';
 
 const initialCourses = [
   {
@@ -14,6 +16,54 @@ const initialCourses = [
     icon: <FaCode />,
     status: null,
     isActive: true,
+    scores: [5, 4, 4, 5, 3, 4, 5, 5, 4],
+    enrolled: [
+      {
+        name: 'Ana García',
+        email: 'ana.garcia@example.com',
+        progress: 75,
+        lastActivity: '2 hours ago',
+        avatar: '/avatars/ana.png',
+        skills: ['HTML', 'CSS'],
+        interests: ['Frontend', 'Design'],
+      },
+      {
+        name: 'Juan Pérez',
+        email: 'juan.perez@example.com',
+        progress: 100,
+        lastActivity: '1 day ago',
+        avatar: '/avatars/juan.png',
+        skills: ['JavaScript'],
+        interests: ['Web', 'Apps'],
+      },
+      {
+        name: 'Sofía Martínez',
+        email: 'sofia.martinez@example.com',
+        progress: 45,
+        lastActivity: '2 days ago',
+        avatar: '/avatars/sofia.png',
+        skills: ['HTML'],
+        interests: ['Accessibility'],
+      },
+      {
+        name: 'Laura Fernández',
+        email: 'laura.fernandez@example.com',
+        progress: 70,
+        lastActivity: '4 hours ago',
+        avatar: '/avatars/laura.png',
+        skills: ['React'],
+        interests: ['Web', 'UI'],
+      },
+      {
+        name: 'Gabriel Morales',
+        email: 'gabriel.morales@example.com',
+        progress: 38,
+        lastActivity: '10 mins ago',
+        avatar: '/avatars/gabriel.png',
+        skills: ['CSS'],
+        interests: ['Design'],
+      },
+    ],
   },
   {
     id: 2,
@@ -24,6 +74,8 @@ const initialCourses = [
     icon: <FaChartLine />,
     status: null,
     isActive: false,
+    scores: [4, 4, 3, 5, 4, 4, 3],
+    enrolled: [],
   },
   {
     id: 3,
@@ -34,6 +86,8 @@ const initialCourses = [
     icon: <FaPaintBrush />,
     status: 'Popular',
     isActive: true,
+    scores: [5, 5, 5, 4, 4, 5, 5],
+    enrolled: [],
   },
   {
     id: 4,
@@ -44,13 +98,34 @@ const initialCourses = [
     icon: <FaBullhorn />,
     status: null,
     isActive: false,
+    scores: [3, 2, 4, 3, 3, 4],
+    enrolled: [],
   },
 ];
-
 
 const DashboardMentor = () => {
   const [courses, setCourses] = useState(initialCourses);
   const [editingCourse, setEditingCourse] = useState(null);
+  const [selectedCourseId, setSelectedCourseId] = useState(initialCourses[0].id);
+  const [showFilter, setShowFilter] = useState(false);
+  const [filters, setFilters] = useState({
+    skills: '',
+    interests: '',
+    progressMin: 0,
+    progressMax: 100,
+  });
+
+  const scrollRef = useRef(null);
+
+  const scroll = (direction) => {
+    const { current } = scrollRef;
+    if (current) {
+      current.scrollBy({
+        left: direction === 'left' ? -400 : 400,
+        behavior: 'smooth',
+      });
+    }
+  };
 
   const toggleCourseStatus = (id) => {
     setCourses(courses.map(course =>
@@ -58,14 +133,8 @@ const DashboardMentor = () => {
     ));
   };
 
-  const openEditModal = (course) => {
-    setEditingCourse(course);
-  };
-
-  const closeEditModal = () => {
-    setEditingCourse(null);
-  };
-
+  const openEditModal = (course) => setEditingCourse(course);
+  const closeEditModal = () => setEditingCourse(null);
   const saveCourseChanges = (updatedCourse) => {
     setCourses(courses.map(course =>
       course.id === updatedCourse.id ? updatedCourse : course
@@ -74,15 +143,25 @@ const DashboardMentor = () => {
   };
 
   return (
-    <div className="dashboard-mentor" style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
-      {courses.map(course => (
-        <CourseCard
-          key={course.id}
-          {...course}
-          onToggleActive={() => toggleCourseStatus(course.id)}
-          onEdit={() => openEditModal(course)}
-        />
-      ))}
+    <>
+      <div className="carousel-container">
+        <button className="scroll-button left" onClick={() => scroll('left')}>&lt;</button>
+
+        <div className="dashboard-mentor" ref={scrollRef}>
+          {courses.map(course => (
+            <div className="course-wrapper" key={course.id}>
+              <CourseCard
+                {...course}
+                onToggleActive={() => toggleCourseStatus(course.id)}
+                onEdit={() => openEditModal(course)}
+              />
+              <SatisfactionChart scores={course.scores} />
+            </div>
+          ))}
+        </div>
+
+        <button className="scroll-button right" onClick={() => scroll('right')}>&gt;</button>
+      </div>
 
       {editingCourse && (
         <EditCourseModal
@@ -91,7 +170,14 @@ const DashboardMentor = () => {
           onSave={saveCourseChanges}
         />
       )}
-    </div>
+
+      <StudentListPanel
+        courses={courses}
+        selectedCourseId={selectedCourseId}
+        onTabChange={setSelectedCourseId}
+        filters={filters}
+      />
+    </>
   );
 };
 
