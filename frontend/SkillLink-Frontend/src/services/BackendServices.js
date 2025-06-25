@@ -1,15 +1,17 @@
 import { API_URL } from "./api";
 
 // Función para verificar si el servidor está disponible
+
 export const checkServerHealth = async () => {
   try {
-    const response = await fetch(`${API_URL}/users`);
+    const response = await fetch(`${API_URL}/courses`);
     return response.ok;
   } catch (error) {
     console.error("Error checking server health:", error);
     return false;
   }
 };
+
 
 // ===== FUNCIONES PARA CURSOS =====
 export const getAllCourses = async () => {
@@ -393,42 +395,29 @@ export const markNotificationAsRead = async (notificationId) => {
 };
 
 // ===== FUNCIONES PARA AUTENTICACIÓN =====
-export const loginUser = async (email, password) => {
+export const loginUser = async (username, password) => {
   try {
-    // Validación de entrada
-    if (!email || !password) {
-      throw new Error("Email y contraseña son requeridos");
-    }
-
-    // 1. Obtenemos TODOS los usuarios (esto es solo para la simulación)
-    const response = await fetch(`${API_URL}/users`);
+    const response = await fetch(`${API_URL}/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    });
     if (!response.ok) {
-      throw new Error("Error de conexión con el servidor. Inténtalo de nuevo.");
-    }
-    const users = await response.json();
-
-    // 2. Buscamos un usuario que coincida con el email y la contraseña
-    const foundUser = users.find(
-      (user) => user.email === email && user.password === password
-    );
-
-    if (foundUser) {
-      // 3. Si se encuentra, devolvemos los datos del usuario (sin la contraseña)
-      // eslint-disable-next-line no-unused-vars
-      const { password: _password, ...userWithoutPassword } = foundUser;
-      return userWithoutPassword;
-    } else {
-      // 4. Si no, verificamos si el email existe para dar un mensaje más específico
-      const emailExists = users.some((user) => user.email === email);
-      if (emailExists) {
-        throw new Error("Contraseña incorrecta");
-      } else {
-        throw new Error("Email no registrado");
+      let errorMsg = "Error en el inicio de sesión";
+      try {
+        const errorData = await response.json();
+        errorMsg = errorData.message || errorMsg;
+      } catch (error) {
+        console.error("Error parsing error response:", error);
       }
+      throw new Error(errorMsg);
     }
+    const data = await response.json();
+    return data.user || data;
   } catch (error) {
-    console.error("Error en el inicio de sesión:", error.message);
-    throw error; // Re-lanzamos el error para que el componente que llama lo maneje
+    throw new Error(error.message || "Error de red en login");
   }
 };
 

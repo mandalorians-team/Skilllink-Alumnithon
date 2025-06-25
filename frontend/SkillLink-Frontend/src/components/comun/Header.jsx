@@ -3,28 +3,16 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Bell, MessageSquare, Search } from "lucide-react";
 import logo from "@/assets/img/logo.png";
 import avatar from "@/assets/img/Avatar.png";
-import useAuth from "@/hooks/useAuth";
+import { useAuth } from "@/context/AuthContext";
 import ModalAvatar from "@/components/ui/ModalAvatar";
 
 export default function Header() {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
-  const { user, role, isAuthenticated } = useAuth();
+  const { user, isAuthenticated } = useAuth();
+  console.log("USER HEADER:", user);
   const [showAvatarModal, setShowAvatarModal] = useState(false);
-
-  const getHeaderText = () => {
-    switch (role) {
-      case "aprendiz":
-        return "Panel del Aprendiz";
-      case "mentor":
-        return "Panel del Mentor";
-      case "admin":
-        return "Panel de Administración";
-      default:
-        return ""; // No mostrar título si no hay rol
-    }
-  };
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -36,6 +24,12 @@ export default function Header() {
   const hideSearchOnPaths = ["/proyectos", "/courses", "/mentorias"];
   const showSearch = !hideSearchOnPaths.includes(location.pathname);
 
+  const roleMap = {
+    ADMIN: "Administrador",
+    MENTOR: "Mentor",
+    LEARNER: "Estudiante",
+  };
+
   return (
     <header className="bg-header w-full">
       <div className="flex flex-col sm:flex-row items-center sm:items-center px-2 sm:px-4 md:px-6 py-2 sm:py-3 w-full">
@@ -44,14 +38,18 @@ export default function Header() {
           <img src={logo} alt="SkillLink Logo" className="h-8 w-8" />
           <span className="text-lg sm:text-xl font-bold text-white">
             SkillLink
+            {user && user.role
+              ? ` Panel de ${roleMap[user.role] || user.role}`
+              : ""}
           </span>
-          {role && (
-            <span className="text-base sm:text-lg text-white font-medium">
-              {user && user.firstName && user.lastName
-                ? `${user.firstName} ${user.lastName}`
-                : user?.username || "Usuario"}{" "}
-              - {getHeaderText()}
-            </span>
+          {user && (
+            <div className="flex items-center gap-2">
+              <span className="text-base sm:text-lg text-white font-medium">
+                {user.firstName && user.lastName
+                  ? `${user.firstName} ${user.lastName}`
+                  : user.role || ""}
+              </span>
+            </div>
           )}
         </div>
 

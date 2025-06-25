@@ -11,8 +11,8 @@ import LessonPage from "../pages/Aprendiz/curso/LessonPage";
 import MentoriasPage from "../pages/Aprendiz/mentorias/MentoriasPage";
 import ProyectsPage from "../pages/Aprendiz/proyectos/ProyectsPage";
 import SearchPage from "../pages/SearchPage";
-import DashboardPage from "@/pages/DashboardPage";
-import LoginPage from "@/pages/LoginPage";
+import DashboardPage from "@/pages/Aprendiz/DashboardPage";
+import LoginPage from "@/pages/Login/LoginPage";
 
 // Importar la nueva página de Mentor
 import MentorDashboardPage from "@/pages/mentor/MentorDashboardPage";

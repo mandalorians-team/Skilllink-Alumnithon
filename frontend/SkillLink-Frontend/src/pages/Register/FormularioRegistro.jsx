@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Navbar from '../../components/Main/Navbar';
 import Footer from '../../components/Main/Footer';
 
+
 const paises = [
   "Colombia", "Argentina", "México", "Chile", "Perú", "España", "Estados Unidos", "Canadá", "Brasil", "Uruguay"
 ];
@@ -36,6 +37,7 @@ const FormularioRegistro = () => {
   const [showPopup, setShowPopup] = useState(false);
   const formRef = useRef(null);
   const [formHeight, setFormHeight] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (formRef.current) {
@@ -57,6 +59,8 @@ const FormularioRegistro = () => {
     }
   };
 
+
+/*Funcion para validar los campos del formulario*/
   const validar = () => {
     const nuevosErrores = {};
     if (!formData.rol) nuevosErrores.rol = 'Selecciona un rol';
@@ -71,6 +75,8 @@ const FormularioRegistro = () => {
     return nuevosErrores;
   };
 
+  /*Funcion para manejar el envio del formulario*/
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const erroresValidados = validar();
@@ -78,6 +84,7 @@ const FormularioRegistro = () => {
       setErrores(erroresValidados);
     } else {
       setErrores({});
+      setIsLoading(true);
       // Construir el payload según lo espera el backend
       const payload = {
         username: formData.correo, // O puedes pedir un campo username propio
@@ -94,13 +101,14 @@ const FormularioRegistro = () => {
       };
 
       try {
-        const response = await fetch('http://localhost:8081/api/auth/register', {
+          const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/register`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(payload)
         });
+        console.log(response);
 
         if (response.ok) {
           setShowPopup(true);
@@ -130,7 +138,8 @@ const FormularioRegistro = () => {
       } catch (err) {
         alert("Error de conexión con el servidor.");
       }
-    }
+      setIsLoading(false);
+      }
   };
 
   return (
@@ -261,10 +270,11 @@ const FormularioRegistro = () => {
               </div>
 
               <button
+                disabled={isLoading}
                 type="submit"
                 className="md:col-span-2 bg-gradient-to-r from-[#799EB8] to-[#678a9d] text-white font-bold py-2 px-4 rounded hover:scale-105 transition"
               >
-                Registrarse
+                {isLoading ? "Registrando..." : "Registrarse"}
               </button>
             </form>
           </div>
