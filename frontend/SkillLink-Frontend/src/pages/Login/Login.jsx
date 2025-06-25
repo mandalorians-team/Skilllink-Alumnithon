@@ -1,34 +1,66 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Main/Navbar";
 import Footer from "../../components/Main/Footer";
+import { useAuth } from "../../context/AuthContext";
+
 import "../../index.css";
 
 export default function Login() {
+  const { login } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Usuario y contraseña de prueba, debe ser eliminado cuando se integre con el backend
-  // y se implemente la autenticación real.
-  const dummyEmail = "test@skilllink.com";
-  const dummyPassword = "123456";
+  // Escuchar eventos para llenar credenciales de prueba
+  useEffect(() => {
+    const handleFillCredentials = () => {
+      setEmail("");
+      setPassword("");
+    };
 
-  const handleLogin = (e) => {
+    window.addEventListener("fillCredentials", handleFillCredentials);
+    return () => {
+      window.removeEventListener("fillCredentials", handleFillCredentials);
+    };
+  }, []);
+
+  const handleLogin = async (e) => {
     e.preventDefault();
     setError(null);
+    setIsLoading(true);
 
-    if (email === dummyEmail && password === dummyPassword) {
-      navigate("/perfilestudiante");
-    } else {
-      setError("Email o contraseña incorrectos");
+    try {
+      // Validación básica
+      if (!email || !password) {
+        throw new Error("Por favor, completa todos los campos");
+      }
+
+      // Intentar iniciar sesión con el backend
+      const user = await login(email, password);
+      // Redirección según el rol
+      if (user.role === "admin") {
+        navigate("/admin");
+      } else if (user.role === "learner") {
+        navigate("/dashboard");
+      } else if (user.role === "mentor") {
+        navigate("/mentor/dashboard");
+      } else {
+        navigate("/dashboard");
+      }
+    } catch (err) {
+      setError(err.message || "Email o contraseña incorrectos");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <div className="min-h-screen flex flex-col bg-[#B8CFDF] font-sans">
       <Navbar />
+
 
       <main className="flex flex-col md:flex-row flex-grow pt-[55px]">
         <div className="md:w-[40%] w-full flex justify-end pr-4 items-center relative z-10">
@@ -47,12 +79,27 @@ export default function Login() {
               Inicia sesión y únete a la aventura SkillLink.
             </p>
 
+            {/* Notificación del estado del servidor
+            {!serverStatus && (
+              <div className="mb-4 p-3 bg-red-500/20 border border-red-500/50 rounded-md">
+                <p className="text-red-400 text-sm text-center">
+                  ⚠️ El servidor no está disponible. Algunas funciones pueden no
+                  funcionar correctamente.
+                </p>
+              </div>
+            )}
+              */}
+
+            {/* Ayuda de credenciales de prueba
+            <TestCredentialsHelper />
+            */}
+
             <form onSubmit={handleLogin}>
               <input
-                type="email"
+                type="text"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="tu.email@ejemplo.com"
+                placeholder="tu.usuario@ejemplo.com"
                 className="w-full mb-3 px-4 py-2 rounded bg-black border border-[#393D47] text-[#8C8D8B] text-sm focus:outline-none focus:ring-2 focus:ring-[#799EB8] focus:border-[#799EB8] transition duration-300"
               />
               <input
@@ -64,9 +111,11 @@ export default function Login() {
               />
               <button
                 type="submit"
-                className="w-full py-2 bg-gradient-to-r from-[#799EB8] to-[#678a9d] text-white rounded-md mb-4 text-sm font-semibold hover:scale-105 hover:brightness-110 transition-all duration-500 relative overflow-hidden"
-              >
-                <span className="relative z-10">Iniciar Sesión</span>
+                disabled={isLoading}
+                className="w-full py-2 bg-gradient-to-r from-[#799EB8] to-[#678a9d] text-white rounded-md mb-4 text-sm font-semibold hover:scale-105 hover:brightness-110 transition-all duration-500 relative overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100">
+                <span className="relative z-10">
+                  {isLoading ? "Iniciando sesión..." : "Iniciar Sesión"}
+                </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 blur-sm"></div>
               </button>
 
@@ -76,8 +125,7 @@ export default function Login() {
               ].map(({ img, label }) => (
                 <button
                   key={label}
-                  className="w-full py-2 mb-2 border text-sm rounded-md flex items-center justify-center gap-2 bg-white hover:bg-gray-100 hover:scale-105 transition-transform duration-300"
-                >
+                  className="w-full py-2 mb-2 border text-sm rounded-md flex items-center justify-center gap-2 bg-white hover:bg-gray-100 hover:scale-105 transition-transform duration-300">
                   <img src={`/images/${img}`} alt={label} className="h-5 w-5" />{" "}
                   Continuar con {label}
                 </button>
@@ -85,16 +133,14 @@ export default function Login() {
 
               <p
                 className="text-center text-[#799EB8] text-sm hover:underline cursor-pointer mb-2 transition"
-                onClick={() => navigate("/restablecer")}
-              >
+                onClick={() => navigate("/restablecer")}>
                 ¿Olvidaste tu contraseña?
               </p>
               <p className="text-center text-white text-sm">
                 ¿No tienes una cuenta?{" "}
                 <span
                   className="text-[#799EB8] hover:underline cursor-pointer transition"
-                  onClick={() => navigate("/registro")}
-                >
+                  onClick={() => navigate("/registro")}>
                   Regístrate
                 </span>
               </p>
@@ -115,6 +161,8 @@ export default function Login() {
       </main>
 
       <Footer />
+
+
     </div>
   );
 }

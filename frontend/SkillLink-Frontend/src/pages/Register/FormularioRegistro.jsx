@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Navbar from '../../components/Main/Navbar';
 import Footer from '../../components/Main/Footer';
 
+
 const paises = [
   "Colombia", "Argentina", "México", "Chile", "Perú", "España", "Estados Unidos", "Canadá", "Brasil", "Uruguay"
 ];
@@ -36,12 +37,13 @@ const FormularioRegistro = () => {
   const [showPopup, setShowPopup] = useState(false);
   const formRef = useRef(null);
   const [formHeight, setFormHeight] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (formRef.current) {
       setFormHeight(formRef.current.clientHeight);
     }
-  }, [formData]); 
+  }, [formData]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -57,6 +59,8 @@ const FormularioRegistro = () => {
     }
   };
 
+
+/*Funcion para validar los campos del formulario*/
   const validar = () => {
     const nuevosErrores = {};
     if (!formData.rol) nuevosErrores.rol = 'Selecciona un rol';
@@ -71,17 +75,71 @@ const FormularioRegistro = () => {
     return nuevosErrores;
   };
 
-  const handleSubmit = (e) => {
+  /*Funcion para manejar el envio del formulario*/
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const erroresValidados = validar();
     if (Object.keys(erroresValidados).length > 0) {
       setErrores(erroresValidados);
     } else {
       setErrores({});
-      console.log('Formulario enviado ✅', formData);
-      setShowPopup(true);
-      setTimeout(() => setShowPopup(false), 3000);
-    }
+      setIsLoading(true);
+      // Construir el payload según lo espera el backend
+      const payload = {
+        username: formData.correo, // O puedes pedir un campo username propio
+        password: formData.contraseña,
+        email: formData.correo,
+        role: formData.rol === "Mentor" ? "MENTOR" : formData.rol === "Estudiante" ? "LEARNER" : "",
+        firstName: formData.nombres,
+        lastName: formData.apellidos,
+        photoUrl: "",
+        bio: "",
+        experience: "",
+        education: "",
+        linkedinProfile: ""
+      };
+
+      try {
+          const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/register`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+        console.log(response);
+
+        if (response.ok) {
+          setShowPopup(true);
+          setTimeout(() => setShowPopup(false), 3000);
+          setFormData({
+            nombres: '',
+            apellidos: '',
+            correo: '',
+            contraseña: '',
+            confirmarContraseña: '',
+            telefono: '',
+            pais: '',
+            habilidades: [],
+            intereses: [],
+            idioma: 'es',
+            suscripcion: false,
+            aceptoTerminos: false,
+            rol: ''
+          });
+        } else {
+          const errorData = await response.json();
+          alert(
+            errorData.message ||
+            "Error en el registro. Verifica los datos ingresados o intenta más tarde."
+          );
+        }
+      } catch (err) {
+        alert("Error de conexión con el servidor.");
+      }
+      setIsLoading(false);
+      }
   };
 
   return (
@@ -89,7 +147,7 @@ const FormularioRegistro = () => {
       <Navbar />
       <main className="flex-grow flex justify-center items-start px-4 py-8 pt-20">
         <div className="flex w-full max-w-6xl gap-4 items-stretch">
-          
+
           {/* Imagen izquierda */}
           <div className="hidden md:flex">
             <img
@@ -212,10 +270,11 @@ const FormularioRegistro = () => {
               </div>
 
               <button
+                disabled={isLoading}
                 type="submit"
                 className="md:col-span-2 bg-gradient-to-r from-[#799EB8] to-[#678a9d] text-white font-bold py-2 px-4 rounded hover:scale-105 transition"
               >
-                Registrarse
+                {isLoading ? "Registrando..." : "Registrarse"}
               </button>
             </form>
           </div>

@@ -1,7 +1,7 @@
 
 
 export default function PerfilEstudiante() {
- 
+
 
   const habilidades = [
     'JavaScript', 'React', 'TypeScript', 'Tailwind CSS', 'Node.js',
@@ -27,13 +27,13 @@ export default function PerfilEstudiante() {
       <Header />
 
       <div className="flex flex-1 mt-14">
-       
+
 
         <main className="flex-1 p-4 space-y-4">
           <h1 className="text-3xl font-bold text-white font-orbitron">Mi Perfil</h1>
 
           <section className="bg-[#19191F] rounded p-4 relative">
-            <Link 
+            <Link
               to="/perfil"
               className="absolute top-2 right-2 bg-primary text-white text-xs font-semibold px-3 py-1 rounded hover:bg-secondary transition duration-300"
             >
@@ -128,7 +128,7 @@ export default function PerfilEstudiante() {
       </div>
 
       <div className="mt-6">
-      
+
       </div>
     </div>
   );

@@ -41,6 +41,7 @@ const mentorLinks = [
   { path: "/mentor/cursos", icon: BookCopy, label: "Mis Cursos" },
   { path: "/mentor/agenda", icon: CalendarDays, label: "Agenda" },
   { path: "/mentor/chat", icon: MessageSquare, label: "Chat" },
+  { path: "/mentor/perfil", icon: User, label: "Perfil" },
   { path: "/mentor/configuracion", icon: Settings, label: "Configuración" },
 ];
 
@@ -49,6 +50,7 @@ const adminLinks = [
   { path: "/admin/usuarios", icon: Users, label: "Usuarios" },
   { path: "/admin/cursos", icon: BookCopy, label: "Cursos" },
   { path: "/admin/agenda", icon: CalendarDays, label: "Agenda" },
+  { path: "/admin/perfil", icon: User, label: "Perfil" },
   { path: "/admin/chat", icon: MessageSquare, label: "Chat" },
 ];
 // --- Componente NavLink reutilizable ---
@@ -138,14 +140,20 @@ export default function Sidebar() {
 
           {isAuthenticated && user && (
             <div className="flex items-center justify-between h-full pt-20">
-              <img src={avatar} alt="logo" className="w-10 h-10 rounded-full" />
+              <img
+                src={user.imagen || avatar}
+                alt="logo"
+                className="w-10 h-10 rounded-full object-cover"
+              />
 
               <Link
                 to="/perfil"
                 className="flex items-center px-2 text-card-subtitle hover:text-white transition-colors">
                 <div className="flex flex-col items-start">
                   <h1 className="text-white text-xs font-semibold">
-                    {user.name}
+                    {user.firstName && user.lastName
+                      ? `${user.firstName} ${user.lastName}`
+                      : user.username || "Usuario"}
                   </h1>
                   <span className="text-card-subtitle text-xs capitalize">
                     {role}
