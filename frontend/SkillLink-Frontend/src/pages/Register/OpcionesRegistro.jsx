@@ -42,7 +42,7 @@ function Registro() {
             </div>
 
             {/* BOTÓN QUE REDIRIGE AL FORMULARIO COMPLETO */}
-            <Link to="/registro-basico">
+            <Link to="/formularioregistro">
               <button className="group mt-5 w-full h-10 bg-gradient-to-r from-[#799EB8] to-[#5b88a5] text-white rounded-md text-sm font-semibold shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105">
                 <span className="group-hover:tracking-wide transition-all">Registrarme Ahora</span>
               </button>
