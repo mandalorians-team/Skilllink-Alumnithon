@@ -22,16 +22,13 @@ import AgendaPage from "@/pages/mentor/AgendaPage";
 import ChatPage from "@/pages/mentor/ChatPage";
 import ConfiguracionPage from "@/pages/mentor/ConfiguracionPage";
 
-// Importar desde ChatPage
-import ChatPage from "../pages/Chat/ChatPage";
-
 // Importar desde Error404
-import Error404 from "../pages/Error404/Error404";
+import Error404 from "@/pages/Error404/Error404";
 
 // Importar desde MentorProfile
-import DashboardMentor from "../pages/MentorProfile/DashboardMentor";
-import MentorProfilePage from "../pages/MentorProfile/MentorProfilePage";
-import MentorPage from "../pages/MentorProfile/MentorPage";
+import DashboardMentor from "@/pages/MentorProfile/DashboardMentor";
+import MentorProfilePage from "@/pages/MentorProfile/MentorProfilePage";
+import MentorPage from "@/pages/MentorProfile/MentorPage";
 
 
 const ProtectedRoute = ({ children }) => {
