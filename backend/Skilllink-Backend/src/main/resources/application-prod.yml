@@ -1,14 +1,18 @@
 spring:
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/skilllink_db}
-    username: ${DB_USERNAME:postgres}
-    password: ${DB_PASSWORD:123456}
-    driver-class-name: org.postgresql.Driver
-  jpa:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/skilllink_db?useSSL=false&serverTimezone=UTC}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:1234}
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
+  jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
 
 server:
   port: 8080
@@ -20,5 +24,5 @@ skilllink:
     allowed-headers: "*"
 
 jwt:
-  secret: ${JWT_SECRET:CHANGE_ME_SECRET_KEY}      # Get from env vars
+  secret: ${JWT_SECRET:CHANGE_ME_SECRET_KEY}
   expiration-ms: ${JWT_EXPIRATION_MS:86400000}
