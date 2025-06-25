@@ -26,6 +26,13 @@ import SearchPage from "./pages/SearchPage";
 import DashboardPage from "./pages/DashboardPage";
 import PerfilEstudiante from "./pages/Aprendiz/PerfilEstudiante";
 import PanelEstudiante from "./pages/Aprendiz/PanelEstudiante";
+import MentorRoutes from "./routes/MentorRoutes";
+import MentorDashboardPage from "./pages/mentor/MentorDashboardPage";
+import AgendaPage from "./pages/mentor/AgendaPage";
+import ChatPage from "./pages/mentor/ChatPage";
+import MisCursosPage from "./pages/mentor/MisCursosPage";
+import ConfiguracionPage from "./pages/mentor/ConfiguracionPage";
+import MisAlumnosPage from "./pages/mentor/MisAlumnosPage";
 
 /**
  * El Layout principal de la aplicación.
