@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Main/Navbar";
 import Footer from "../../components/Main/Footer";
 import { useAuth } from "../../context/AuthContext";
-import TestCredentialsHelper from "../../components/Login/TestCredentialsHelper";
+
 import "../../index.css";
 
 export default function Login() {
-  const { login, serverStatus } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,10 +16,9 @@ export default function Login() {
 
   // Escuchar eventos para llenar credenciales de prueba
   useEffect(() => {
-    const handleFillCredentials = (event) => {
-      const { email, password } = event.detail;
-      setEmail(email);
-      setPassword(password);
+    const handleFillCredentials = () => {
+      setEmail("");
+      setPassword("");
     };
 
     window.addEventListener("fillCredentials", handleFillCredentials);
@@ -39,14 +38,18 @@ export default function Login() {
         throw new Error("Por favor, completa todos los campos");
       }
 
-      // Verificar si el servidor está disponible
-      if (!serverStatus) {
-        throw new Error("El servidor no está disponible. Inténtalo más tarde.");
-      }
-
       // Intentar iniciar sesión con el backend
-      await login(email, password);
-      navigate("/dashboard");
+      const user = await login(email, password);
+      // Redirección según el rol
+      if (user.role === "admin") {
+        navigate("/admin");
+      } else if (user.role === "learner") {
+        navigate("/dashboard");
+      } else if (user.role === "mentor") {
+        navigate("/mentor/dashboard");
+      } else {
+        navigate("/dashboard");
+      }
     } catch (err) {
       setError(err.message || "Email o contraseña incorrectos");
     } finally {
@@ -57,6 +60,7 @@ export default function Login() {
   return (
     <div className="min-h-screen flex flex-col bg-[#B8CFDF] font-sans">
       <Navbar />
+
 
       <main className="flex flex-col md:flex-row flex-grow pt-[55px]">
         <div className="md:w-[40%] w-full flex justify-end pr-4 items-center relative z-10">
@@ -75,7 +79,7 @@ export default function Login() {
               Inicia sesión y únete a la aventura SkillLink.
             </p>
 
-            {/* Notificación del estado del servidor */}
+            {/* Notificación del estado del servidor
             {!serverStatus && (
               <div className="mb-4 p-3 bg-red-500/20 border border-red-500/50 rounded-md">
                 <p className="text-red-400 text-sm text-center">
@@ -84,16 +88,18 @@ export default function Login() {
                 </p>
               </div>
             )}
+              */}
 
-            {/* Ayuda de credenciales de prueba */}
+            {/* Ayuda de credenciales de prueba
             <TestCredentialsHelper />
+            */}
 
             <form onSubmit={handleLogin}>
               <input
-                type="email"
+                type="text"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="tu.email@ejemplo.com"
+                placeholder="tu.usuario@ejemplo.com"
                 className="w-full mb-3 px-4 py-2 rounded bg-black border border-[#393D47] text-[#8C8D8B] text-sm focus:outline-none focus:ring-2 focus:ring-[#799EB8] focus:border-[#799EB8] transition duration-300"
               />
               <input
@@ -155,6 +161,8 @@ export default function Login() {
       </main>
 
       <Footer />
+
+
     </div>
   );
 }
