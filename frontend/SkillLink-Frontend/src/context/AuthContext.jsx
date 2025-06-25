@@ -1,5 +1,8 @@
-import React, { createContext, useState, useContext } from "react";
-import { loginUser as apiLogin } from "@/services/BackendServices";
+import React, { createContext, useState, useContext, useEffect } from "react";
+import {
+  loginUser as apiLogin,
+  checkServerHealth,
+} from "@/services/BackendServices";
 
 // 1. Crear el Contexto
 const AuthContext = createContext(null);
@@ -9,9 +12,7 @@ export { AuthContext };
 
 // 2. Crear el Proveedor del Contexto
 export function AuthProvider({ children }) {
- 
   const [user, setUser] = useState(() => {
-
     // Al iniciar, intentamos leer el usuario desde localStorage
     try {
       const storedUser = localStorage.getItem("user");
@@ -22,12 +23,38 @@ export function AuthProvider({ children }) {
     }
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [serverStatus, setServerStatus] = useState(true); // true = disponible
+
+  // Verificar el estado del servidor al cargar
+  useEffect(() => {
+    const checkServer = async () => {
+      const isAvailable = await checkServerHealth();
+      setServerStatus(isAvailable);
+    };
+    checkServer();
+  }, []);
+
   // Función para iniciar sesión llamando a la API
   const login = async (email, password) => {
-    const userData = await apiLogin(email, password);
-    setUser(userData);
-    localStorage.setItem("user", JSON.stringify(userData));
-    return userData; // Devuelve los datos por si el componente los necesita
+    setIsLoading(true);
+    try {
+      const userData = await apiLogin(email, password);
+      setUser(userData);
+      localStorage.setItem("user", JSON.stringify(userData));
+      return userData; // Devuelve los datos por si el componente los necesita
+    } catch (error) {
+      // Si hay error de conexión, actualizar el estado del servidor
+      if (
+        error.message.includes("conexión") ||
+        error.message.includes("servidor")
+      ) {
+        setServerStatus(false);
+      }
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // Función para simular el cierre de sesión
@@ -35,7 +62,21 @@ export function AuthProvider({ children }) {
     setUser(null);
     // Removemos el usuario de localStorage
     localStorage.removeItem("user");
-    console.log("Simulando cierre de sesión.");
+    console.log("Sesión cerrada exitosamente.");
+  };
+
+  // Función para verificar si la sesión sigue siendo válida
+  const checkSession = async () => {
+    if (!user) return false;
+
+    try {
+      const isAvailable = await checkServerHealth();
+      setServerStatus(isAvailable);
+      return isAvailable;
+    } catch (error) {
+      setServerStatus(false);
+      return false;
+    }
   };
 
   // El valor que se pasará a los componentes hijos
@@ -46,6 +87,9 @@ export function AuthProvider({ children }) {
     role: import.meta.env.VITE_SHOW_ROLES === "true" ? user?.role : null, // El rol del usuario o null
     login,
     logout,
+    isLoading,
+    serverStatus,
+    checkSession,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
