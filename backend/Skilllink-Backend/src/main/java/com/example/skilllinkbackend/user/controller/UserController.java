@@ -2,6 +2,7 @@ package com.example.skilllinkbackend.user.controller;
 
 import com.example.skilllinkbackend.user.entity.User;
 import com.example.skilllinkbackend.user.repository.UserRepository;
+import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class UserController {
      * UserController handles HTTP requests related to User entities.
      * It provides endpoints to add a new user and retrieve all users.
      */
+    @Hidden
     @PostMapping
     @io.swagger.v3.oas.annotations.Operation(
             summary = "Add a new user",
