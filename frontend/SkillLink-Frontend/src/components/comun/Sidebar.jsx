@@ -151,7 +151,9 @@ export default function Sidebar() {
                 className="flex items-center px-2 text-card-subtitle hover:text-white transition-colors">
                 <div className="flex flex-col items-start">
                   <h1 className="text-white text-xs font-semibold">
-                    {user.name}
+                    {user.firstName && user.lastName
+                      ? `${user.firstName} ${user.lastName}`
+                      : user.username || "Usuario"}
                   </h1>
                   <span className="text-card-subtitle text-xs capitalize">
                     {role}
