@@ -15,7 +15,7 @@ const MentorProfilePage = () => {
                 <div className="profile-card">
                     <div className="left">
                     <img
-                        src="https://randomuser.me/api/portraits/men/75.jpg"
+                        src="../../assets/mentor-photo.jpg"
                         alt="mentor"
                         className="mentor-photo"
                     />
