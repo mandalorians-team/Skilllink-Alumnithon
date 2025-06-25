@@ -7,16 +7,17 @@ import {
 } from "react-router-dom";
 
 import Header from "./components/comun/Header";
+import Navbar from "./components/Main/Navbar";
 import Footer from "./components/comun/Footer";
 import Sidebar from "./components/comun/Sidebar";
 import CurseTabs from "./components/Aprendiz/Curso/CourseTabs";
-import AppRoutes from "./routes/AppRoutes";
-import MainPage from "./pages/Login/MainPage";
-import Registro from "./pages/Login/Registro";
-import FormularioRegistro from "./pages/Login/FormularioRegistro";
+
+import MainPage from "./pages/LandingPage/MainPage";
+import Registro from "./pages/Register/OpcionesRegistro";
+import FormularioRegistro from "./pages/Register/FormularioRegistro";
 import Login from "./pages/Login/Login";
-import ResetPassword from "./pages/Login/ResetPassword";
-import ChangePassword from "./pages/Login/ChangePassword";
+import ResetPassword from "./pages/ChangePassword/ResetPassword";
+import ChangePassword from "./pages/ChangePassword/ChangePassword";
 import Courses from "./pages/Aprendiz/curso/Courses";
 import CourseLayoutPage from "./pages/Aprendiz/curso/CourseLayoutPage";
 import CourseContentPage from "./pages/Aprendiz/curso/CourseContentPage";
@@ -28,40 +29,33 @@ import SearchPage from "./pages/SearchPage";
 import DashboardPage from "./pages/Aprendiz/DashboardPage";
 import PerfilEstudiante from "./pages/Aprendiz/PerfilEstudiante";
 import PanelEstudiante from "./pages/Aprendiz/PanelEstudiante";
-import MentorRoutes from "./routes/MentorRoutes";
-import MentorDashboardPage from "./pages/mentor/MentorDashboardPage";
-import AgendaPage from "./pages/mentor/AgendaPage";
-import ChatPage from "./pages/mentor/ChatPage";
-import MisCursosPage from "./pages/mentor/MisCursosPage";
-import ConfiguracionPage from "./pages/mentor/ConfiguracionPage";
-import MisAlumnosPage from "./pages/mentor/MisAlumnosPage";
-
 import TestCertificacion from "./components/TestCertificacion";
 
 function Layout() {
   const location = useLocation();
 
-  const showHeader = /^\/(dashboard|courses|mentorias|proyectos|perfil|panel)(\/\d+)?$/.test(
+  // Páginas donde quieres que aparezca el Navbar
+  const showNavbar = /^(\/|\/registro|\/registro-basico|\/login|\/restablecer)$/.test(location.pathname);
+
+  const showHeader = !showNavbar && /^\/(dashboard|courses|mentorias|proyectos|perfil|panel)(\/\d+)?$/.test(
     location.pathname
   );
-  const showFooter = showHeader;
-  const isCourseTabs = /^\/courses\/[^/]+(\/.*)?$/.test(location.pathname);
 
-  const hideSidebar =
-    /^(\/login|\/registro|\/registro-basico|\/restablecer|\/cambiar-password|\/panelestudiante|\/perfilestudiante|\/)$/.test(
-      location.pathname
-    );
+  const showFooter = showHeader || showNavbar;
+
+  const isCourseTabs = /^\/courses\/[^/]+(\/.*)?$/.test(location.pathname);
 
   return (
     <div className="flex min-h-screen bg-page-background-color">
       <Sidebar />
       <div className="flex-1 flex flex-col ml-64">
-        {showHeaderFooter && <Header />}
+        {showNavbar && <Navbar />}
+        {showHeader && <Header />}
         {isCourseTabs && <CurseTabs />}
         <main className="p-6 bg-blue-200 flex-grow">
           <Outlet />
         </main>
-        {showHeaderFooter && <Footer />}
+        {showFooter && <Footer />}
       </div>
     </div>
   );
@@ -89,12 +83,12 @@ export default function App() {
           <Route path="proyectos" element={<CourseProyectsPage />} />
         </Route>
 
-        {/* Otras secciones */}
         <Route path="mentorias" element={<MentoriasPage />} />
         <Route path="proyectos" element={<ProyectsPage />} />
         <Route path="search" element={<SearchPage />} />
         <Route path="perfil" element={<PerfilEstudiante />} />
-        <Route path="panel" element={<PanelEstudiante />} /> 
+        <Route path="panel" element={<PanelEstudiante />} />
+      </Route>
 
       {/* 404 */}
       <Route path="*" element={<div>Página no encontrada</div>} />
