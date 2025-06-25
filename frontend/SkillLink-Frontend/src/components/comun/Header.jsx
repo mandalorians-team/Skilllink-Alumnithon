@@ -47,7 +47,10 @@ export default function Header() {
           </span>
           {role && (
             <span className="text-base sm:text-lg text-white font-medium">
-              {getHeaderText()}
+              {user && user.firstName && user.lastName
+                ? `${user.firstName} ${user.lastName}`
+                : user?.username || "Usuario"}{" "}
+              - {getHeaderText()}
             </span>
           )}
         </div>
