@@ -5,6 +5,8 @@ import Footer from "../../components/Main/Footer";
 import "../../index.css";
 
 export default function PerfilEstudiante() {
+ 
+
   const habilidades = [
     'JavaScript', 'React', 'TypeScript', 'Tailwind CSS', 'Node.js',
     'Express.js', 'MongoDB', 'GraphQL', 'Docker', 'Git'
@@ -26,31 +28,34 @@ export default function PerfilEstudiante() {
 
   return (
     <div className="flex flex-col min-h-screen bg-[#B8CFDF]">
-      <Navbar />
+      <Header />
 
-      <main className="flex-1 p-4 space-y-4 mt-14">
-        <h1 className="text-3xl font-bold text-white font-orbitron">Mi Perfil</h1>
+      <div className="flex flex-1 mt-14">
+       
 
-        <section className="bg-[#19191F] rounded p-4 relative">
-          <Link 
-            to="/perfil"
-            className="absolute top-2 right-2 bg-primary text-white text-xs font-semibold px-3 py-1 rounded hover:bg-secondary transition duration-300"
-          >
-            Editar Perfil
-          </Link>
-          <div className="flex items-center space-x-4">
-            <img src="/images/Mentor 3.jpg" alt="Avatar" className="w-16 h-16 rounded-full object-cover" />
-            <div>
-              <p className="font-bold text-lg text-white">Javier Delgado</p>
-              <p className="text-sm text-[#8C8D8B]">Desarrollador Web</p>
-              <p className="text-xs text-gray-400">
-                Aprendiz apasionado del desarrollo web, con ganas de aprender y contribuir a proyectos innovadores.
-                Especializado en tecnologías front-end y principios UI/UX. Comprometido con el crecimiento continuo y
-                la resolución colaborativa de problemas.
-              </p>
+        <main className="flex-1 p-4 space-y-4">
+          <h1 className="text-3xl font-bold text-white font-orbitron">Mi Perfil</h1>
+
+          <section className="bg-[#19191F] rounded p-4 relative">
+            <Link 
+              to="/perfil"
+              className="absolute top-2 right-2 bg-primary text-white text-xs font-semibold px-3 py-1 rounded hover:bg-secondary transition duration-300"
+            >
+              Editar Perfil
+            </Link>
+            <div className="flex items-center space-x-4">
+              <img src="/images/Mentor 3.jpg" alt="Avatar" className="w-16 h-16 rounded-full object-cover" />
+              <div>
+                <p className="font-bold text-lg text-white">Javier Delgado</p>
+                <p className="text-sm text-[#8C8D8B]">Desarrollador Web</p>
+                <p className="text-xs text-gray-400">
+                  Aprendiz apasionado del desarrollo web, con ganas de aprender y contribuir a proyectos innovadores.
+                  Especializado en tecnologías front-end y principios UI/UX. Comprometido con el crecimiento continuo y
+                  la resolución colaborativa de problemas.
+                </p>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
 
         <div className="flex flex-col md:flex-row gap-4">
           <section className="bg-[#19191F] rounded p-4 w-full md:w-1/3">
@@ -98,24 +103,37 @@ export default function PerfilEstudiante() {
           </div>
         </section>
 
-        <section className="bg-[#19191F] rounded p-4">
-          <h2 className="text-lg mb-2 text-white font-bold font-orbitron">Insignias & Certificaciones</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {insignias.map((badge, i) => (
-              <div key={i} className="bg-[#282C34] rounded p-2 flex flex-col items-center">
-                <div className="flex items-center space-x-1 mb-1">
-                  <span className="text-xl">{badge.icon}</span>
-                  <p className="text-sm font-bold text-white font-orbitron">{badge.title}</p>
+          <section className="bg-[#19191F] rounded p-4">
+            <h2 className="text-lg mb-2 text-white font-bold font-orbitron">Insignias & Certificaciones</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {insignias.map((badge, i) => (
+                <div
+                  key={i}
+                  className="relative bg-[#282C34] rounded p-2"
+                  style={{ perspective: '1000px' }}
+                >
+                  <div className="relative w-full h-40 preserve-3d animate-flip-slow hover:pause-spin">
+                    <div className="absolute inset-0 flex flex-col justify-center items-center backface-hidden" style={{ transform: 'rotateY(0deg)' }}>
+                      <div className="flex items-center space-x-1 mb-1">
+                        <span className="text-xl">{badge.icon}</span>
+                        <p className="text-sm font-bold text-white font-orbitron">{badge.title}</p>
+                      </div>
+                      <p className="text-xs text-[#8C8D8B] text-center">{badge.desc}</p>
+                    </div>
+                    <div className="absolute inset-0 flex justify-center items-center backface-hidden" style={{ transform: 'rotateY(180deg)' }}>
+                      <img src={badge.img} alt="Insignia" className="h-full w-full object-contain" />
+                    </div>
+                  </div>
                 </div>
-                <p className="text-xs text-[#8C8D8B] text-center">{badge.desc}</p>
-                <img src={badge.img} alt="Insignia" className="h-20 w-20 object-contain mt-2" />
-              </div>
-            ))}
-          </div>
-        </section>
-      </main>
+              ))}
+            </div>
+          </section>
+        </main>
+      </div>
 
-      <Footer />
+      <div className="mt-6">
+      
+      </div>
     </div>
   );
 }

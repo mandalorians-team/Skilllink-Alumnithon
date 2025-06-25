@@ -1,14 +1,12 @@
 
-
 export default function PanelEstudiante() {
-  
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#B8CFDF]">
-      <Header />
+    <div className="flex flex-col min-h-screen">
+
 
       <div className="flex flex-1 mt-14"> {/* <-- Aquí el margen para evitar que se monte el Navbar */}
-      
+
 
         <main className="flex-1 p-6 space-y-6">
           <h1 className="text-3xl font-bold text-[#171A1F] font-orbitron">Vista del Panel</h1>
@@ -106,6 +104,8 @@ export default function PanelEstudiante() {
           </div>
         </main>
       </div>
+
+
     </div>
   );
 }

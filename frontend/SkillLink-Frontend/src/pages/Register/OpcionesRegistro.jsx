@@ -4,6 +4,9 @@ import Footer from '../../components/Main/Footer';
 import { Link } from 'react-router-dom';
 
 function Registro() {
+  
+
+
   return (
     <div className="min-h-screen font-sans bg-black flex flex-col justify-between">
       <Navbar />
