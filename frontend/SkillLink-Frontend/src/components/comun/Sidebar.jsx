@@ -31,7 +31,7 @@ const apprenticeLinks = [
   { path: "/mentorias", icon: MessageCircle, label: "Mentorias" },
   { path: "/proyectos", icon: CodeXml, label: "Proyectos" },
   { path: "/chat", icon: MessageSquare, label: "Chat" },
-  { path: "/perfil", icon: User, label: "Perfil" },
+  { path: "/perfilestudiante", icon: User, label: "Perfil" },
   { path: "/configuracion", icon: Settings, label: "Configuración" },
 ];
 
