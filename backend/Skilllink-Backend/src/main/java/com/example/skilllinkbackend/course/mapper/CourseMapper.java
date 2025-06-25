@@ -40,6 +40,17 @@ public class CourseMapper {
                 .build();
     }
 
+    public static Course toEntityForCreate(CourseDto dto, User instructor, Certification certificacion) {
+        return Course.builder()
+                .titulo(dto.getTitulo())
+                .descripcion(dto.getDescripcion())
+                .duracionHoras(dto.getDuracionHoras())
+                .nivel(dto.getNivel())
+                .instructor(instructor)
+                .certificacion(certificacion)
+                .build();  // No setea el id
+    }
+
     // 📤 Convierte Course a CourseResponseDto enriquecido con nombre de instructor y certificación
     public static CourseResponseDto toResponseDto(Course course) {
         if (course == null) return null;
