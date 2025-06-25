@@ -1,42 +1,12 @@
-import { Link, useLocation } from 'react-router-dom';
-import Header from '../../components/Main/Navbar';
-import Footer from '../../components/Main/Footer';
 
 export default function PanelEstudiante() {
-  const location = useLocation();
-
-  const links = [
-    { label: "Panel", to: "/panelestudiante" },
-    { label: "Mentores", to: "/mentorias" },
-    { label: "Cursos", to: "/courses" },
-    { label: "Mentorías", to: "/mentorias" },
-    { label: "Proyectos", to: "/proyectos" },
-    { label: "Perfil", to: "/perfilestudiante" },
-    { label: "Configuración", to: "/configuracion" }
-  ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#B8CFDF]">
-      <Header />
+    <div className="flex flex-col min-h-screen">
+
 
       <div className="flex flex-1 mt-14"> {/* <-- Aquí el margen para evitar que se monte el Navbar */}
-        <aside className="w-64 bg-[#19191F] p-4 hidden sm:block shadow-lg">
-          <nav className="space-y-2">
-            {links.map((item, i) => (
-              <Link
-                key={i}
-                to={item.to}
-                className={`block p-2 rounded ${
-                  location.pathname === item.to
-                    ? "bg-[#799EB8] text-white font-bold"
-                    : "hover:bg-gray-800 text-[#8C8D8B]"
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-        </aside>
+
 
         <main className="flex-1 p-6 space-y-6">
           <h1 className="text-3xl font-bold text-[#171A1F] font-orbitron">Vista del Panel</h1>
@@ -135,7 +105,7 @@ export default function PanelEstudiante() {
         </main>
       </div>
 
-      <Footer />
+
     </div>
   );
 }
