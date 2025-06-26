@@ -74,8 +74,9 @@ export default function AppRoutes() {
         <Route path="search" element={<SearchPage />} />
 
         {/* Rutas de Mentor */}
-        <Route path="/mentor/dashboard-mentor/" element={<DashboardMentor />} />
         <Route path="/mentor/profile" element={<MentorProfilePage />} />
+        <Route path="/mentor/dashboard-mentor/" element={<DashboardMentor />} />
+        <Route path="/mentor/mis-estudiantes" element={<MentorProfilePage />} />
       
         <Route path="mentor/alumnos" element={<MisAlumnosPage />} />
         <Route path="mentor/cursos" element={<MisCursosPage />} />
