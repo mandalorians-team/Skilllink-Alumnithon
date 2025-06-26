@@ -3,7 +3,7 @@ import { FaComments, FaClipboardList, FaChartBar, FaFilter, FaPlus } from 'react
 import '../../styles/StudentListPanel.css';
 
 const StudentListPanel = ({ courses }) => {
-  const [selectedCourseId] = useState(courses[0]?.id || null);
+  const [selectedCourseId, setSelectedCourseId] = useState(courses[0]?.id || null);
   const [search, setSearch] = useState('');
 
   const selectedCourse = courses.find(course => course.id === selectedCourseId);
