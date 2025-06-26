@@ -1,0 +1,157 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital@0;1&family=Orbitron:wght@400..900&display=swap");
+
+body {
+    --color-background: #b8cfdf;
+    --color-header: #0d121c;
+    --color-font: #ffffff;
+    --color-titulo: #f4f4f6;
+    --color-subtitulo: #8c8d8b;
+    --color-borde: #8cb6d9;
+    --color-chatbox: #1d232e;
+    --color-line: #6d6d6d;
+}
+
+.mentor-profile-container {
+    padding: 2rem;
+    background-color: #d2e3ef;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    overflow-y: auto;
+    height: calc(100vh - 60px);
+}
+
+h2 {
+    font-family: 'orbitron', sans-serif;
+}
+
+.mentor-profile h2,
+.course-management h2 {
+    font-size: 1.4rem;
+    color: var(--color-subtitulo);
+    margin-bottom: 1rem;
+}
+
+.course-management {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background: var(--color-header);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.profile-card {
+    display: flex;
+    background: #0d121c;
+    border-radius: 12px;
+    padding: 2rem;
+    gap: 2rem;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+}
+
+.mentor-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+.right label {
+    color: white;
+    font-weight: bold;
+    gap: 1.5rem;
+}
+
+.upload-btn {
+    padding: 8px 16px;
+    background-color: #f3f3f3;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.right input,
+.right textarea,
+.course-management input,
+.course-management textarea {
+    width: 100%;
+    margin: 1rem 0;
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 0.95rem;
+}
+
+.save-btn,
+.publish-btn {
+    background-color: #4e8bda;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 1rem;
+}
+
+.skill-tags span {
+    background-color: #d1ecf1;
+    color: #007b8a;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+.mentor-content-section {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.upload-card,
+.stats-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    flex: 1;
+    min-width: 300px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+}
+
+.upload-box {
+    width: 100%;
+    padding: 1rem;
+    margin-top: 1rem;
+    border: 2px dashed #aaa;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.stats-card .count {
+    font-size: 2.5rem;
+    font-weight: bold;
+    display: block;
+}
+
+.stats-card .chart {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.chat-section {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}

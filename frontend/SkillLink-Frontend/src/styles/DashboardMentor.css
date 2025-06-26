@@ -1,0 +1,62 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.carousel-container {
+    position: relative;
+    width: 80%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.dashboard-mentor {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 1rem;
+    padding: 1rem;
+    overflow-y: visible;
+    scrollbar-width: none; /* Firefox */
+}
+
+.dashboard-mentor::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+}
+
+.course-wrapper {
+    min-width: 300px;
+    flex: 0 0 auto;
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+.scroll-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    background-color: #ffffffdd;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    padding: 10px 15px;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(0,0,0,0.15);
+    transition: background-color 0.2s;
+}
+
+.scroll-button:hover {
+    background-color: #f0f0f0;
+}
+
+.scroll-button.left {
+    left: 5px;
+}
+
+.scroll-button.right {
+    right: 5px;
+}

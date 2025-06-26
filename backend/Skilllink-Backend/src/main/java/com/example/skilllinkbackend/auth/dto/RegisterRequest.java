@@ -43,8 +43,8 @@ public class RegisterRequest {
     private String education;
 
     //validations
-    @Pattern(regexp = "^(https?://)?(www\\.)?linkedin\\.com/in/[^\\s/$.?#].[^\\s]*$",
-             message = "Invalid LinkedIn profile URL")
+ /*   @Pattern(regexp = "^(https?://)?(www\\.)?linkedin\\.com/in/[^\\s/$.?#].[^\\s]*$",
+             message = "Invalid LinkedIn profile URL")*/
     private String linkedinProfile;
 }
 

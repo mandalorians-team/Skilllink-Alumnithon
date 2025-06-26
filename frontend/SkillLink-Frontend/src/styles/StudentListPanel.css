@@ -1,0 +1,148 @@
+.student-panel {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  overflow-y: visible;
+  max-height: none;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+  margin: 20px auto;
+  max-width: auto;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.panel-header h2 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.top-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: #f3f3f3;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.add-student-btn {
+  background: #0d99ff;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+  align-items: center;
+}
+
+.toolbar input {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  flex: 1;
+  margin-right: 20px;
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;
+}
+
+.tabs button {
+  background: #f3f3f3;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.tabs .active-tab {
+  background: white;
+  border-bottom: 2px solid #0d99ff;
+  font-weight: 600;
+}
+
+.student-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.student-table th {
+  text-align: left;
+  color: #666;
+  font-weight: 500;
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.student-table td {
+  padding: 16px 12px;
+  vertical-align: middle;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.student-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.student-info img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.student-name {
+  font-weight: 500;
+}
+
+.student-email {
+  font-size: 0.85em;
+  color: #888;
+}
+
+.progress-bar {
+  background: #e1e8f0;
+  height: 8px;
+  border-radius: 10px;
+  width: 100px;
+  margin-bottom: 4px;
+}
+
+.fill {
+  height: 100%;
+  background-color: #6699cc;
+}
+
+.progress-percent {
+  font-size: 0.9em;
+  color: #444;
+}
+
+.actions svg {
+  margin-right: 10px;
+  cursor: pointer;
+  color: #555;
+}
