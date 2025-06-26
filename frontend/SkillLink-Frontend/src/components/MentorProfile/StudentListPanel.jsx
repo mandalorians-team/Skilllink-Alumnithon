@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FaComments, FaClipboardList, FaChartBar, FaFilter, FaPlus } from 'react-icons/fa';
 import ProgressOverviewPanel from './ProgressOverviewPanel';
 import StudentFilterPanel from './StudentFilterPanel';
+import ManageEvaluationsPanel from './ManageEvaluationsPanel';
 import '../../styles/StudentListPanel.css';
 
 const StudentListPanel = ({ courses }) => {
@@ -57,7 +58,7 @@ const StudentListPanel = ({ courses }) => {
           Progreso General
         </button>
         <button className={activeTab === 'evaluations' ? 'active-tab' : ''} onClick={() => setActiveTab('evaluations')}>
-          Administración de Evaluaciones
+          Gestión de Evaluaciones
         </button>
       </div>
 
@@ -106,7 +107,7 @@ const StudentListPanel = ({ courses }) => {
         {activeTab === 'overview' && <ProgressOverviewPanel course={selectedCourse} />}
 
         {activeTab === 'evaluations' && (
-          <p style={{ padding: '2rem' }}>Evaluations panel coming soon...</p>
+          <ManageEvaluationsPanel course={selectedCourse} />
         )}
       </div>
     </div>
