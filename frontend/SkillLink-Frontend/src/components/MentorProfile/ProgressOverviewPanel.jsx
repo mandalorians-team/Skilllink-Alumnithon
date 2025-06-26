@@ -43,7 +43,7 @@ const ProgressOverviewPanel = ({ course }) => {
 
   return (
     <div className="progress-overview-panel">
-      <h2>Progress Overview – {course?.title}</h2>
+      <h2>Progreso General – {course?.title}</h2>
 
       <div className="stats-summary">
         <div className="stat-card">
