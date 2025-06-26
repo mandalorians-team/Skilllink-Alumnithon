@@ -424,9 +424,9 @@ export const loginUser = async (username, password) => {
 export async function registerUser(userData) {
   try {
     console.log("Enviando datos de registro:", userData);
-    console.log("URL de la API:", `${API_URL}/register`);
+    console.log("URL de la API:", `${API_URL}/auth/register`);
 
-    const response = await fetch(`${API_URL}/register`, {
+    const response = await fetch(`${API_URL}/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
