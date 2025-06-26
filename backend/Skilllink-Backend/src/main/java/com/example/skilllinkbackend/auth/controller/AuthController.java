@@ -5,6 +5,7 @@ import com.example.skilllinkbackend.auth.dto.AuthRequest;
 import com.example.skilllinkbackend.auth.dto.AuthResponse;
 import com.example.skilllinkbackend.auth.dto.RegisterRequest;
 import com.example.skilllinkbackend.auth.service.AuthService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,12 +44,8 @@ public class AuthController {
      */
     // In AuthController.java
     @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request) {
-        System.err.println("Received registration request for user: {} with role: {}" +
-                request.getUsername() + " " +  request.getRole());
+    public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest request) {
         AuthResponse response = authService.register(request);
-        System.err.println("Successfully registered user: {} with role: {}" +
-                request.getUsername() + " " + request.getRole());
         return ResponseEntity.ok(response);
     }
 
