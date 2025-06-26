@@ -5,7 +5,7 @@ spring:
   application:
     name: SkillLink-Backend
   profiles:
-    active: ${SPRING_PROFILES_ACTIVE:prod}
+    active: default
   datasource:
     url: ${DB_URL:jdbc:postgresql://localhost:5432/skilllinkdb}
     username: ${DB_USERNAME:postgres}
