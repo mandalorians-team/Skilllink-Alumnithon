@@ -3,12 +3,14 @@ package com.example.skilllinkbackend.auth.utils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +30,8 @@ public class JwtUtils {
     private long refreshExpiration;
 
     //private final Key secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS512);
-
+    byte[] keyBytes = Keys.secretKeyFor(SignatureAlgorithm.HS512).getEncoded();
+    String base64Key = Base64.getEncoder().encodeToString(keyBytes);
 
     /**
      * Extracts the username from the JWT token.
@@ -54,7 +57,7 @@ public class JwtUtils {
 
     private Claims extractAllClaims(String token) {
         return Jwts.parser()
-                .setSigningKey(secretKey)
+                .setSigningKey(base64Key)
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
@@ -86,7 +89,7 @@ public class JwtUtils {
                 .subject(userDetails.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + jwtExpiration))
-                .signWith(SignatureAlgorithm.HS512, secretKey)
+                .signWith(SignatureAlgorithm.HS512, base64Key)
                 .compact();
     }
 
