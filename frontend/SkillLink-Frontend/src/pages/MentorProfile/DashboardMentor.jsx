@@ -144,39 +144,43 @@ const DashboardMentor = () => {
 
   return (
     <>
-      <div className="carousel-container">
-        <button className="scroll-button left" onClick={() => scroll('left')}>&lt;</button>
+    <div className="dashboardMentor-container">
+        <div className="carousel-container">
+        <h1>Mis Mentorías</h1>
+          <button className="scroll-button left" onClick={() => scroll('left')}>&lt;</button>
 
-        <div className="dashboard-mentor" ref={scrollRef}>
-          {courses.map(course => (
-            <div className="course-wrapper" key={course.id}>
-              <CourseCard
-                {...course}
-                onToggleActive={() => toggleCourseStatus(course.id)}
-                onEdit={() => openEditModal(course)}
-              />
-              <SatisfactionChart scores={course.scores} />
-            </div>
-          ))}
+          <div className="dashboard-mentor" ref={scrollRef}>
+            {courses.map(course => (
+              <div className="course-wrapper" key={course.id}>
+                <CourseCard
+                  {...course}
+                  onToggleActive={() => toggleCourseStatus(course.id)}
+                  onEdit={() => openEditModal(course)}
+                />
+                <SatisfactionChart scores={course.scores} />
+              </div>
+            ))}
+          </div>
+
+          <button className="scroll-button right" onClick={() => scroll('right')}>&gt;</button>
         </div>
 
-        <button className="scroll-button right" onClick={() => scroll('right')}>&gt;</button>
-      </div>
+        {editingCourse && (
+          <EditCourseModal
+            course={editingCourse}
+            onClose={closeEditModal}
+            onSave={saveCourseChanges}
+          />
+        )}
 
-      {editingCourse && (
-        <EditCourseModal
-          course={editingCourse}
-          onClose={closeEditModal}
-          onSave={saveCourseChanges}
+
+        <StudentListPanel
+          courses={courses}
+          selectedCourseId={selectedCourseId}
+          onTabChange={setSelectedCourseId}
+          filters={filters}
         />
-      )}
-
-      <StudentListPanel
-        courses={courses}
-        selectedCourseId={selectedCourseId}
-        onTabChange={setSelectedCourseId}
-        filters={filters}
-      />
+    </div>
     </>
   );
 };
