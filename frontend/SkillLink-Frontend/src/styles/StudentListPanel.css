@@ -15,6 +15,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 2rem;
 }
 
 .panel-header h2 {
@@ -67,6 +68,7 @@
 .tabs {
   display: flex;
   gap: 10px;
+  margin: 1rem;
 }
 
 .tabs button {
