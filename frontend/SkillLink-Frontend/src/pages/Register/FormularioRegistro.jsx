@@ -36,12 +36,13 @@ const FormularioRegistro = () => {
   const [showPopup, setShowPopup] = useState(false);
   const formRef = useRef(null);
   const [formHeight, setFormHeight] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (formRef.current) {
       setFormHeight(formRef.current.clientHeight);
     }
-  }, [formData]); 
+  }, [formData]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -71,16 +72,68 @@ const FormularioRegistro = () => {
     return nuevosErrores;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const erroresValidados = validar();
     if (Object.keys(erroresValidados).length > 0) {
       setErrores(erroresValidados);
     } else {
       setErrores({});
-      console.log('Formulario enviado ✅', formData);
-      setShowPopup(true);
-      setTimeout(() => setShowPopup(false), 3000);
+      setIsLoading(true);
+
+      const payload = {
+        username: formData.correo,
+        password: formData.contraseña,
+        email: formData.correo,
+        role: formData.rol === "Mentor" ? "MENTOR" : formData.rol === "Estudiante" ? "LEARNER" : "",
+        firstName: formData.nombres,
+        lastName: formData.apellidos,
+        photoUrl: "",
+        bio: "",
+        experience: "",
+        education: "",
+        linkedinProfile: ""
+      };
+
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/register`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+        console.log(response);
+
+        if (response.ok) {
+          setShowPopup(true);
+          setTimeout(() => setShowPopup(false), 3000);
+          setFormData({
+            nombres: '',
+            apellidos: '',
+            correo: '',
+            contraseña: '',
+            confirmarContraseña: '',
+            telefono: '',
+            pais: '',
+            habilidades: [],
+            intereses: [],
+            idioma: 'es',
+            suscripcion: false,
+            aceptoTerminos: false,
+            rol: ''
+          });
+        } else {
+          const errorData = await response.json();
+          alert(
+            errorData.message ||
+            "Error en el registro. Verifica los datos ingresados o intenta más tarde."
+          );
+        }
+      } catch (err) {
+        alert("Error de conexión con el servidor.");
+      }
+      setIsLoading(false);
     }
   };
 
@@ -89,8 +142,6 @@ const FormularioRegistro = () => {
       <Navbar />
       <main className="flex-grow flex justify-center items-start px-4 py-8 pt-20">
         <div className="flex w-full max-w-6xl gap-4 items-stretch">
-          
-          {/* Imagen izquierda */}
           <div className="hidden md:flex">
             <img
               src="/images/mandalorian2.jpg"
@@ -100,7 +151,6 @@ const FormularioRegistro = () => {
             />
           </div>
 
-          {/* Formulario */}
           <div
             ref={formRef}
             className="bg-[#19191F] text-white rounded-2xl shadow-2xl p-8 w-full max-w-3xl border border-white/20"
@@ -212,15 +262,15 @@ const FormularioRegistro = () => {
               </div>
 
               <button
+                disabled={isLoading}
                 type="submit"
                 className="md:col-span-2 bg-gradient-to-r from-[#799EB8] to-[#678a9d] text-white font-bold py-2 px-4 rounded hover:scale-105 transition"
               >
-                Registrarse
+                {isLoading ? "Registrando..." : "Registrarse"}
               </button>
             </form>
           </div>
 
-          {/* Imagen derecha */}
           <div className="hidden md:flex">
             <img
               src="/images/mandalorian2.jpg"

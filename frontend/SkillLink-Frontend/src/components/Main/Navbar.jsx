@@ -5,8 +5,8 @@ export default function Navbar() {
 
   const navLinks = [
     { name: "Inicio", path: "/" },
-    { name: "Cursos", path: "/cursos" },
-    { name: "Mentores", path: "/mentores" },
+    { name: "Cursos", path: "/courses" },      // CAMBIADO a /courses
+    { name: "Mentores", path: "/mentorias" },  // CAMBIADO a /mentorias
     { name: "Registrarse", path: "/registro" },
     { name: "Login", path: "/login" },
     { name: "Restablecer Contraseña", path: "/restablecer" }
@@ -28,18 +28,21 @@ export default function Navbar() {
       </div>
 
       <nav className="hidden md:flex gap-6 font-medium">
-        {navLinks.map((link) => (
-          <Link
-            key={link.path}
-            to={link.path}
-            className={`relative text-white transition duration-300
-              ${location.pathname === link.path ? "font-bold after:w-full" : "after:w-0"}
-              after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:bg-[#799EB8] after:transition-all after:duration-300 hover:after:w-full
-              hover:text-[#799EB8]`}
-          >
-            {link.name}
-          </Link>
-        ))}
+        {navLinks.map((link) => {
+          const isActive = location.pathname === link.path || location.pathname.startsWith(link.path + "/");
+          return (
+            <Link
+              key={link.path}
+              to={link.path}
+              className={`relative text-white transition duration-300
+                ${isActive ? "font-bold after:w-full" : "after:w-0"}
+                after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:bg-[#799EB8] after:transition-all after:duration-300 hover:after:w-full
+                hover:text-[#799EB8]`}
+            >
+              {link.name}
+            </Link>
+          );
+        })}
       </nav>
 
       <input

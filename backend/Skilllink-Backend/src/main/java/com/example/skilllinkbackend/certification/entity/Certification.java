@@ -78,4 +78,8 @@ public class Certification {
     public void setFechaExpiracion(LocalDate fechaExpiracion) {
         this.fechaExpiracion = fechaExpiracion;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

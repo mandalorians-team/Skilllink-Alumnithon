@@ -1,9 +1,9 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Courses from "../pages/curso/Courses";
+import Courses from "../pages/Aprendiz/courses/Courses";
 
 
-import CourseContentPage from "../pages/curso/CourseContentPage";
+import CourseContentPage from "../pages/Aprendiz/courses/CourseContentPage";
 // Agrega aquí más páginas de cursos si tienes
 
 export default function CursoRoutes() {
