@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
+import { jwtDecode } from "jwt-decode";
 
 import {
   loginUser as apiLogin,
@@ -15,6 +16,12 @@ export { AuthContext };
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {
     try {
+      const token = localStorage.getItem("token");
+      if (token) {
+        const decoded = jwtDecode(token);
+        console.log("🔓 Token decodificado:", decoded);
+        return decoded;
+      }
       const storedUser = localStorage.getItem("user");
       return storedUser ? JSON.parse(storedUser) : null;
     } catch (error) {
@@ -38,6 +45,16 @@ export function AuthProvider({ children }) {
     setIsLoading(true);
     try {
       const userData = await apiLogin(email, password);
+
+      // Si el backend devuelve un token, decodificarlo
+      if (userData.token) {
+        const decoded = jwtDecode(userData.token);
+        console.log("🔓 Token decodificado en login:", decoded);
+        localStorage.setItem("token", userData.token);
+        setUser(decoded);
+        return decoded;
+      }
+
       setUser(userData);
       localStorage.setItem("user", JSON.stringify(userData));
       return userData;
@@ -57,6 +74,7 @@ export function AuthProvider({ children }) {
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
+    localStorage.removeItem("token");
     console.log("Sesión cerrada exitosamente.");
   };
 
@@ -88,7 +106,7 @@ export function AuthProvider({ children }) {
 }
 
 // Hook personalizado
-export const  useAuth = () => {
+export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
     throw new Error("useAuth debe ser usado dentro de un AuthProvider");
