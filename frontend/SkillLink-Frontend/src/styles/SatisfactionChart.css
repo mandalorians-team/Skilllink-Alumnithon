@@ -1,0 +1,32 @@
+.satisfaction-chart {
+  margin-top: 20px;
+  padding: 15px;
+  background: #fdfdfd;
+  justify-content: end;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(181, 46, 46, 0.1);
+}
+
+.chart-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.chart-controls label {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+select.chart-select {
+  margin: 0 0.5rem;
+}
+
+.chart-summary {
+  text-align: left;
+  margin-top: 10px;
+  font-size: 0.95rem;
+  color: #444;
+}
