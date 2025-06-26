@@ -1,8 +1,10 @@
-
+import React from "react";
+import { Link } from "react-router-dom";
+import Footer from "../../components/comun/Footer/";
+import NavbarInterno from "../../components/Main/NavbarInterno";
+import "../../index.css";
 
 export default function PerfilEstudiante() {
-
-
   const habilidades = [
     'JavaScript', 'React', 'TypeScript', 'Tailwind CSS', 'Node.js',
     'Express.js', 'MongoDB', 'GraphQL', 'Docker', 'Git'
@@ -24,16 +26,37 @@ export default function PerfilEstudiante() {
 
   return (
     <div className="flex flex-col min-h-screen bg-[#B8CFDF]">
-      <Header />
+      <NavbarInterno />
 
-      <div className="flex flex-1 mt-14">
-
+      <div className="flex flex-1 mt-16">
+        <aside className="w-64 bg-[#19191F] p-4 hidden sm:flex flex-col justify-between shadow-2xl rounded-lg">
+          <div>
+            <nav className="space-y-2">
+              {["Perfil", "Panel", "Cursos", "Mentorías", "Proyectos", "Chat", "Configuración"].map((item, i) => (
+                <div
+                  key={i}
+                  className={`p-2 rounded ${item === "Perfil" ? "bg-primary text-white font-bold font-orbitron" : "hover:bg-gray-800 text-[#8C8D8B]"}`}
+                >
+                  {item}
+                </div>
+              ))}
+            </nav>
+          </div>
+          <div className="mt-4 text-xs text-gray-400 flex flex-col items-center text-center">
+            <img src="/images/Mentor 3.jpg" alt="Avatar Sidebar" className="w-12 h-12 rounded-full object-cover mb-2" />
+            <p className="font-bold text-white">Javier Delgado</p>
+            <p className="text-[#8C8D8B]">Desarrollador Web</p>
+            <p className="text-center">
+              Apasionado por compartir y aprender tecnologías web. Especializado en front-end y UX.
+            </p>
+          </div>
+        </aside>
 
         <main className="flex-1 p-4 space-y-4">
-          <h1 className="text-3xl font-bold text-white font-orbitron">Mi Perfil</h1>
+          <h1 className="text-3xl font-bold text-[#19191F] font-orbitron">Mi Perfil</h1>
 
           <section className="bg-[#19191F] rounded p-4 relative">
-            <Link
+            <Link 
               to="/perfil"
               className="absolute top-2 right-2 bg-primary text-white text-xs font-semibold px-3 py-1 rounded hover:bg-secondary transition duration-300"
             >
@@ -127,9 +150,7 @@ export default function PerfilEstudiante() {
         </main>
       </div>
 
-      <div className="mt-6">
-
-      </div>
+      <Footer />
     </div>
   );
 }

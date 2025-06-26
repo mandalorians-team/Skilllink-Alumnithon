@@ -69,7 +69,7 @@ public class CourseController {
                 ? certificationRepository.findById(dto.getCertificacionId()).orElse(null)
                 : null;
 
-        Course creado = courseService.crear(CourseMapper.toEntity(dto, instructor, cert));
+        Course creado = courseService.crear(CourseMapper.toEntityForCreate(dto, instructor, cert));
         return ResponseEntity.ok(CourseMapper.toDto(creado));
     }
 

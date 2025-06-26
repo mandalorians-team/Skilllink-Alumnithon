@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
-import Navbar from "../../components/Main/Navbar";
-import Footer from "../../components/Main/Footer";
-import { registerUser } from "../../services/BackendServices";
+import React, { useState, useRef, useEffect } from 'react';
+import Navbar from '../../components/Main/Navbar';
+import Footer from '../../components/Main/Footer';
+
 
 const paises = [
   "Colombia",
@@ -111,7 +111,7 @@ const FormularioRegistro = () => {
       setIsLoading(true);
 
       const payload = {
-        username: formData.correo.trim(),
+        username: formData.correo, // O puedes pedir un campo username propio
         password: formData.contraseña,
         email: formData.correo.trim(),
         role:
@@ -136,36 +136,45 @@ const FormularioRegistro = () => {
       };
 
       try {
-        const response = await registerUser(payload);
-        console.log("Respuesta exitosa:", response);
-
-        setShowPopup(true);
-        setTimeout(() => setShowPopup(false), 3000);
-        setFormData({
-          nombres: "",
-          apellidos: "",
-          correo: "",
-          contraseña: "",
-          confirmarContraseña: "",
-          telefono: "",
-          pais: "",
-          habilidades: [],
-          intereses: [],
-          idioma: "es",
-          suscripcion: false,
-          aceptoTerminos: false,
-          rol: "",
+          const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/register`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
         });
-      } catch (error) {
-        console.error("Error en el registro:", error);
-        alert(
-          error.message ||
-            "Error en el registro. Verifica los datos ingresados."
-        );
-      } finally {
-        setIsLoading(false);
+        console.log(response);
+
+        if (response.ok) {
+          setShowPopup(true);
+          setTimeout(() => setShowPopup(false), 3000);
+          setFormData({
+            nombres: '',
+            apellidos: '',
+            correo: '',
+            contraseña: '',
+            confirmarContraseña: '',
+            telefono: '',
+            pais: '',
+            habilidades: [],
+            intereses: [],
+            idioma: 'es',
+            suscripcion: false,
+            aceptoTerminos: false,
+            rol: ''
+          });
+        } else {
+          const errorData = await response.json();
+          alert(
+            errorData.message ||
+            "Error en el registro. Verifica los datos ingresados o intenta más tarde."
+          );
+        }
+      } catch (err) {
+        alert("Error de conexión con el servidor.");
       }
-    }
+      setIsLoading(false);
+      }
   };
 
   return (

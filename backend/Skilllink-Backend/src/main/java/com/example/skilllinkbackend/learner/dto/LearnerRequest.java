@@ -32,7 +32,7 @@ public class LearnerRequest {
     private String education;
     // private String skills; // Assuming skills is a comma-separated string for simplicity
 
-    @Pattern(regexp = "^(https?://)?(www\\.)?linkedin\\.com/in/[^\\s/$.?#].[^\\s]*$",
-            message = "Invalid LinkedIn profile URL")
+/*    @Pattern(regexp = "^(https?://)?(www\\.)?linkedin\\.com/in/[^\\s/$.?#].[^\\s]*$",
+            message = "Invalid LinkedIn profile URL")*/
     private String linkedinProfile;
 }
