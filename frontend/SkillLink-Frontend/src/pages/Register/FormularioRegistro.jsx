@@ -1,36 +1,59 @@
-import React, { useState, useRef, useEffect } from 'react';
-import Navbar from '../../components/Main/Navbar';
-import Footer from '../../components/Main/Footer';
-
+import React, { useState, useRef, useEffect } from "react";
+import Navbar from "../../components/Main/Navbar";
+import Footer from "../../components/Main/Footer";
+import { registerUser } from "../../services/BackendServices";
 
 const paises = [
-  "Colombia", "Argentina", "México", "Chile", "Perú", "España", "Estados Unidos", "Canadá", "Brasil", "Uruguay"
+  "Colombia",
+  "Argentina",
+  "México",
+  "Chile",
+  "Perú",
+  "España",
+  "Estados Unidos",
+  "Canadá",
+  "Brasil",
+  "Uruguay",
 ];
 
 const habilidadesIT = [
-  "Desarrollo Web", "Desarrollo Móvil", "Ciberseguridad", "DevOps", "Base de Datos",
-  "Diseño UX/UI", "Machine Learning", "Cloud Computing", "Análisis de Datos", "Backend", "Frontend"
+  "Desarrollo Web",
+  "Desarrollo Móvil",
+  "Ciberseguridad",
+  "DevOps",
+  "Base de Datos",
+  "Diseño UX/UI",
+  "Machine Learning",
+  "Cloud Computing",
+  "Análisis de Datos",
+  "Backend",
+  "Frontend",
 ];
 
 const intereses = [
-  "Proyectos colaborativos", "Mentoría", "Hackathons", "Retos semanales", "Charlas técnicas", "Networking"
+  "Proyectos colaborativos",
+  "Mentoría",
+  "Hackathons",
+  "Retos semanales",
+  "Charlas técnicas",
+  "Networking",
 ];
 
 const FormularioRegistro = () => {
   const [formData, setFormData] = useState({
-    nombres: '',
-    apellidos: '',
-    correo: '',
-    contraseña: '',
-    confirmarContraseña: '',
-    telefono: '',
-    pais: '',
+    nombres: "",
+    apellidos: "",
+    correo: "",
+    contraseña: "",
+    confirmarContraseña: "",
+    telefono: "",
+    pais: "",
     habilidades: [],
     intereses: [],
-    idioma: 'es',
+    idioma: "es",
     suscripcion: false,
     aceptoTerminos: false,
-    rol: ''
+    rol: "",
   });
 
   const [errores, setErrores] = useState({});
@@ -47,35 +70,36 @@ const FormularioRegistro = () => {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    if (type === 'checkbox' && name !== 'suscripcion' && name !== 'aceptoTerminos') {
+    if (
+      type === "checkbox" &&
+      name !== "suscripcion" &&
+      name !== "aceptoTerminos"
+    ) {
       const newArray = formData[name].includes(value)
         ? formData[name].filter((item) => item !== value)
         : [...formData[name], value];
       setFormData({ ...formData, [name]: newArray });
-    } else if (type === 'checkbox') {
+    } else if (type === "checkbox") {
       setFormData({ ...formData, [name]: checked });
     } else {
       setFormData({ ...formData, [name]: value });
     }
   };
 
-
-/*Funcion para validar los campos del formulario*/
   const validar = () => {
     const nuevosErrores = {};
-    if (!formData.rol) nuevosErrores.rol = 'Selecciona un rol';
-    if (!formData.nombres) nuevosErrores.nombres = 'Campo requerido';
-    if (!formData.apellidos) nuevosErrores.apellidos = 'Campo requerido';
-    if (!formData.correo) nuevosErrores.correo = 'Campo requerido';
-    if (!formData.contraseña) nuevosErrores.contraseña = 'Campo requerido';
+    if (!formData.rol) nuevosErrores.rol = "Selecciona un rol";
+    if (!formData.nombres) nuevosErrores.nombres = "Campo requerido";
+    if (!formData.apellidos) nuevosErrores.apellidos = "Campo requerido";
+    if (!formData.correo) nuevosErrores.correo = "Campo requerido";
+    if (!formData.contraseña) nuevosErrores.contraseña = "Campo requerido";
     if (formData.contraseña !== formData.confirmarContraseña)
-      nuevosErrores.confirmarContraseña = 'Las contraseñas no coinciden';
-    if (!formData.pais) nuevosErrores.pais = 'Selecciona un país';
-    if (!formData.aceptoTerminos) nuevosErrores.aceptoTerminos = 'Debes aceptar los términos';
+      nuevosErrores.confirmarContraseña = "Las contraseñas no coinciden";
+    if (!formData.pais) nuevosErrores.pais = "Selecciona un país";
+    if (!formData.aceptoTerminos)
+      nuevosErrores.aceptoTerminos = "Debes aceptar los términos";
     return nuevosErrores;
   };
-
-  /*Funcion para manejar el envio del formulario*/
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -85,61 +109,63 @@ const FormularioRegistro = () => {
     } else {
       setErrores({});
       setIsLoading(true);
-      // Construir el payload según lo espera el backend
+
       const payload = {
-        username: formData.correo, // O puedes pedir un campo username propio
+        username: formData.correo.trim(),
         password: formData.contraseña,
-        email: formData.correo,
-        role: formData.rol === "Mentor" ? "MENTOR" : formData.rol === "Estudiante" ? "LEARNER" : "",
-        firstName: formData.nombres,
-        lastName: formData.apellidos,
+        email: formData.correo.trim(),
+        role:
+          formData.rol === "Mentor"
+            ? "MENTOR"
+            : formData.rol === "Estudiante"
+            ? "LEARNER"
+            : "",
+        firstName: formData.nombres.trim(),
+        lastName: formData.apellidos.trim(),
         photoUrl: "",
         bio: "",
         experience: "",
         education: "",
-        linkedinProfile: ""
+        linkedinProfile: "",
+        country: formData.pais || "",
+        skills: formData.habilidades || [],
+        interests: formData.intereses || [],
+        phone: formData.telefono || "",
+        language: formData.idioma || "es",
+        subscription: formData.suscripcion || false,
       };
 
       try {
-          const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/register`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(payload)
-        });
-        console.log(response);
+        const response = await registerUser(payload);
+        console.log("Respuesta exitosa:", response);
 
-        if (response.ok) {
-          setShowPopup(true);
-          setTimeout(() => setShowPopup(false), 3000);
-          setFormData({
-            nombres: '',
-            apellidos: '',
-            correo: '',
-            contraseña: '',
-            confirmarContraseña: '',
-            telefono: '',
-            pais: '',
-            habilidades: [],
-            intereses: [],
-            idioma: 'es',
-            suscripcion: false,
-            aceptoTerminos: false,
-            rol: ''
-          });
-        } else {
-          const errorData = await response.json();
-          alert(
-            errorData.message ||
-            "Error en el registro. Verifica los datos ingresados o intenta más tarde."
-          );
-        }
-      } catch (err) {
-        alert("Error de conexión con el servidor.");
+        setShowPopup(true);
+        setTimeout(() => setShowPopup(false), 3000);
+        setFormData({
+          nombres: "",
+          apellidos: "",
+          correo: "",
+          contraseña: "",
+          confirmarContraseña: "",
+          telefono: "",
+          pais: "",
+          habilidades: [],
+          intereses: [],
+          idioma: "es",
+          suscripcion: false,
+          aceptoTerminos: false,
+          rol: "",
+        });
+      } catch (error) {
+        console.error("Error en el registro:", error);
+        alert(
+          error.message ||
+            "Error en el registro. Verifica los datos ingresados."
+        );
+      } finally {
+        setIsLoading(false);
       }
-      setIsLoading(false);
-      }
+    }
   };
 
   return (
@@ -147,8 +173,6 @@ const FormularioRegistro = () => {
       <Navbar />
       <main className="flex-grow flex justify-center items-start px-4 py-8 pt-20">
         <div className="flex w-full max-w-6xl gap-4 items-stretch">
-
-          {/* Imagen izquierda */}
           <div className="hidden md:flex">
             <img
               src="/images/mandalorian2.jpg"
@@ -158,12 +182,12 @@ const FormularioRegistro = () => {
             />
           </div>
 
-          {/* Formulario */}
           <div
             ref={formRef}
-            className="bg-[#19191F] text-white rounded-2xl shadow-2xl p-8 w-full max-w-3xl border border-white/20"
-          >
-            <h2 className="text-2xl md:text-3xl font-bold text-[#799EB8] mb-6 text-center">Registro en SkillLink</h2>
+            className="bg-[#19191F] text-white rounded-2xl shadow-2xl p-8 w-full max-w-3xl border border-white/20">
+            <h2 className="text-2xl md:text-3xl font-bold text-[#799EB8] mb-6 text-center">
+              Registro en SkillLink
+            </h2>
 
             <div className="flex justify-center mb-4 gap-4">
               {["Estudiante", "Mentor"].map((rol) => (
@@ -175,23 +199,32 @@ const FormularioRegistro = () => {
                     formData.rol === rol
                       ? "bg-[#799EB8] text-white"
                       : "bg-white/10 text-white border border-white/20"
-                  } transition duration-300`}
-                >
+                  } transition duration-300`}>
                   {rol}
                 </button>
               ))}
             </div>
-            {errores.rol && <p className="text-red-400 text-sm text-center mb-2">{errores.rol}</p>}
+            {errores.rol && (
+              <p className="text-red-400 text-sm text-center mb-2">
+                {errores.rol}
+              </p>
+            )}
 
-            <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <form
+              onSubmit={handleSubmit}
+              className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[
-                { name: 'nombres', label: 'Nombres' },
-                { name: 'apellidos', label: 'Apellidos' },
-                { name: 'correo', label: 'Correo electrónico', type: 'email' },
-                { name: 'telefono', label: 'Teléfono', type: 'tel' },
-                { name: 'contraseña', label: 'Contraseña', type: 'password' },
-                { name: 'confirmarContraseña', label: 'Confirmar contraseña', type: 'password' },
-              ].map(({ name, label, type = 'text' }) => (
+                { name: "nombres", label: "Nombres" },
+                { name: "apellidos", label: "Apellidos" },
+                { name: "correo", label: "Correo electrónico", type: "email" },
+                { name: "telefono", label: "Teléfono", type: "tel" },
+                { name: "contraseña", label: "Contraseña", type: "password" },
+                {
+                  name: "confirmarContraseña",
+                  label: "Confirmar contraseña",
+                  type: "password",
+                },
+              ].map(({ name, label, type = "text" }) => (
                 <div key={name}>
                   <label>{label}</label>
                   <input
@@ -202,7 +235,9 @@ const FormularioRegistro = () => {
                     placeholder={`Ingresa ${label.toLowerCase()}`}
                     className="w-full p-2 rounded bg-white/10 text-white border border-white/20 focus:border-[#799EB8] focus:ring-2 focus:ring-[#799EB8]"
                   />
-                  {errores[name] && <p className="text-red-400 text-sm">{errores[name]}</p>}
+                  {errores[name] && (
+                    <p className="text-red-400 text-sm">{errores[name]}</p>
+                  )}
                 </div>
               ))}
 
@@ -212,14 +247,17 @@ const FormularioRegistro = () => {
                   name="pais"
                   value={formData.pais}
                   onChange={handleChange}
-                  className="w-full p-2 rounded bg-black text-white"
-                >
+                  className="w-full p-2 rounded bg-black text-white">
                   <option value="">Selecciona un país</option>
                   {paises.map((pais) => (
-                    <option key={pais} value={pais}>{pais}</option>
+                    <option key={pais} value={pais}>
+                      {pais}
+                    </option>
                   ))}
                 </select>
-                {errores.pais && <p className="text-red-400 text-sm">{errores.pais}</p>}
+                {errores.pais && (
+                  <p className="text-red-400 text-sm">{errores.pais}</p>
+                )}
               </div>
 
               <div>
@@ -228,8 +266,7 @@ const FormularioRegistro = () => {
                   name="idioma"
                   value={formData.idioma}
                   onChange={handleChange}
-                  className="w-full p-2 rounded bg-black text-white"
-                >
+                  className="w-full p-2 rounded bg-black text-white">
                   <option value="es">Español</option>
                   <option value="en">Inglés</option>
                 </select>
@@ -240,7 +277,12 @@ const FormularioRegistro = () => {
                 <div className="flex flex-wrap gap-2">
                   {habilidadesIT.map((h) => (
                     <label key={h} className="flex items-center gap-1">
-                      <input type="checkbox" name="habilidades" value={h} onChange={handleChange} />
+                      <input
+                        type="checkbox"
+                        name="habilidades"
+                        value={h}
+                        onChange={handleChange}
+                      />
                       {h}
                     </label>
                   ))}
@@ -252,7 +294,12 @@ const FormularioRegistro = () => {
                 <div className="flex flex-wrap gap-2">
                   {intereses.map((i) => (
                     <label key={i} className="flex items-center gap-1">
-                      <input type="checkbox" name="intereses" value={i} onChange={handleChange} />
+                      <input
+                        type="checkbox"
+                        name="intereses"
+                        value={i}
+                        onChange={handleChange}
+                      />
                       {i}
                     </label>
                   ))}
@@ -261,25 +308,37 @@ const FormularioRegistro = () => {
 
               <div className="md:col-span-2 flex flex-col gap-2">
                 <label className="flex items-center gap-2">
-                  <input type="checkbox" name="suscripcion" onChange={handleChange} /> Suscribirme al boletín
+                  <input
+                    type="checkbox"
+                    name="suscripcion"
+                    onChange={handleChange}
+                  />{" "}
+                  Suscribirme al boletín
                 </label>
                 <label className="flex items-center gap-2">
-                  <input type="checkbox" name="aceptoTerminos" onChange={handleChange} /> Acepto los términos y condiciones
+                  <input
+                    type="checkbox"
+                    name="aceptoTerminos"
+                    onChange={handleChange}
+                  />{" "}
+                  Acepto los términos y condiciones
                 </label>
-                {errores.aceptoTerminos && <p className="text-red-400 text-sm">{errores.aceptoTerminos}</p>}
+                {errores.aceptoTerminos && (
+                  <p className="text-red-400 text-sm">
+                    {errores.aceptoTerminos}
+                  </p>
+                )}
               </div>
 
               <button
                 disabled={isLoading}
                 type="submit"
-                className="md:col-span-2 bg-gradient-to-r from-[#799EB8] to-[#678a9d] text-white font-bold py-2 px-4 rounded hover:scale-105 transition"
-              >
+                className="md:col-span-2 bg-gradient-to-r from-[#799EB8] to-[#678a9d] text-white font-bold py-2 px-4 rounded hover:scale-105 transition">
                 {isLoading ? "Registrando..." : "Registrarse"}
               </button>
             </form>
           </div>
 
-          {/* Imagen derecha */}
           <div className="hidden md:flex">
             <img
               src="/images/mandalorian2.jpg"
@@ -296,7 +355,11 @@ const FormularioRegistro = () => {
           <div className="bg-white text-black rounded-lg p-6 shadow-2xl text-center">
             <h3 className="text-2xl font-bold mb-2">✅ Registro exitoso</h3>
             <p className="mb-4">¡Gracias por unirte a SkillLink!</p>
-            <button onClick={() => setShowPopup(false)} className="bg-[#799EB8] text-white px-4 py-2 rounded">OK</button>
+            <button
+              onClick={() => setShowPopup(false)}
+              className="bg-[#799EB8] text-white px-4 py-2 rounded">
+              OK
+            </button>
           </div>
         </div>
       )}
