@@ -38,14 +38,12 @@ body {
     flex-direction: column;
 }
 
-.app-container {
+/*.app-container {
     display: flex;
     flex-direction: column;
     background-color: var(--color-background);
     align-items: center;
-    margin: 3rem;
-    padding: 1rem;
-}
+}*/
 
 .mentor-page-container {
     flex: 1;
