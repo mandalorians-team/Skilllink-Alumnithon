@@ -155,3 +155,32 @@ h2 {
     border-radius: 12px;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
 }
+
+
+/* Estilos para Tags*/
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.skill-tag {
+  background-color: #e0e7ff;
+  color: #1e3a8a;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+}
+
+.remove-tag-btn {
+  margin-left: 6px;
+  background: none;
+  border: none;
+  color: #1e3a8a;
+  font-size: 1rem;
+  cursor: pointer;
+}
