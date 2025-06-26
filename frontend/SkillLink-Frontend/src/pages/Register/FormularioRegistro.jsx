@@ -88,11 +88,11 @@ const FormularioRegistro = () => {
         role: formData.rol === "Mentor" ? "MENTOR" : formData.rol === "Estudiante" ? "LEARNER" : "",
         firstName: formData.nombres,
         lastName: formData.apellidos,
-        photoUrl: "",
-        bio: "",
-        experience: "",
-        education: "",
-        linkedinProfile: ""
+        photoUrl: "photoUrl",
+        bio: "bio",
+        experience: "experience",
+        education: "education",
+        linkedinProfile: "linkedinprofile"
       };
 
       try {
