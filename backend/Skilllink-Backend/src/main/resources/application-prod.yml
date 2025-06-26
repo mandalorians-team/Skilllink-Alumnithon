@@ -20,5 +20,5 @@ skilllink:
     allowed-headers: "*"
 
 jwt:
-  secret: "R+/oZtXwywdF7ALsliLi1gdWN0BLc3xYu3wl/Vn2jxGpTsAAAHokSgZs8EbwRpP5v1MY/LZygG/4Z38OfQOFpw=="      # Get from env vars
+  secret: ${JWT_SECRET}     # Get from env vars
   expiration-ms: ${JWT_EXPIRATION_MS:86400000}
