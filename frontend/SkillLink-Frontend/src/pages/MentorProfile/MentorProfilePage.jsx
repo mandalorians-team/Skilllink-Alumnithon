@@ -2,6 +2,8 @@ import React from "react";
 import Sidebar from "../../components/MentorProfile/SidebarMentor";
 import Topbar from "../../components/Topbar";
 import "../../styles/MentorProfilePage.css";
+import "../../assets/imagen/mentor-photo.png";
+
 
 const MentorProfilePage = () => {
     return (
@@ -15,7 +17,7 @@ const MentorProfilePage = () => {
                 <div className="profile-card">
                     <div className="left">
                     <img
-                        src="../../assets/mentor-photo.jpg"
+                        src="../../assets/imagen/mentor-photo.png"
                         alt="mentor"
                         className="mentor-photo"
                     />
