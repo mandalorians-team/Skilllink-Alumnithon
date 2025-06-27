@@ -5,17 +5,15 @@ import "../../styles/MentorProfilePage.css";
 import defaultFoto from "../../assets/imagen/mentor-foto.png";
 
 const MentorProfilePage = () => {
-  const [skills, setSkills] = useState([
-    "React",
-    "Next.js",
-    "TypeScript",
-    "TailwindCSS",
-    "API Integration",
-    "State Management",
-    "Deployment",
-  ]);
-  const [skillInput, setSkillInput] = useState("");
   const [mentorImage, setMentorImage] = useState(defaultFoto);
+  const [skills, setSkills] = useState([]);
+  const [skillInput, setSkillInput] = useState("");
+
+  const [courseName, setCourseName] = useState("");
+  const [courseDescription, setCourseDescription] = useState("");
+  const [courseDuration, setCourseDuration] = useState("");
+
+  const [showModal, setShowModal] = useState(false);
 
   const fileInputRef = useRef(null);
 
@@ -42,6 +40,22 @@ const MentorProfilePage = () => {
     }
   };
 
+  const handlePublish = () => {
+    setShowModal(true);
+  };
+
+  const confirmPublish = () => {
+    setShowModal(false);
+    console.log("Datos del curso publicado:", {
+      courseName,
+      skills,
+      courseDescription,
+      courseDuration,
+    });
+    // Aquí puedes hacer un POST al servidor o guardar el estado global
+    alert("¡Curso publicado con éxito!");
+  };
+
   return (
     <div className="container">
       <Sidebar />
@@ -57,7 +71,7 @@ const MentorProfilePage = () => {
                   className="upload-btn"
                   onClick={() => fileInputRef.current.click()}
                 >
-                  🏅 Cargar nueva foto
+                  ⬆ Cargar nueva foto
                 </button>
                 <input
                   type="file"
@@ -69,17 +83,17 @@ const MentorProfilePage = () => {
               </div>
               <div className="right">
                 <label>Nombre</label>
-                <input type="text" value="Gabriel Santos" />
+                <input type="text" value="Gabriel Santos" readOnly />
 
                 <label>Email</label>
-                <input type="email" value="gabriel.santos@example.com" />
+                <input type="email" value="gabriel.santos@example.com" readOnly />
 
                 <label>Biografía</label>
-                <textarea rows="4">
+                <textarea rows="4" readOnly>
                   Experto en ingeniería de software, con grande pasión por la
-                  docencia. Desarrollador Web y tecnología cloud. Más de 10
-                  años de experiencia en la industria, especialista en React,
-                  Next.js, y escalabilidad en soluciones backend.
+                  docencia. Desarrollador Web y tecnología cloud. Más de 10 años
+                  de experiencia en la industria, especialista en React, Next.js y
+                  escalabilidad en soluciones backend.
                 </textarea>
 
                 <button className="save-btn">Guardar cambios</button>
@@ -89,13 +103,19 @@ const MentorProfilePage = () => {
 
           <section className="course-management">
             <h2>Gestión de Cursos</h2>
+
             <label>Nombre del curso</label>
-            <input type="text" value="Mastering React & Next.js" />
+            <input
+              type="text"
+              placeholder="Ingrese el nombre del curso"
+              value={courseName}
+              onChange={(e) => setCourseName(e.target.value)}
+            />
 
             <label>Key Skills (Presione Enter para adicionar)</label>
             <input
               type="text"
-              placeholder="e.g., React, AI, Marketing"
+              placeholder="Ej: React, AI, Marketing"
               value={skillInput}
               onChange={(e) => setSkillInput(e.target.value)}
               onKeyDown={handleSkillKeyDown}
@@ -109,7 +129,6 @@ const MentorProfilePage = () => {
                     type="button"
                     className="remove-tag-btn"
                     onClick={() => handleRemoveSkill(skill)}
-                    title="Eliminar"
                   >
                     &times;
                   </button>
@@ -118,20 +137,27 @@ const MentorProfilePage = () => {
             </div>
 
             <label>Descripción del Curso</label>
-            <textarea rows="4">
-              Una amplia comprensión del curso, diseño con React desde
-              principiante a Next.js Desarrollador FullStack.
-            </textarea>
+            <textarea
+              rows="4"
+              placeholder="Describe el contenido y objetivos del curso"
+              value={courseDescription}
+              onChange={(e) => setCourseDescription(e.target.value)}
+            />
 
             <label>Duración del Curso</label>
-            <input type="text" value="8 Semanas" />
+            <input
+              type="text"
+              placeholder="Ej: 8 semanas"
+              value={courseDuration}
+              onChange={(e) => setCourseDuration(e.target.value)}
+            />
           </section>
 
           <div className="mentor-content-section">
             <div className="upload-card">
               <h3>Cargar contenido</h3>
-              <button className="upload-box">🎥 Cargar Mentoría</button>
-              <button className="upload-box">📝 Cargar Evaluación (PDF)</button>
+              <button className="upload-box">🎥 Upload Video Lecture</button>
+              <button className="upload-box">📄 Upload PDF Attachments</button>
             </div>
 
             <div className="stats-card">
@@ -141,9 +167,30 @@ const MentorProfilePage = () => {
             </div>
           </div>
 
-          <button className="publish-btn">Publicar</button>
+          <button className="publish-btn" onClick={handlePublish}>
+            Publicar
+          </button>
         </div>
       </div>
+
+      {/* MODAL */}
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal-box">
+            <h2>¿Estás seguro de que deseas publicar el curso {courseName}?</h2>
+            <p>
+              Verifica que toda la información sea correcta antes de publicar tu
+              mentoría.
+            </p>
+            <div className="modal-buttons">
+              <button onClick={() => setShowModal(false)}>Volver a editar</button>
+              <button className="confirm" onClick={confirmPublish}>
+                Confirmar publicación
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
