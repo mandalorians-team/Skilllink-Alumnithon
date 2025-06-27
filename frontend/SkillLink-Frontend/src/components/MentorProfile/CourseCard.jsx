@@ -5,7 +5,9 @@ const CourseCard = ({
   icon,
   title,
   description,
-  students,
+  skills,
+  duration,
+  students, /* Próximamente se generará un contador de estudiantes inscritos */
   percentage,
   status,
   isActive,
@@ -22,7 +24,9 @@ const CourseCard = ({
       </div>
       <h3 className="course-title">{title}</h3>
       <p className="course-description">{description}</p>
-      <p className="course-students">{students} Students</p>
+      <p className="course-skills">{skills}</p>
+      <p className="course-duration">{duration}</p>
+    <p className="course-students">{students == 1 ? 'Estudiante' : 'Estudiantes'}</p>
       <div className="course-progress">
         <div className="progress-bar">
           <div className="progress-fill" style={{ width: `${percentage}%` }}></div>
@@ -30,9 +34,10 @@ const CourseCard = ({
         <span className="progress-text">{percentage}%</span>
       </div>
       {status && <span className="course-status">{status}</span>}
-      <button className="edit-btn" onClick={onEdit}>Edit</button>
+      <button className="edit-btn" onClick={onEdit}>Editar</button>
     </div>
   );
+
 };
 
 export default CourseCard;
