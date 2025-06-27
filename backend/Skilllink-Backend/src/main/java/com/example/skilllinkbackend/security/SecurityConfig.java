@@ -41,6 +41,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/mentors/**").hasRole("MENTOR")
                         .requestMatchers("/api/learners/**").hasRole("LEARNER")
+                        .requestMatchers("/users/api/info").authenticated()
                         .anyRequest().authenticated()
                 );
         return http.build();

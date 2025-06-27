@@ -74,8 +74,11 @@ public class JwtUtils {
      * @param userDetails the user details for which the token is to be generated
      * @return the generated JWT token
      */
-    public String generateToken(UserDetails userDetails) {
-        return buildToken(new HashMap<>(), userDetails, jwtExpiration);
+    public String generateToken(UserDetails userDetails, String role, String email) {
+        Map<String, Object> extraClaims = new HashMap<>();
+        extraClaims.put("role", role);
+        extraClaims.put("email", email); // Add email as a claim
+        return buildToken(extraClaims, userDetails, jwtExpiration);
     }
 
     /**
@@ -134,6 +137,15 @@ public class JwtUtils {
 //        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
 //        return Keys.hmacShaKeyFor(keyBytes);
 //    }
+
+
+    public String extractRole(String token) {
+        return extractClaim(token, claims -> (String) claims.get("role"));
+    }
+
+    public String extractEmail(String token) {
+        return extractClaim(token, claims -> (String) claims.get("email"));
+    }
 
 
 }
