@@ -47,12 +47,19 @@ export default function Login() {
       console.log("Info del usuario:", userInfo);
 
       // Redirigir según rol
-      if (userInfo.role === "ADMIN") {
-        navigate("/admin/dashboard");
-      } else if (userInfo.role === "MENTOR") {
-        navigate("/mentor/panel");
-      } else {
-        navigate("/perfil");
+      switch (userInfo.role) {
+        case "ADMIN":
+          navigate("/admin/dashboard");
+          break;
+        case "MENTOR":
+          navigate("/mentor/panel");
+          break;
+        case "LEARNER":
+          navigate("/perfil");
+          break;
+        default:
+          console.warn("Rol no reconocido:", userInfo.role);
+          navigate("/perfil");
       }
     } catch (err) {
       setError(
