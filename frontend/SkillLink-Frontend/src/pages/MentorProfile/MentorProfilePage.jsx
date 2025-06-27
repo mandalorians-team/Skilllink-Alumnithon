@@ -1,29 +1,98 @@
 import React from "react";
 import Sidebar from "../../components/MentorProfile/SidebarMentor";
-
 import "../../styles/MentorProfilePage.css";
 import mentorFoto from "../../assets/imagen/mentor-foto.png"
 
 const MentorProfilePage = () => {
-    return (
-        <div className="container">
-            <Sidebar />
-            <div className="main">
-            <div className="mentor-profile-container">
-                <section className="mentor-profile">
-                <h2>Perfil del Mentor</h2>
-                <div className="profile-card">
-                    <div className="left">
-                    <img
-                        src={mentorFoto}
-                        alt="mentor"
-                        className="mentor-photo"
-                    />
-                    <button className="upload-btn">⬆ Cargar nueva foto</button>
-                    </div>
-                    <div className="right">
-                    <label>Nombre</label>
-                    <input type="text" value="Gabriel Santos" />
+  const [mentorImage, setMentorImage] = useState(defaultFoto);
+  const [skills, setSkills] = useState([]);
+  const [skillInput, setSkillInput] = useState("");
+
+  const [courseName, setCourseName] = useState("");
+  const [courseDescription, setCourseDescription] = useState("");
+  const [courseDuration, setCourseDuration] = useState("");
+
+  const [showModal, setShowModal] = useState(false);
+
+  const fileInputRef = useRef(null);
+
+  const handleSkillKeyDown = (e) => {
+    if (e.key === "Enter" && skillInput.trim() !== "") {
+      e.preventDefault();
+      const newSkill = skillInput.trim();
+      if (!skills.includes(newSkill)) {
+        setSkills([...skills, newSkill]);
+      }
+      setSkillInput("");
+    }
+  };
+
+  const handleRemoveSkill = (skillToRemove) => {
+    setSkills(skills.filter((skill) => skill !== skillToRemove));
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file && file.type.startsWith("image/")) {
+      const imageURL = URL.createObjectURL(file);
+      setMentorImage(imageURL);
+    }
+  };
+
+  const handlePublish = () => {
+    setShowModal(true); // Solo muestra el modal, no guarda nada aún
+  };
+
+  const confirmPublish = () => {
+    const newCourse = {
+      title: courseName,
+      description: courseDescription,
+      duration: courseDuration,
+      skills: skills,
+    };
+
+    const existingCourses = JSON.parse(localStorage.getItem("mentorCourses")) || [];
+    const updatedCourses = [...existingCourses, newCourse];
+    localStorage.setItem("mentorCourses", JSON.stringify(updatedCourses));
+
+    alert("¡Curso publicado con éxito!");
+
+    // Resetear campos
+    setCourseName("");
+    setCourseDescription("");
+    setCourseDuration("");
+    setSkills([]);
+
+    setShowModal(false);
+  };
+
+  return (
+    <div className="container">
+      <Sidebar />
+      <div className="main">
+        <div className="mentor-profile-container">
+          <section className="mentor-profile">
+            <h2>Perfil del Mentor</h2>
+            <div className="profile-card">
+              <div className="left">
+                <img src={mentorImage} alt="mentor" className="mentor-photo" />
+                <button
+                  className="upload-btn"
+                  onClick={() => fileInputRef.current.click()}
+                >
+                  ⬆ Cargar nueva foto
+                </button>
+                <input
+                  type="file"
+                  accept="image/*"
+                  ref={fileInputRef}
+                  style={{ display: "none" }}
+                  onChange={handleImageUpload}
+                />
+              </div>
+              <div className="right">
+                <label>Nombre</label>
+                <input type="text" value="Gabriel Santos" readOnly />
 
                 <label>Email</label>
                 <input type="email" value="gabriel.santos@example.com" readOnly />
@@ -136,3 +205,4 @@ const MentorProfilePage = () => {
 };
 
 export default MentorProfilePage;
+
