@@ -14,6 +14,28 @@ export const checkServerHealth = async () => {
 
 }
 
+// ===== FUNCIONES PARA OBTENER INFO DEL USUARIO Y PODER INICIAR SECION DEPENDIENDO EL ROL=====
+
+export async function getUserInfo() {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    throw new Error("No hay token disponible");
+  }
+
+  const response = await fetch(`${API_URL}/users/api/info`, {
+    method: "GET",
+    headers: {
+      "Authorization": `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error("No se pudo obtener la información del usuario");
+  }
+
+  return await response.json();
+}
+
 
 
 
