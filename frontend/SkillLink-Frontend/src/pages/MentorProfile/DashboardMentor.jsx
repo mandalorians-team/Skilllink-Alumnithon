@@ -143,45 +143,36 @@ const DashboardMentor = () => {
   };
 
   return (
-    <>
     <div className="dashboardMentor-container">
-        <div className="carousel-container">
+      <div className="carousel-container">
         <h1>Mis Mentorías</h1>
-          <button className="scroll-button left" onClick={() => scroll('left')}>&lt;</button>
+        <button className="scroll-button left" onClick={() => scroll('left')}>&lt;</button>
 
-          <div className="dashboard-mentor" ref={scrollRef}>
-            {courses.map(course => (
-              <div className="course-wrapper" key={course.id}>
-                <CourseCard
-                  {...course}
-                  onToggleActive={() => toggleCourseStatus(course.id)}
-                  onEdit={() => openEditModal(course)}
-                />
-                <SatisfactionChart scores={course.scores} />
-              </div>
-            ))}
-          </div>
-
-          <button className="scroll-button right" onClick={() => scroll('right')}>&gt;</button>
+        <div className="dashboard-mentor" ref={scrollRef}>
+          {courses.map(course => (
+            <div className="course-wrapper" key={course.id}>
+              <CourseCard
+                {...course}
+                onToggleActive={() => toggleCourseStatus(course.id)}
+                onEdit={() => openEditModal(course)}
+              />
+              <SatisfactionChart scores={course.scores} />
+            </div>
+          ))}
         </div>
 
-        {editingCourse && (
-          <EditCourseModal
-            course={editingCourse}
-            onClose={closeEditModal}
-            onSave={saveCourseChanges}
-          />
-        )}
+        <button className="scroll-button right" onClick={() => scroll('right')}>&gt;</button>
+      </div>
 
-
-        <StudentListPanel
-          courses={courses}
-          selectedCourseId={selectedCourseId}
-          onTabChange={setSelectedCourseId}
-          filters={filters}
+      {editingCourse && (
+        <EditCourseModal
+          course={editingCourse}
+          onClose={closeEditModal}
+          onSave={saveCourseChanges}
         />
+      )}
+
     </div>
-    </>
   );
 };
 
