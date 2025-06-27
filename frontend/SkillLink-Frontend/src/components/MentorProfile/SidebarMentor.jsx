@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import '../../styles/Sidebar.css';
+import '../../styles/SidebarMentor.css';
 
 import { ReactComponent as HouseIcon } from '../../assets/icons/house.svg';
 import { ReactComponent as UsersIcon } from '../../assets/icons/users.svg';
