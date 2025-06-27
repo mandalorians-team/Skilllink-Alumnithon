@@ -21,7 +21,7 @@ body {
     height: calc(100vh - 60px);
 }
 
-h2 {
+h2, .modal-buttons button {
     font-family: 'orbitron', sans-serif;
 }
 
@@ -30,6 +30,10 @@ h2 {
     font-size: 1.4rem;
     color: var(--color-subtitulo);
     margin-bottom: 1rem;
+}
+
+p {
+    font-size: 16px;
 }
 
 .course-management {
@@ -183,4 +187,24 @@ h2 {
   color: #1e3a8a;
   font-size: 1rem;
   cursor: pointer;
+}
+
+.modal-buttons {
+    display: flex;
+    flex-direction: column;
+    margin: 2rem 0;
+    border-radius: 20px;
+    width: 40%;
+}
+
+.modal-buttons button {
+    background: #4e8bda;
+    color: #ffffff;
+    font-size: 16px;
+    padding: 0.5rem;
+    margin: 1rem 0;
+}
+
+.modal-buttons button:hover {
+    cursor: pointer;
 }
