@@ -8,8 +8,9 @@ import {
 
 import Header from "./components/comun/Header";
 import Navbar from "./components/Main/Navbar";
+import NavbarInterno from "./components/Main/NavbarInterno";
 import Footer from "./components/comun/Footer";
-import Sidebar from "./components/comun/Sidebar";
+
 import CurseTabs from "./components/Aprendiz/Curso/CourseTabs";
 
 import MainPage from "./pages/LandingPage/MainPage";
@@ -29,8 +30,9 @@ import SearchPage from "./pages/SearchPage";
 import DashboardPage from "./pages/Aprendiz/DashboardPage";
 import PerfilEstudiante from "./pages/Aprendiz/PerfilEstudiante";
 import PanelEstudiante from "./pages/Aprendiz/PanelEstudiante";
-import TestCertificacion from "./components/TestCertificacion";
-import NavbarInterno from "./components/Main/NavbarInterno";
+
+
+import Error404 from "./pages/Error404/Error404";
 
 function Layout() {
   const location = useLocation();
@@ -40,14 +42,15 @@ function Layout() {
   const showFooter = showHeader || showNavbar;
   const isCourseTabs = /^\/courses\/[^/]+(\/.*)?$/.test(location.pathname);
 
-  const hideSidebar = /^\/(perfil|panel)$/.test(location.pathname);
-  const hideHeader = /^\/perfil$/.test(location.pathname); // 👈 Oculta header solo en /perfil
+  // 👈 Oculta header para dependiendo la pestaña
+  const hideNavbar = /^\/(perfil|panel|)$/.test(location.pathname);
+  const hideHeader = /^\/perfil|proyectos|$/.test(location.pathname); // 👈 Oculta header solo en /perfil
 
   return (
     <div className="flex min-h-screen bg-page-background-color">
-      {!hideSidebar && <Sidebar />}
-      <div className={`flex-1 flex flex-col ${!hideSidebar ? "ml-64" : ""}`}>
-        {showNavbar && <Navbar />}
+      {!hideNavbar && <NavbarInterno />}
+      <div className={`flex-1 flex flex-col ${!hideNavbar ? "ml-60" : ""}`}>
+
         {!hideHeader && showHeader && <Header />}
         {isCourseTabs && <CurseTabs />}
         <main className="p-6 bg-blue-200 flex-grow">
@@ -69,11 +72,12 @@ export default function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/restablecer" element={<ResetPassword />} />
       <Route path="/cambiar-password" element={<ChangePassword />} />
-      <Route path="/test-cert" element={<TestCertificacion />} />
       <Route path="/navbar-interno" element={<NavbarInterno />} />
 
       {/* Rutas con Layout */}
       <Route element={<Layout />}>
+      {/*Rutas Para el rol LEARNER CON SUS DIFERENTE SIDEBAR
+       */}
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/courses/:courseId" element={<CourseLayoutPage />}>
@@ -87,10 +91,12 @@ export default function App() {
         <Route path="search" element={<SearchPage />} />
         <Route path="perfil" element={<PerfilEstudiante />} />
         <Route path="panel" element={<PanelEstudiante />} />
+
+
       </Route>
 
       {/* 404 */}
-      <Route path="*" element={<div>Página no encontrada</div>} />
+      <Route path="*" element={<Error404/>} />
     </Routes>
   );
 }
