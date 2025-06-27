@@ -1,10 +1,11 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import CourseCard from '../../components/MentorProfile/CourseCard';
 import SatisfactionChart from '../../components/MentorProfile/SatisfactionChart';
 import { FaCode, FaChartLine, FaPaintBrush, FaBullhorn } from 'react-icons/fa';
 import EditCourseModal from '../../components/MentorProfile/EditCourseModal';
-import StudentListPanel from '../../components/MentorProfile/StudentListPanel';
 import '../../styles/DashboardMentor.css';
+
+const iconList = [<FaCode />, <FaChartLine />, <FaPaintBrush />, <FaBullhorn />];
 
 const initialCourses = [
   {
@@ -17,52 +18,9 @@ const initialCourses = [
     status: null,
     isActive: true,
     scores: [5, 4, 4, 5, 3, 4, 5, 5, 4],
-    enrolled: [
-      {
-        name: 'Ana García',
-        email: 'ana.garcia@example.com',
-        progress: 75,
-        lastActivity: '2 hours ago',
-        avatar: '/avatars/ana.png',
-        skills: ['HTML', 'CSS'],
-        interests: ['Frontend', 'Design'],
-      },
-      {
-        name: 'Juan Pérez',
-        email: 'juan.perez@example.com',
-        progress: 100,
-        lastActivity: '1 day ago',
-        avatar: '/avatars/juan.png',
-        skills: ['JavaScript'],
-        interests: ['Web', 'Apps'],
-      },
-      {
-        name: 'Sofía Martínez',
-        email: 'sofia.martinez@example.com',
-        progress: 45,
-        lastActivity: '2 days ago',
-        avatar: '/avatars/sofia.png',
-        skills: ['HTML'],
-        interests: ['Accessibility'],
-      },
-      {
-        name: 'Laura Fernández',
-        email: 'laura.fernandez@example.com',
-        progress: 70,
-        lastActivity: '4 hours ago',
-        avatar: '/avatars/laura.png',
-        skills: ['React'],
-        interests: ['Web', 'UI'],
-      },
-      {
-        name: 'Gabriel Morales',
-        email: 'gabriel.morales@example.com',
-        progress: 38,
-        lastActivity: '10 mins ago',
-        avatar: '/avatars/gabriel.png',
-        skills: ['CSS'],
-        interests: ['Design'],
-      },
+    enrolled: [ // contiene estudiantes
+      { name: 'Ana García' },
+      { name: 'Juan Pérez' },
     ],
   },
   {
@@ -77,69 +35,78 @@ const initialCourses = [
     scores: [4, 4, 3, 5, 4, 4, 3],
     enrolled: [],
   },
-  {
-    id: 3,
-    title: 'UI/UX Design Masterclass',
-    description: 'Upcoming evaluations and new enrollments.',
-    students: 80,
-    percentage: 50,
-    icon: <FaPaintBrush />,
-    status: 'Popular',
-    isActive: true,
-    scores: [5, 5, 5, 4, 4, 5, 5],
-    enrolled: [],
-  },
-  {
-    id: 4,
-    title: 'Digital Marketing Strategy',
-    description: 'Course completion rate and feedback score.',
-    students: 65,
-    percentage: 90,
-    icon: <FaBullhorn />,
-    status: null,
-    isActive: false,
-    scores: [3, 2, 4, 3, 3, 4],
-    enrolled: [],
-  },
 ];
 
 const DashboardMentor = () => {
   const [courses, setCourses] = useState(initialCourses);
   const [editingCourse, setEditingCourse] = useState(null);
-  const [selectedCourseId, setSelectedCourseId] = useState(initialCourses[0].id);
-  const [showFilter, setShowFilter] = useState(false);
-  const [filters, setFilters] = useState({
-    skills: '',
-    interests: '',
-    progressMin: 0,
-    progressMax: 100,
-  });
-
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [courseToDelete, setCourseToDelete] = useState(null);
   const scrollRef = useRef(null);
 
-  const scroll = (direction) => {
-    const { current } = scrollRef;
-    if (current) {
-      current.scrollBy({
-        left: direction === 'left' ? -400 : 400,
-        behavior: 'smooth',
-      });
-    }
+  // Carga cursos de localStorage solo una vez
+  useEffect(() => {
+    const storedCourses = JSON.parse(localStorage.getItem('mentorCourses') || '[]');
+
+    const filtered = storedCourses.filter(sc => {
+      return !initialCourses.some(ic => ic.title === sc.title);
+    });
+
+    const enriched = filtered.map((course, index) => ({
+      ...course,
+      id: initialCourses.length + index + 1,
+      icon: iconList[index % iconList.length],
+      students: 0,
+      percentage: 0,
+      scores: [],
+      enrolled: [],
+      isActive: false,
+    }));
+
+    setCourses(prev => [...prev, ...enriched]);
+  }, []);
+
+  const scroll = (dir) => {
+    scrollRef.current?.scrollBy({
+      left: dir === 'left' ? -400 : 400,
+      behavior: 'smooth',
+    });
   };
 
   const toggleCourseStatus = (id) => {
-    setCourses(courses.map(course =>
-      course.id === id ? { ...course, isActive: !course.isActive } : course
+    setCourses(courses.map(c =>
+      c.id === id ? { ...c, isActive: !c.isActive } : c
     ));
   };
 
   const openEditModal = (course) => setEditingCourse(course);
   const closeEditModal = () => setEditingCourse(null);
-  const saveCourseChanges = (updatedCourse) => {
-    setCourses(courses.map(course =>
-      course.id === updatedCourse.id ? updatedCourse : course
-    ));
+  const saveCourseChanges = (updated) => {
+    setCourses(courses.map(c => c.id === updated.id ? updated : c));
     closeEditModal();
+  };
+
+  const handleDeleteCourse = (course) => {
+    setCourseToDelete(course);
+    setShowDeleteModal(true);
+  };
+
+  const confirmDelete = () => {
+    if (!courseToDelete) return;
+
+    if (courseToDelete.enrolled && courseToDelete.enrolled.length > 0) {
+      alert("No puedes eliminar una mentoría que tiene estudiantes inscritos.");
+    } else {
+      setCourses(courses.filter(c => c.id !== courseToDelete.id));
+
+      // También lo eliminamos de localStorage
+      const stored = JSON.parse(localStorage.getItem('mentorCourses') || '[]');
+      const updated = stored.filter(c => c.title !== courseToDelete.title);
+      localStorage.setItem('mentorCourses', JSON.stringify(updated));
+    }
+
+    setShowDeleteModal(false);
+    setCourseToDelete(null);
   };
 
   return (
@@ -152,9 +119,10 @@ const DashboardMentor = () => {
           {courses.map(course => (
             <div className="course-wrapper" key={course.id}>
               <CourseCard
-                {...course}
+                course={course}
                 onToggleActive={() => toggleCourseStatus(course.id)}
                 onEdit={() => openEditModal(course)}
+                onDelete={() => handleDeleteCourse(course)}
               />
               <SatisfactionChart scores={course.scores} />
             </div>
@@ -172,6 +140,19 @@ const DashboardMentor = () => {
         />
       )}
 
+      {/* Modal de confirmación de borrado */}
+      {showDeleteModal && (
+        <div className="modal-overlay">
+          <div className="modal-box">
+            <h2>¿Deseas eliminar la mentoría "{courseToDelete.title}"?</h2>
+            <p>Esta acción no se puede deshacer.</p>
+            <div className="modal-buttons">
+              <button onClick={() => setShowDeleteModal(false)}>Cancelar</button>
+              <button className="confirm" onClick={confirmDelete}>Confirmar</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
