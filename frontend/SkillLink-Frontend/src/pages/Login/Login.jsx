@@ -10,12 +10,12 @@ export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError(null);
-    setIsLoading(true);
+
 
     try {
       const response = await fetch("http://localhost:8080/api/auth/login", {
@@ -30,7 +30,7 @@ export default function Login() {
       });
 
       if (!response.ok) {
-        throw new Error("Credenciales inválidas o error del servidor");
+        throw new Error("Credenciales inválidas");
       }
 
       const data = await response.json();
@@ -62,10 +62,12 @@ export default function Login() {
           navigate("/perfil");
       }
     } catch (err) {
+      console.log(err);
+
       setError(
         "Credencial incorrecta o problema al conectarse con el servidor"
       );
-      setIsLoading(false);
+
     }
   };
 
@@ -101,10 +103,10 @@ export default function Login() {
                 required
               />
               <button
-                disabled={isLoading}
+
                 type="submit"
                 className="w-full py-2 bg-gradient-to-r from-[#799EB8] to-[#678a9d] text-white rounded-md mb-4 text-sm font-semibold hover:scale-105 hover:brightness-110 transition-all duration-500 relative overflow-hidden">
-                {isLoading ? " Iniciando..." : "Iniciar Sesion"}
+                Iniciar Sesion
               </button>
             </form>
 
