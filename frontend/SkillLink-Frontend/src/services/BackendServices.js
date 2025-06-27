@@ -20,20 +20,28 @@ export async function getUserInfo() {
   const token = localStorage.getItem("token");
   if (!token) {
     throw new Error("No hay token disponible");
+
+
   }
 
-  const response = await fetch(`${API_URL}/users/api/info`, {
+
+  const response = await fetch("http://localhost:8080/users/api/info", {
     method: "GET",
     headers: {
-      "Authorization": `Bearer ${token}`,
+      "Authorization": `Bearer ${token}`
     },
   });
 
+
+
+
   if (!response.ok) {
-    throw new Error("No se pudo obtener la información del usuario");
+    const errorText = await response.text();
+    throw new Error(`Error al obtener datos: ${errorText}`);
   }
 
-  return await response.json();
+
+  return await response.text();
 }
 
 
