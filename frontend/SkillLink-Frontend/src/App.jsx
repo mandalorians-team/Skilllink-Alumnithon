@@ -31,6 +31,7 @@ import DashboardPage from "./pages/Aprendiz/DashboardPage";
 import PerfilEstudiante from "./pages/Aprendiz/PerfilEstudiante";
 import PanelEstudiante from "./pages/Aprendiz/PanelEstudiante";
 import MentorProfilePage from "./pages/MentorProfile/MentorProfilePage";
+import Error404 from "./pages/Error404/Error404";
 
 
 function Layout() {
