@@ -1,0 +1,52 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital@0;1&family=Orbitron:wght@400..900&display=swap");
+
+.progress-overview-panel {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+}
+
+.stats-summary {
+  display: flex;
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.stat-card {
+  background-color: #f1f5f9;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  flex: 1;
+  text-align: center;
+}
+
+.stat-card h3 {
+  font-size: 2rem;
+  margin: 0;
+  color: #0f172a;
+}
+
+.stat-card p {
+  color: #475569;
+  margin-top: 0.5rem;
+}
+
+h2 {
+  margin-bottom: 1rem;
+}
+
+.charts-container {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    margin: 1rem;
+}
+
+.tabs button.active-tab {
+  font-weight: bold;
+  border-bottom: 2px solid #007bff;
+}

@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Footer from "../../components/comun/Footer/";
 import NavbarInterno from "../../components/Main/NavbarInterno";
 import "../../index.css";
 
 export default function PerfilEstudiante() {
+  const [usuario, setUsuario] = useState(null);
+  const [detalles, setDetalles] = useState(null);
+
   const habilidades = [
     'JavaScript', 'React', 'TypeScript', 'Tailwind CSS', 'Node.js',
     'Express.js', 'MongoDB', 'GraphQL', 'Docker', 'Git'
@@ -23,6 +26,61 @@ export default function PerfilEstudiante() {
     { icon: '🤝', title: "Campeón Colaborador", desc: "Premiado por su apoyo constante en proyectos grupales y su capacidad de trabajo en equipo.", img: "/images/logro3.jpeg" },
     { icon: '💡', title: "Contribuidor Colaborativo", desc: "Valorado por aportar ideas innovadoras y soluciones prácticas a retos complejos.", img: "/images/logro4.png" }
   ];
+
+  useEffect(() => {
+    const fetchUsuario = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) return console.error("Token no encontrado en localStorage");
+
+        const decoded = parseJwt(token);
+        const usernameFromToken = decoded?.sub || decoded?.email;
+        if (!usernameFromToken) return console.error("No se encontró email en el token");
+
+        const resUsuarios = await fetch("http://localhost:8080/users");
+        const users = await resUsuarios.json();
+        console.log("Usuarios obtenidos:", users);
+        const usuarioActual = users.find(u => u.username === usernameFromToken);
+        console.log(usernameFromToken);
+        if (!usuarioActual) return console.error("Usuario no encontrado en lista de usuarios");
+
+        setUsuario(usuarioActual);
+
+        const resDetalles = await fetch(`http://localhost:8080/api/learners/${usuarioActual.id}`);
+        if (resDetalles.ok) {
+          const detalleData = await resDetalles.json();
+          console.log ("Detalles del usuario:", detalleData);
+          setDetalles(detalleData);
+        } else {
+          console.warn("No se encontraron detalles adicionales del usuario.");
+        }
+      } catch (err) {
+        console.error("Error en fetch usuario:", err);
+      }
+    };
+
+    fetchUsuario();
+  }, []);
+
+  const parseJwt = (token) => {
+    try {
+      const base64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(atob(base64).split('').map(c =>
+        '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+      ).join(''));
+      return JSON.parse(jsonPayload);
+    } catch (e) {
+      console.error("Error parseando el token", e);
+      return {};
+    }
+  };
+
+  const nombre = detalles?.firstName || "Nombre";
+  const apellido = detalles?.lastName || "Apellido";
+  const telefono = detalles?.telefono || "No especificado";
+  const pais = detalles?.pais || "Colombia";
+  const bio = detalles?.bio || "Apasionado por aprender y compartir tecnología.";
+  const rol =  "Estudiante.";
 
   return (
     <div className="flex flex-col min-h-screen bg-[#B8CFDF]">
@@ -44,11 +102,9 @@ export default function PerfilEstudiante() {
           </div>
           <div className="mt-4 text-xs text-gray-400 flex flex-col items-center text-center">
             <img src="/images/Mentor 3.jpg" alt="Avatar Sidebar" className="w-12 h-12 rounded-full object-cover mb-2" />
-            <p className="font-bold text-white">Javier Delgado</p>
-            <p className="text-[#8C8D8B]">Desarrollador Web</p>
-            <p className="text-center">
-              Apasionado por compartir y aprender tecnologías web. Especializado en front-end y UX.
-            </p>
+            <p className="font-bold text-white">{nombre} {apellido}</p>
+            <p className="text-[#8C8D8B]">{rol}</p>
+            <p className="text-center">{bio}</p>
           </div>
         </aside>
 
@@ -56,7 +112,7 @@ export default function PerfilEstudiante() {
           <h1 className="text-3xl font-bold text-[#19191F] font-orbitron">Mi Perfil</h1>
 
           <section className="bg-[#19191F] rounded p-4 relative">
-            <Link 
+            <Link
               to="/perfil"
               className="absolute top-2 right-2 bg-primary text-white text-xs font-semibold px-3 py-1 rounded hover:bg-secondary transition duration-300"
             >
@@ -65,13 +121,9 @@ export default function PerfilEstudiante() {
             <div className="flex items-center space-x-4">
               <img src="/images/Mentor 3.jpg" alt="Avatar" className="w-16 h-16 rounded-full object-cover" />
               <div>
-                <p className="font-bold text-lg text-white">Javier Delgado</p>
-                <p className="text-sm text-[#8C8D8B]">Desarrollador Web</p>
-                <p className="text-xs text-gray-400">
-                  Aprendiz apasionado del desarrollo web, con ganas de aprender y contribuir a proyectos innovadores.
-                  Especializado en tecnologías front-end y principios UI/UX. Comprometido con el crecimiento continuo y
-                  la resolución colaborativa de problemas.
-                </p>
+                <p className="font-bold text-lg text-white">{nombre} {apellido}</p>
+                <p className="text-sm text-[#8C8D8B]">{rol}</p>
+                <p className="text-xs text-gray-400">{bio}</p>
               </div>
             </div>
           </section>
@@ -80,10 +132,9 @@ export default function PerfilEstudiante() {
             <section className="bg-[#19191F] rounded p-4 w-full md:w-1/3">
               <h2 className="text-lg mb-2 text-white font-bold font-orbitron">Detalles Personales</h2>
               <ul className="text-sm text-gray-300 space-y-1">
-                <li><strong>Edad:</strong> 24</li>
-                <li><strong>Email:</strong> javier@example.com</li>
-                <li><strong>Teléfono:</strong> +57 300 123 4567</li>
-                <li><strong>Ubicación:</strong> Bogotá, Colombia</li>
+                <li><strong>Email:</strong> {usuario?.email || "No especificado"}</li>
+                <li><strong>Teléfono:</strong> {usuario?.telefono || "No especificado"}</li>
+                <li><strong>Ubicación:</strong> {pais}</li>
               </ul>
             </section>
 

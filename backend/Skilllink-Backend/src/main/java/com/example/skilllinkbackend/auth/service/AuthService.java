@@ -36,7 +36,7 @@ public class AuthService {
             throw new RuntimeException("Invalid password");
         }
 
-        String token = jwtUtils.generateToken(new UserPrincipal(user));
+        String token = jwtUtils.generateToken(new UserPrincipal(user), user.getRole().toString(), user.getEmail());
         String refreshToken = jwtUtils.generateRefreshToken(new UserPrincipal(user));
         return new AuthResponse(user.getId(), token, refreshToken);
     }
@@ -71,7 +71,7 @@ public class AuthService {
             log.info("Learner profile created successfully");
         }
 
-        String token = jwtUtils.generateToken(new UserPrincipal(user));
+        String token = jwtUtils.generateToken(new UserPrincipal(user), user.getRole().toString(), user.getEmail());
         String refreshToken = jwtUtils.generateRefreshToken(new UserPrincipal(user));
         return new AuthResponse(user.getId(), token, refreshToken);
     }

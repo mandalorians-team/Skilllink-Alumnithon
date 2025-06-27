@@ -1,16 +1,21 @@
+import { Await } from "react-router-dom";
 import { API_URL } from "./api";
 
 // Función para verificar si el servidor está disponible
 
 export const checkServerHealth = async () => {
-  try {
-    const response = await fetch(`${API_URL}/courses`);
-    return response.ok;
-  } catch (error) {
-    console.error("Error checking server health:", error);
+
+  try{
+    const response = await fetch(`$(API_URL)/users`);
+    return response.ok
+  }catch(error){
     return false;
   }
-};
+
+}
+
+
+
 
 
 // ===== FUNCIONES PARA CURSOS =====
@@ -424,9 +429,9 @@ export const loginUser = async (username, password) => {
 export async function registerUser(userData) {
   try {
     console.log("Enviando datos de registro:", userData);
-    console.log("URL de la API:", `${API_URL}/register`);
+    console.log("URL de la API:", `${API_URL}/auth/register`);
 
-    const response = await fetch(`${API_URL}/register`, {
+    const response = await fetch(`${API_URL}/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -459,7 +464,7 @@ export async function registerUser(userData) {
     const responseText = await response.text();
     console.log("Success response text:", responseText);
     if (!responseText) {
-      return { success: true, message: "Usuario registrado exitosamente" };
+      return { success: true, message:  "Usuario registrado exitosamente" };
     }
 
     return JSON.parse(responseText);
