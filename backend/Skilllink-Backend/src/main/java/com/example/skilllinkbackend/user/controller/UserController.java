@@ -1,8 +1,10 @@
 package com.example.skilllinkbackend.user.controller;
 
+import com.example.skilllinkbackend.auth.utils.JwtUtils;
 import com.example.skilllinkbackend.user.entity.User;
 import com.example.skilllinkbackend.user.repository.UserRepository;
 import io.swagger.v3.oas.annotations.Hidden;
+import org.apache.tomcat.Jar;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,9 +14,38 @@ import java.util.List;
 public class UserController {
 
     private final UserRepository userRepository;
+    private final JwtUtils jwtUtils;
 
-    public UserController(UserRepository userRepository) {
+
+    public UserController(UserRepository userRepository, JwtUtils jwtUtils) {
         this.userRepository = userRepository;
+        this.jwtUtils = jwtUtils;
+    }
+
+
+    /**
+     * Constructor for UserController.
+     *
+     * @param userRepository the repository to manage User entities
+     * @param jwtUtils       utility class for JWT operations
+     */
+    @GetMapping("/api/info")
+    @io.swagger.v3.oas.annotations.Operation(
+            summary = "Get user info",
+            description = "Retrieve user information based on the provided JWT token"
+    )
+    public String getUserInfo(@RequestHeader("Authorization") String authHeader) {
+        // Extract username from the JWT token
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            String token = authHeader.substring(7); // Remove "Bearer " prefix
+            String username = jwtUtils.extractUsername(token);
+            String role = jwtUtils.extractRole(token);
+            String email = jwtUtils.extractEmail(token);
+
+            return "User info for: " + username + ", Role: " + role + ", Email: " + email;
+        } else {
+            throw new IllegalArgumentException("Invalid Authorization header format");
+        }
     }
 
     /**
