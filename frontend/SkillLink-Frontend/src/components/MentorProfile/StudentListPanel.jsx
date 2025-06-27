@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaComments, FaClipboardList, FaChartBar, FaFilter, FaPlus } from 'react-icons/fa';
+import { GiHamburgerMenu } from "react-icons/gi";
 import ProgressOverviewPanel from './ProgressOverviewPanel';
 import StudentFilterPanel from './StudentFilterPanel';
 import ManageEvaluationsPanel from './ManageEvaluationsPanel';
@@ -44,7 +45,7 @@ const StudentListPanel = ({ courses }) => {
         <div className="top-actions">
           <div className="filter-group">
             <FaFilter />
-            <button onClick={() => setShowFilters(prev => !prev)}></button>
+            <button onClick={() => setShowFilters(prev => !prev)}><GiHamburgerMenu /></button>
           </div>
         </div>
       </div>

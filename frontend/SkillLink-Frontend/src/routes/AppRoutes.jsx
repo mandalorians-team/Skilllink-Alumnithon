@@ -29,7 +29,7 @@ import Error404 from "@/pages/Error404/Error404";
 import DashboardMentor from "@/pages/MentorProfile/DashboardMentor";
 import MentorProfilePage from "@/pages/MentorProfile/MentorProfilePage";
 import MentorPage from "@/pages/MentorProfile/MentorPage";
-import MisEstudiantes from "@/pages/MentorProfile/MisEstudiantes";
+
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useAuth();
