@@ -1,15 +1,13 @@
 import React from "react";
-import Sidebar from "../../components/MentorProfile/SidebarMentor";
-import Topbar from "../../components/Topbar";
-import "../../styles/MentorProfilePage.css";
-import mentorFoto from "../../assets/imagen/mentor-foto.png"
+import Sidebar from "@/components/MentorProfile/SidebarMentor";
+import "@/styles/MentorProfilePage.css";
+import mentorFoto from "@/assets/imagen/mentor-foto.png"
 
 const MentorProfilePage = () => {
     return (
         <div className="container">
             <Sidebar />
             <div className="main">
-            <Topbar />
             <div className="mentor-profile-container">
                 <section className="mentor-profile">
                 <h2>Perfil del Mentor</h2>

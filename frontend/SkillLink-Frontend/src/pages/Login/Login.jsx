@@ -32,14 +32,21 @@ export default function Login() {
 
       const data = await response.json();
       const token = data.token;
+      const role = data.role;
 
       if (!token) throw new Error("Token no recibido desde el backend");
 
-      // Guardamos el token para usarlo luego (por ejemplo en PerfilEstudiante)
+      // Guardamos el token
       localStorage.setItem("token", token);
 
       console.log("Login exitoso. Token guardado.");
-      navigate("/perfil");
+
+      // Redirección según el rol
+      if (role === "mentor") {
+        navigate("/mentor/profile");
+      } else {
+        navigate("/perfil");
+      }
     } catch (err) {
       setError(err.message || "Ocurrió un error inesperado");
     }

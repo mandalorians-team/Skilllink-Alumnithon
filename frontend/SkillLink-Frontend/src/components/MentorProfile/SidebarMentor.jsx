@@ -1,15 +1,15 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import '../../styles/Sidebar.css';
+import '@/styles/Sidebar.css';
 
-import { ReactComponent as HouseIcon } from '../../assets/icons/house.svg';
-import { ReactComponent as UsersIcon } from '../../assets/icons/users.svg';
-import { ReactComponent as BookIcon } from '../../assets/icons/book-open.svg';
-import { ReactComponent as MentorIcon } from '../../assets/icons/message.svg';
-import { ReactComponent as ProjectIcon } from '../../assets/icons/code-xml.svg';
-import { ReactComponent as ChatIcon } from '../../assets/icons/chat.svg';
-import { ReactComponent as UserIcon } from '../../assets/icons/user.svg';
-import { ReactComponent as SettingsIcon } from '../../assets/icons/settings.svg';
+import { ReactComponent as HouseIcon } from '@/assets/icons/house.svg';
+import { ReactComponent as UsersIcon } from '@/assets/icons/users.svg';
+import { ReactComponent as BookIcon } from '@/assets/icons/book-open.svg';
+import { ReactComponent as MentorIcon } from '@/assets/icons/message.svg';
+import { ReactComponent as ProjectIcon } from '@/assets/icons/code-xml.svg';
+import { ReactComponent as ChatIcon } from '@/assets/icons/chat.svg';
+import { ReactComponent as UserIcon } from '@/assets/icons/user.svg';
+import { ReactComponent as SettingsIcon } from '@/assets/icons/settings.svg';
 
 function SidebarMentor() {
     const location = useLocation();

@@ -31,6 +31,8 @@ import PerfilEstudiante from "./pages/Aprendiz/PerfilEstudiante";
 import PanelEstudiante from "./pages/Aprendiz/PanelEstudiante";
 import TestCertificacion from "./components/TestCertificacion";
 import NavbarInterno from "./components/Main/NavbarInterno";
+import MentorProfilePage from "./pages/MentorProfile/MentorProfilePage";
+
 
 function Layout() {
   const location = useLocation();
@@ -87,6 +89,7 @@ export default function App() {
         <Route path="search" element={<SearchPage />} />
         <Route path="perfil" element={<PerfilEstudiante />} />
         <Route path="panel" element={<PanelEstudiante />} />
+        <Route path="mentor/profile" element={<MentorProfilePage />} />
       </Route>
 
       {/* 404 */}
