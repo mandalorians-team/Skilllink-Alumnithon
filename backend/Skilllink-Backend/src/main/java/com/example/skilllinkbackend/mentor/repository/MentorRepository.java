@@ -16,4 +16,11 @@ public interface MentorRepository extends JpaRepository<Mentor, Long> {
 //    List<Mentor> findBySkillsContaining(String skill);
     @Query("SELECT m FROM Mentor m JOIN m.user u WHERE u.role = 'MENTOR'")
     List<Mentor> findAllMentors();
+
+    @Query("""
+            SELECT m
+            FROM Mentor m
+            WHERE m.id IN :ids
+            """)
+    List<Mentor> findExistingIds(List<Long> ids);
 }

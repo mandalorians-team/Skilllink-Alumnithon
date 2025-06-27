@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Main/Navbar';
 import Footer from '../../components/Main/Footer';
 
+
+
 const paises = [
   "Colombia", "Argentina", "México", "Chile", "Perú", "España", "Estados Unidos", "Canadá", "Brasil", "Uruguay"
 ];

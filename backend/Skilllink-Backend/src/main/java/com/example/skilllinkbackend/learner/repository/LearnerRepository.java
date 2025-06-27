@@ -23,4 +23,12 @@ public interface LearnerRepository extends JpaRepository<Learner, Long> {
             WHERE u.role = 'LEARNER' AND l.email IN :emails
             """)
     List<Learner> findExistingEmails(List<String> emails);
+
+    @Query("""
+            SELECT l
+            FROM Learner l
+            JOIN l.user u
+            WHERE u.role = 'LEARNER' AND l.id IN :ids
+            """)
+    List<Learner> findExistingIds(List<Long> ids);
 }

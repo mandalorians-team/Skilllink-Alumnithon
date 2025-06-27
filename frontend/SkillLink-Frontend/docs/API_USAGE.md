@@ -16,7 +16,7 @@
 Asegúrate de tener configurado el archivo `.env`:
 
 ```env
-VITE_API_URL=http://localhost:8081
+VITE_API_URL=http://localhost:8080
 ```
 
 ### Estructura de Archivos
