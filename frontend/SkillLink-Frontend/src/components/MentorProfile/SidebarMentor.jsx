@@ -1,6 +1,8 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
-import "../../styles/Sidebar.css";
+
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import '../../styles/SidebarMentor.css';
+
 
 // Importar SVGs como URLs
 import houseIcon from "../../assets/icons/house.svg";

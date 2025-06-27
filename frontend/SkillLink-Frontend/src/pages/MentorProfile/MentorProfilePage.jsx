@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import Sidebar from "../../components/MentorProfile/SidebarMentor";
-import Topbar from "../../components/Topbar";
 import "../../styles/MentorProfilePage.css";
 import defaultFoto from "../../assets/imagen/mentor-foto.png";
 
@@ -41,26 +40,36 @@ const MentorProfilePage = () => {
   };
 
   const handlePublish = () => {
-    setShowModal(true);
+    setShowModal(true); // Solo muestra el modal, no guarda nada aún
   };
 
   const confirmPublish = () => {
-    setShowModal(false);
-    console.log("Datos del curso publicado:", {
-      courseName,
-      skills,
-      courseDescription,
-      courseDuration,
-    });
-    // Aquí puedes hacer un POST al servidor o guardar el estado global
+    const newCourse = {
+      title: courseName,
+      description: courseDescription,
+      duration: courseDuration,
+      skills: skills,
+    };
+
+    const existingCourses = JSON.parse(localStorage.getItem("mentorCourses")) || [];
+    const updatedCourses = [...existingCourses, newCourse];
+    localStorage.setItem("mentorCourses", JSON.stringify(updatedCourses));
+
     alert("¡Curso publicado con éxito!");
+
+    // Resetear campos
+    setCourseName("");
+    setCourseDescription("");
+    setCourseDuration("");
+    setSkills([]);
+
+    setShowModal(false);
   };
 
   return (
     <div className="container">
       <Sidebar />
       <div className="main">
-        <Topbar />
         <div className="mentor-profile-container">
           <section className="mentor-profile">
             <h2>Perfil del Mentor</h2>
@@ -196,3 +205,4 @@ const MentorProfilePage = () => {
 };
 
 export default MentorProfilePage;
+
