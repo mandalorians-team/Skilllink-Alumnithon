@@ -1,5 +1,6 @@
 package com.example.skilllinkbackend.learner.entity;
 
+import com.example.skilllinkbackend.mentorship.entity.Mentorship;
 import com.example.skilllinkbackend.project.model.Project;
 import com.example.skilllinkbackend.user.entity.User;
 import jakarta.persistence.*;
@@ -34,4 +35,7 @@ public class Learner {
 
     @ManyToMany(mappedBy = "members")
     private List<Project> projects;
+
+    @ManyToMany(mappedBy = "learners")
+    private List<Mentorship> mentorships;
 }

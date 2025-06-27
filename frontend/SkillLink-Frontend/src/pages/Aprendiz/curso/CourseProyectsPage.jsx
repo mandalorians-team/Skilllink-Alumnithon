@@ -10,8 +10,7 @@ export default function CourseProyectsPage() {
         Proyectos para el Curso {courseId}
       </h1>
       <p className="text-gray-600 mt-2">
-        (Aquí se mostrará la lista de proyectos colaborativos para este curso
-        específico.)
+        
       </p>
     </div>
   );

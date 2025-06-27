@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Main/Navbar";
 import Footer from "../../components/Main/Footer";
 import "../../index.css";
+import { getUserInfo } from "@/services/BackendServices";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -10,9 +11,11 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setError(null);
+
 
     try {
       const response = await fetch("http://localhost:8080/api/auth/login", {
@@ -27,7 +30,7 @@ export default function Login() {
       });
 
       if (!response.ok) {
-        throw new Error("Credenciales inválidas o error del servidor");
+        throw new Error("Credenciales inválidas");
       }
 
       const data = await response.json();
@@ -35,13 +38,36 @@ export default function Login() {
 
       if (!token) throw new Error("Token no recibido desde el backend");
 
-      // Guardamos el token para usarlo luego (por ejemplo en PerfilEstudiante)
+      // Guardar token local
       localStorage.setItem("token", token);
+      console.log("Token guardado:", token);
 
-      console.log("Login exitoso. Token guardado.");
-      navigate("/perfil");
+      // Llamar a la función centralizada
+      const userInfo = await getUserInfo();
+      console.log("Info del usuario:", userInfo);
+
+      // Redirigir según rol
+      switch (userInfo.role) {
+        case "ADMIN":
+          navigate("/admin/dashboard");
+          break;
+        case "MENTOR":
+          navigate("/mentor/panel");
+          break;
+        case "LEARNER":
+          navigate("/perfil");
+          break;
+        default:
+          console.warn("Rol no reconocido:", userInfo.role);
+          navigate("/perfil");
+      }
     } catch (err) {
-      setError(err.message || "Ocurrió un error inesperado");
+      console.log(err);
+
+      setError(
+        "Credencial incorrecta o problema al conectarse con el servidor"
+      );
+
     }
   };
 
@@ -77,10 +103,10 @@ export default function Login() {
                 required
               />
               <button
+
                 type="submit"
-                className="w-full py-2 bg-gradient-to-r from-[#799EB8] to-[#678a9d] text-white rounded-md mb-4 text-sm font-semibold hover:scale-105 hover:brightness-110 transition-all duration-500 relative overflow-hidden"
-              >
-                Iniciar Sesión
+                className="w-full py-2 bg-gradient-to-r from-[#799EB8] to-[#678a9d] text-white rounded-md mb-4 text-sm font-semibold hover:scale-105 hover:brightness-110 transition-all duration-500 relative overflow-hidden">
+                Iniciar Sesion
               </button>
             </form>
 
@@ -88,16 +114,14 @@ export default function Login() {
 
             <p
               className="text-center text-[#799EB8] text-sm hover:underline cursor-pointer mb-2 transition"
-              onClick={() => navigate("/restablecer")}
-            >
+              onClick={() => navigate("/restablecer")}>
               ¿Olvidaste tu contraseña?
             </p>
             <p className="text-center text-white text-sm">
               ¿No tienes una cuenta?{" "}
               <span
                 className="text-[#799EB8] hover:underline cursor-pointer transition"
-                onClick={() => navigate("/registro")}
-              >
+                onClick={() => navigate("/registro")}>
                 Regístrate
               </span>
             </p>
