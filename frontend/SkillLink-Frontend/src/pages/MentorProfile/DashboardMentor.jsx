@@ -143,8 +143,9 @@ const DashboardMentor = () => {
   };
 
   return (
-    <>
+    <div className="dashboardMentor-container">
       <div className="carousel-container">
+        <h1>Mis Mentorías</h1>
         <button className="scroll-button left" onClick={() => scroll('left')}>&lt;</button>
 
         <div className="dashboard-mentor" ref={scrollRef}>
@@ -171,13 +172,7 @@ const DashboardMentor = () => {
         />
       )}
 
-      <StudentListPanel
-        courses={courses}
-        selectedCourseId={selectedCourseId}
-        onTabChange={setSelectedCourseId}
-        filters={filters}
-      />
-    </>
+    </div>
   );
 };
 

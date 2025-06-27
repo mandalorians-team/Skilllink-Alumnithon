@@ -1,0 +1,50 @@
+.manage-evaluations-panel {
+  padding: 1.5rem;
+}
+
+.evaluation-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.evaluation-table th,
+.evaluation-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #ccc;
+  vertical-align: top;
+}
+
+.evaluation-table textarea {
+  width: 250px;
+  min-height: 3rem;
+  font-family: 'segoui';
+  padding: 0.2rem;
+}
+
+.evaluation-table input[type='number'] {
+  width: 60px;
+}
+
+.status-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.status-btn.completed {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-btn.pending {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.email {
+  font-size: 0.85rem;
+  color: #666;
+}

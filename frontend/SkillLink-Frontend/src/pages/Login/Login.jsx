@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../../components/Main/Navbar";  // Asegúrate que esta ruta es la correcta
-import Footer from "../../components/Main/Footer";  // O ajusta la ruta real
+import Navbar from "../../components/Main/Navbar";
+import Footer from "../../components/Main/Footer";
 import "../../index.css";
 
 export default function Login() {
@@ -15,7 +15,7 @@ export default function Login() {
     setError(null);
 
     try {
-      const response = await fetch("http://localhost:8081/api/auth/login", {
+      const response = await fetch("http://localhost:8080/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -31,9 +31,14 @@ export default function Login() {
       }
 
       const data = await response.json();
-      console.log("Login exitoso:", data);
+      const token = data.token;
 
-      // Redirige al perfil (o ajusta según tu flujo)
+      if (!token) throw new Error("Token no recibido desde el backend");
+
+      // Guardamos el token para usarlo luego (por ejemplo en PerfilEstudiante)
+      localStorage.setItem("token", token);
+
+      console.log("Login exitoso. Token guardado.");
       navigate("/perfil");
     } catch (err) {
       setError(err.message || "Ocurrió un error inesperado");

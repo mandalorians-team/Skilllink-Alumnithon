@@ -1,7 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital@0;1&family=Orbitron:wght@400..900&display=swap");
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-background);
+    align-items: center;
+    overflow: hidden;
+}
+
+.dashboardMentor-container {
+    display: flex;
+    flex-direction: column;
+    margin: 2rem;
+    padding: 1rem;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    overflow-y: hidden;
+}
+
+h1, th {
+    font-family: 'Orbitron', sans-serif;
 }
 
 .carousel-container {

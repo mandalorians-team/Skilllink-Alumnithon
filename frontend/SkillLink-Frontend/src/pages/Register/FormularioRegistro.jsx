@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Main/Navbar';
 import Footer from '../../components/Main/Footer';
 
@@ -37,6 +38,7 @@ const FormularioRegistro = () => {
   const formRef = useRef(null);
   const [formHeight, setFormHeight] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (formRef.current) {
@@ -82,17 +84,17 @@ const FormularioRegistro = () => {
       setIsLoading(true);
 
       const payload = {
-        username: formData.correo,
+        username: formData.nombres,
         password: formData.contraseña,
         email: formData.correo,
         role: formData.rol === "Mentor" ? "MENTOR" : formData.rol === "Estudiante" ? "LEARNER" : "",
         firstName: formData.nombres,
         lastName: formData.apellidos,
-        photoUrl: "",
-        bio: "",
-        experience: "",
-        education: "",
-        linkedinProfile: ""
+        photoUrl: "photoUrl",
+        bio: "bio",
+        experience: "experience",
+        education: "education",
+        linkedinProfile: "linkedinprofile"
       };
 
       try {
@@ -107,7 +109,15 @@ const FormularioRegistro = () => {
 
         if (response.ok) {
           setShowPopup(true);
-          setTimeout(() => setShowPopup(false), 3000);
+          setTimeout(() => {
+            setShowPopup(false);
+            if (formData.rol === "Mentor") {
+              navigate('/perfil');
+            } else if (formData.rol === "Estudiante") {
+              navigate('/perfil');
+            }
+          }, 3000);
+
           setFormData({
             nombres: '',
             apellidos: '',

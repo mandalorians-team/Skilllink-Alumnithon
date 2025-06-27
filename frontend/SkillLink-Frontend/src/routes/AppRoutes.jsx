@@ -19,7 +19,7 @@ import MentorDashboardPage from "@/pages/mentor/MentorDashboardPage";
 import MisAlumnosPage from "@/pages/mentor/MisAlumnosPage";
 import MisCursosPage from "@/pages/mentor/MisCursosPage";
 import AgendaPage from "@/pages/mentor/AgendaPage";
-import ChatPage from "@/pages/mentor/ChatPage";
+import ChatPage from "@/pages/Chat/ChatPage";
 import ConfiguracionPage from "@/pages/mentor/ConfiguracionPage";
 
 // Importar desde Error404
@@ -29,6 +29,7 @@ import Error404 from "@/pages/Error404/Error404";
 import DashboardMentor from "@/pages/MentorProfile/DashboardMentor";
 import MentorProfilePage from "@/pages/MentorProfile/MentorProfilePage";
 import MentorPage from "@/pages/MentorProfile/MentorPage";
+import MisEstudiantes from "@/pages/MentorProfile/MisEstudiantes";
 
 
 const ProtectedRoute = ({ children }) => {
@@ -74,8 +75,9 @@ export default function AppRoutes() {
         <Route path="search" element={<SearchPage />} />
 
         {/* Rutas de Mentor */}
-        <Route path="/mentor/dashboard-mentor/" element={<DashboardMentor />} />
         <Route path="/mentor/profile" element={<MentorProfilePage />} />
+        <Route path="/mentor/dashboard-mentor/" element={<DashboardMentor />} />
+        <Route path="/mentor/mis-estudiantes" element={<MentorProfilePage />} />
       
         <Route path="mentor/alumnos" element={<MisAlumnosPage />} />
         <Route path="mentor/cursos" element={<MisCursosPage />} />
