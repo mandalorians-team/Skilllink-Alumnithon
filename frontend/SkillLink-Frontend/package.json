@@ -4,13 +4,17 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "start": "concurrently -n \"FRONT,BACK\" -c \"cyan,green\" \"npm run dev:front\" \"npm run dev:back\"",
     "dev": "vite",
+    "dev:front": "vite",
+    "dev:back": "cross-env SPRING_PROFILES_ACTIVE=dev mvn spring-boot:run -f ../backend/pom.xml -Dspring-boot.run.jvmArguments=\"-Dlogging.level.org.springframework=INFO\"",
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "server": "json-server --watch db.json --port 3001"
-  },
+  }
+,
   "dependencies": {
     "chart.js": "^4.5.0",
     "emoji-picker-react": "^4.12.2",
@@ -36,6 +40,8 @@
     "@types/react-dom": "^18.2.21",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.21",
+    "concurrently": "^9.2.0",
+    "cross-env": "^7.0.3",
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
