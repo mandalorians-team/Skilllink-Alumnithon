@@ -39,42 +39,27 @@ export default function Login() {
 
       if (!token) throw new Error("Token no recibido desde el backend");
 
-<<<<<<< HEAD
       // Guardamos el token
-=======
-      // Guardar token local
->>>>>>> 2e39922329e7b42219614e9c676e0e2c48cc79db
       localStorage.setItem("token", token);
       console.log("Token guardado:", token);
 
-<<<<<<< HEAD
       console.log("Login exitoso. Token guardado.");
 
       // Redirección según el rol
-      if (role === "mentor") {
-        navigate("/mentor/profile");
-      } else {
-        navigate("/perfil");
-=======
-      // Llamar a la función centralizada
-      const userInfo = await getUserInfo();
-      console.log("Info del usuario:", userInfo);
-
       // Redirigir según rol
       switch (userInfo.role) {
         case "ADMIN":
           navigate("/admin/dashboard");
           break;
         case "MENTOR":
-          navigate("/mentor/panel");
+          navigate("/mentor/profile");
           break;
         case "LEARNER":
           navigate("/perfil");
           break;
         default:
           console.warn("Rol no reconocido:", userInfo.role);
-          navigate("/perfil");
->>>>>>> 2e39922329e7b42219614e9c676e0e2c48cc79db
+          navigate("/");
       }
     } catch (err) {
       console.log(err);

@@ -30,16 +30,8 @@ import SearchPage from "./pages/SearchPage";
 import DashboardPage from "./pages/Aprendiz/DashboardPage";
 import PerfilEstudiante from "./pages/Aprendiz/PerfilEstudiante";
 import PanelEstudiante from "./pages/Aprendiz/PanelEstudiante";
-<<<<<<< HEAD
-import TestCertificacion from "./components/TestCertificacion";
-import NavbarInterno from "./components/Main/NavbarInterno";
 import MentorProfilePage from "./pages/MentorProfile/MentorProfilePage";
 
-=======
-
-
-import Error404 from "./pages/Error404/Error404";
->>>>>>> 2e39922329e7b42219614e9c676e0e2c48cc79db
 
 function Layout() {
   const location = useLocation();
@@ -98,12 +90,7 @@ export default function App() {
         <Route path="search" element={<SearchPage />} />
         <Route path="perfil" element={<PerfilEstudiante />} />
         <Route path="panel" element={<PanelEstudiante />} />
-<<<<<<< HEAD
         <Route path="mentor/profile" element={<MentorProfilePage />} />
-=======
-
-
->>>>>>> 2e39922329e7b42219614e9c676e0e2c48cc79db
       </Route>
 
       {/* 404 */}

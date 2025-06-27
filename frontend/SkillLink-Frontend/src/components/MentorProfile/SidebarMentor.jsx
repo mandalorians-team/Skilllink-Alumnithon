@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import '@/styles/Sidebar.css';
@@ -11,47 +10,6 @@ import { ReactComponent as ProjectIcon } from '@/assets/icons/code-xml.svg';
 import { ReactComponent as ChatIcon } from '@/assets/icons/chat.svg';
 import { ReactComponent as UserIcon } from '@/assets/icons/user.svg';
 import { ReactComponent as SettingsIcon } from '@/assets/icons/settings.svg';
-=======
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
-import "../../styles/Sidebar.css";
-
-// Importar SVGs como URLs
-import houseIcon from "../../assets/icons/house.svg";
-import usersIcon from "../../assets/icons/users.svg";
-import bookIcon from "../../assets/icons/book-open.svg";
-import mentorIcon from "../../assets/icons/message.svg";
-import projectIcon from "../../assets/icons/code-xml.svg";
-import chatIcon from "../../assets/icons/chat.svg";
-import userIcon from "../../assets/icons/user.svg";
-import settingsIcon from "../../assets/icons/settings.svg";
-
-// Componentes de iconos simples
-const HouseIcon = () => (
-  <img src={houseIcon} alt="House" className="sidebar-icon" />
-);
-const UsersIcon = () => (
-  <img src={usersIcon} alt="Users" className="sidebar-icon" />
-);
-const BookIcon = () => (
-  <img src={bookIcon} alt="Book" className="sidebar-icon" />
-);
-const MentorIcon = () => (
-  <img src={mentorIcon} alt="Mentor" className="sidebar-icon" />
-);
-const ProjectIcon = () => (
-  <img src={projectIcon} alt="Project" className="sidebar-icon" />
-);
-const ChatIcon = () => (
-  <img src={chatIcon} alt="Chat" className="sidebar-icon" />
-);
-const UserIcon = () => (
-  <img src={userIcon} alt="User" className="sidebar-icon" />
-);
-const SettingsIcon = () => (
-  <img src={settingsIcon} alt="Settings" className="sidebar-icon" />
-);
->>>>>>> 2e39922329e7b42219614e9c676e0e2c48cc79db
 
 function SidebarMentor() {
   const location = useLocation();
