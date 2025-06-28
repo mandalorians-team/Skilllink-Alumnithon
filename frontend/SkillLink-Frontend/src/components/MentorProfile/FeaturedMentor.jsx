@@ -1,7 +1,6 @@
 import React from 'react';
 import MentorCard from '../MentorProfile/MentorCard';
 import '../../styles/MentorPage.css';
-import '../../styles/App.css';
 import AnaPhoto from '../../assets/imagen/Ana.png';
 import LuisPhoto from '../../assets/imagen/Luis.png';
 
