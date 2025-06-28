@@ -1,157 +1,275 @@
-# 🛡️ Guía Git Mandalorians
-
-## 💥 Convención de Nombres de Ramas y Commits para Frontend y Backend
-
-> *"Así es el camino."* — Mandalorians Dev Team
+```markdown
+# 📘 Skilllink — Guía Técnica y Funcional.
+Skilllink es una plataforma de mentorías colaborativas que conecta a usuarios con distintos roles (mentores, aprendices y administradores), permitiendo desarrollar habilidades técnicas, documentar el crecimiento y conectar comunidades de práctica.
 
 ---
 
-## 🚀 Parte 1: Nombres de Ramas (Branch Naming)
+## ⚙️ Características principales
 
-### 🧑‍🎨 **Frontend**
-Usar este formato para ramas de frontend: 
-`frontend/<tipo>/<id-opcional>-<descripcion>`
+## 🚀 Características implementadas
 
-
-#### ✅ Ejemplos:
-- `frontend/feature/102-login-form`
-- `frontend/fix/203-header-bug`
-- `frontend/hotfix/999-css-break-navbar`
-- `frontend/docs/actualizar-readme`
-
+- [x] Registro y autenticación de usuarios (`JWT`)
+- [x] CRUD de usuarios (`/api/users`)
+- [x] CRUD de cursos (`/api/courses`)
+- [x] Asignación de mentorías (`/api/mentorships`)
+- [ ] Evaluaciones entre usuarios (en proceso)
+- [ ] Notificaciones (pendiente)
+- [x] Documentación con Swagger
 
 ---
 
-### 🧑‍💻 **Backend**
+## 🧱 Estructura del proyecto (Backend)
+skilllink-backend/
+├── src/main/java/com/example/skilllinkbackend/
 
-Usar este formato para ramas de backend:
-`backend/<tipo>/<id-opcional>-<descripcion>`
-
-#### ✅ Ejemplos:
-- `backend/feature/101-auth-service`
-- `backend/fix/205-null-user-error`
-- `backend/hotfix/998-db-connection-issue`
-- `backend/chore/configurar-hibernate`
-
-
----
-
-### 📚 Tipos de rama válidos
-
-| Tipo       | ¿Para qué sirve?                                  |
-| ---------- | ------------------------------------------------- |
-| `feature/` | Nueva funcionalidad                               |
-| `fix/`     | Corrección de errores menores                     |
-| `hotfix/`  | Fix urgente en producción                         |
-| `release/` | Preparar una versión                              |
-| `docs/`    | Cambios en documentación (`README`, `wiki`, etc.) |
-| `chore/`   | Configuraciones, scripts, tareas no funcionales   |
-| `test/`    | Nuevas pruebas o actualizaciones a los tests      |
+| Módulo         | Descripción                                                                 |
+|----------------|-----------------------------------------------------------------------------|
+| `auth/`        | Lógica de autenticación y generación de tokens JWT                          |
+| `category/`    | Gestión de categorías temáticas para cursos                                 |
+| `certification/`| Módulo de certificaciones emitidas por mentorías o cursos                  |
+| `config/`      | Configuración de seguridad, Swagger y CORS                                  |
+| `course/`      | CRUD de cursos: duración, categorías y descripción                          |
+| `evaluation/`  | Evaluaciones de desempeño entre usuarios, calificaciones y feedback         |
+| `home/`        | Controlador para vista inicial o página pública                             |
+| `learner/`     | Gestión de aprendices, sus intereses y estilos de aprendizaje               |
+| `mentor/`      | Gestión de mentores y sus competencias                                      |
+| `mentorship/`  | Relación de tutorías entre mentores y aprendices                            |
+| `project/`     | Gestión de proyectos colaborativos o entregables prácticos                  |
+| `security/`    | Filtros, validaciones y reglas de acceso por roles                          |
+| `user/`        | Registro de usuarios, roles (`ADMIN`, `MENTOR`, `LEARNER`)                  |
 
 ---
 
-## ✅ Buenas prácticas para ramas
+### 🧩 Componentes generales
 
-- Usar guiones `-` entre palabras
-- Nada de mayúsculas, espacios o acentos
-- Agrega ID de la tarea si usás Trello/Jira/Notion
-- Que el nombre diga claramente qué estás haciendo
+| Componente       | Descripción                                                                 |
+|------------------|-----------------------------------------------------------------------------|
+| **Entities**     | Clases JPA que representan tablas de la base de datos                       |
+| **DTOs**         | Objetos para exponer datos de forma segura al cliente                       |
+| **Repositories** | Interfaces basadas en `JpaRepository` para operaciones CRUD                 |
+| **Services**     | Capa de negocio: validaciones, flujos de datos y procesos internos          |
+| **Controllers**  | Endpoints REST: entrada/salida documentada con Swagger                     |
+| **Security**     | Lógica de autenticación/autorización con Spring Security + JWT              |
+| **mapper/**      | Transformación entre entidades ↔ DTOs usando MapStruct o lógica manual      |
+| **specification/**| Filtros dinámicos con JPA Specification para búsquedas personalizadas     |
+```
 
----
+## ⚒️ Tecnologías utilizadas
 
-## 📝 Parte 2: Convención para Commits
-
-Usamos **Conventional Commits** para que sea fácil de leer, mantener, y automatizar.
-
-### 🎯 Formato
-`<tipo>(<scope>): <descripción>`
-
----
-
-### 🧠 Alcances (scope)
-
-Usar scopes claros para identificar si estás tocando el frontend o backend y qué parte del sistema:
-
-**Frontend scopes**
-- `ui`
-- `navbar`
-- `login`
-- `home`
-- `profile`
-- `form`
-- `theme`
-- `layout`
-
-
-**Backend scopes**
-- `auth`
-- `user`
-- `db`
-- `service`
-- `api`
-- `security`
-- `payment`
-
+- Java 17
+- Spring Boot
+- Spring Data JPA
+- Spring Security + JWT
+- PostgreSQL
+- Swagger UI / OpenAPI
+- Maven
+- Vite (Frontend)
+- Docker (en proceso de integración)
 
 ---
 
-### ✨ Tipos de commits y ejemplos
+## 🚀 Instalación y ejecución
 
-| Tipo       | ¿Cuándo se usa?                                | Ejemplo Frontend                           | Ejemplo Backend                             |
-| ---------- | ---------------------------------------------- | ------------------------------------------ | ------------------------------------------- |
-| `feat`     | Nueva funcionalidad                            | `feat(ui): add dark mode toggle`           | `feat(auth): implement JWT middleware`      |
-| `fix`      | Bug o error corregido                          | `fix(form): fix required field validation` | `fix(db): correct query syntax for reports` |
-| `docs`     | Documentación (README, comentarios, wiki)      | `docs(home): update usage section`         | `docs(api): add OpenAPI spec`               |
-| `style`    | Formato, sin lógica (espacios, comas)          | `style(layout): fix indentation`           | `style(api): reorder imports`               |
-| `refactor` | Reestructuración del código                    | `refactor(navbar): simplify render logic`  | `refactor(user): extract role-check method` |
-| `test`     | Agregar o modificar pruebas                    | `test(login): add validation unit tests`   | `test(auth): create token expiration tests` |
-| `chore`    | Tareas varias (config, dependencias, CI/CD...) | `chore: update React version`              | `chore: setup docker-compose`               |
+### Clonar el repositorio
 
----
+```bash
+git clone https://github.com/mandalorians-team/Skilllink-Alumnithon.git
+cd skilllink-backend
+```
 
-### ⛔ Ejemplos de commits malos
+### Ejecutar el backend
 
-No uses mensajes como:
+```bash
+mvn spring-boot:run
+```
 
-- ❌ `arreglé cosas`
-- ❌ `final final`
-- ❌ `fix`
-- ❌ `actualización`
-- ❌ `YA FUNCIONA`
+La app estará disponible en: `http://localhost:8080`
+
+### Acceder a la documentación Swagger
+
+> http://localhost:8080/swagger-ui/index.html
 
 ---
 
-## 🧭 Ejemplo de flujo real: Frontend
-- `git checkout develop`
-- `git checkout -b frontend/feature/103-navbar-component`
-- Haces tus cambios ✍️
-- `git add .`
-- `git commit -m "feat(navbar): add navbar with responsive design"`
-- `git push -u origin frontend/feature/103-navbar-component`
-
-
-## Ejemplo de flujo real: Backend
-- `git checkout develop`
-- `git checkout -b backend/fix/207-auth-token-expiration`
-- Haces tus cambios ✍️
-- `git add .`
-- `git commit -m "fix(auth): correct token expiration logic"`
-- `git push -u origin backend/fix/207-auth-token-expiration`
-
-
+## 📚 Endpoints REST por módulo
 
 ---
 
-📌 **Reglas de oro del equipo Mandalorians**
+### 📘 Auth Controller
 
-- 🔒 Nadie hace push directo a `main` ni `develop`
-- 🚀 Todo cambio se hace desde ramas `frontend/` o `backend/`
-- 🧪 Todo va con PR (Pull Request), revisión y test
-- 📋 Commits claros con tipo y scope
-- 🔥 `hotfix/` solo para bugs urgentes en `main`
-- ✅ El nombre de la rama debe reflejar su propósito
+| ✅ | Método | Endpoint              | Descripción                        |
+|-----|--------|-----------------------|------------------------------------|
+| [ ] | POST   | `/api/auth/register`  | Registro de nuevo usuario y obtener JWT                  
+| [ ] | POST   | `/api/auth/logout`    | Cierre de sesión                   |
+| [ ] | POST   | `/api/auth/login`     | Autenticación y obtención de token|
+
+---
+
+### 📘 Cursos
+
+| ✅ | Método | Endpoint                     | Descripción                                 |
+|-----|--------|------------------------------|---------------------------------------------|
+| [ ] | GET    | `/api/courses/{id}`          | Obtener un curso por su ID                  |
+| [ ] | PUT    | `/api/courses/{id}`          | Actualizar un curso existente               |
+| [ ] | DELETE | `/api/courses/{id}`          | Eliminar un curso                           |
+| [ ] | GET    | `/api/courses`               | Listar todos los cursos                     |
+| [ ] | POST   | `/api/courses`               | Crear un nuevo curso                        |
+| [ ] | GET    | `/api/courses/buscar`        | Buscar cursos con filtros y paginación      |
+
+---
+
+### 📘 Certification Controller
+
+| ✅ | Método | Endpoint                   | Descripción                       |
+|-----|--------|----------------------------|-----------------------------------|
+| [ ] | GET    | `/certifications/{id}`     | Obtener una certificación por ID  |
+| [ ] | PUT    | `/certifications/{id}`     | Actualizar una certificación      |
+| [ ] | GET    | `/certifications`          | Listar todas las certificaciones  |
+| [ ] | POST   | `/certifications`          | Crear una nueva certificación     |
+
+---
+
+### 📘 Project Controller
+
+| ✅ | Método | Endpoint                 | Descripción                          |
+|-----|--------|--------------------------|--------------------------------------|
+| [ ] | GET    | `/api/projects/{id}`     | Obtener proyecto por ID              |
+| [ ] | PUT    | `/api/projects/{id}`     | Actualizar proyecto                  |
+| [ ] | DELETE | `/api/projects/{id}`     | Eliminar proyecto                    |
+| [ ] | GET    | `/api/projects`          | Listar todos los proyectos           |
+| [ ] | POST   | `/api/projects`          | Crear nuevo proyecto                 |
+
+---
+
+### 📘 Mentor Controller
+
+| ✅ | Método | Endpoint                | Descripción                     |
+|-----|--------|-------------------------|---------------------------------|
+| [ ] | GET    | `/api/mentors/{id}`     | Obtener mentor por ID           |
+| [ ] | PUT    | `/api/mentors/{id}`     | Actualizar mentor               |
+| [ ] | DELETE | `/api/mentors/{id}`     | Eliminar mentor                 |
+| [ ] | GET    | `/api/mentors`          | Listar todos los mentores       |
+
+---
+
+### 📘 Learner Controller
+
+| ✅ | Método | Endpoint                 | Descripción                     |
+|-----|--------|--------------------------|---------------------------------|
+| [ ] | GET    | `/api/learners/{id}`     | Obtener aprendiz por ID         |
+| [ ] | PUT    | `/api/learners/{id}`     | Actualizar aprendiz             |
+| [ ] | DELETE | `/api/learners/{id}`     | Eliminar aprendiz               |
+| [ ] | GET    | `/api/learners`          | Listar todos los aprendices     |
+
+---
+
+### 📘 Category Controller
+
+| ✅ | Método | Endpoint                  | Descripción                             |
+|-----|--------|---------------------------|-----------------------------------------|
+| [ ] | GET    | `/api/categories/{id}`    | Obtener categoría por ID                |
+| [ ] | PUT    | `/api/categories/{id}`    | Actualizar categoría                    |
+| [ ] | DELETE | `/api/categories/{id}`    | Eliminar categoría                      |
+| [ ] | GET    | `/api/categories`         | Listar todas las categorías             |
+| [ ] | POST   | `/api/categories`         | Crear una nueva categoría               |
+
+---
+
+### 📘 Mentorship Controller
+
+| ✅ | Método | Endpoint                      | Descripción                                 |
+|-----|--------|-------------------------------|---------------------------------------------|
+| [ ] | GET    | `/api/mentorships`            | Listar todas las relaciones de mentoría     |
+| [ ] | POST   | `/api/mentorships`            | Crear nueva relación de mentoría            |
+| [ ] | GET    | `/api/mentorships/{id}`       | Obtener mentoría por ID                     |
+
+---
+
+### 📘 Evaluation Controller
+
+| ✅ | Método | Endpoint                            | Descripción                                 |
+|-----|--------|-------------------------------------|---------------------------------------------|
+| [ ] | POST   | `/api/evaluations`                  | Registrar una evaluación                    |
+| [ ] | GET    | `/api/evaluations/by-user/{id}`     | Ver evaluaciones hechas a un usuario        |
 
 ---
 
 
+### 📘 User Controller
+
+| ✅ | Método | Endpoint              | Descripción                   |
+|-----|--------|-----------------------|-------------------------------|
+| [ ] | GET    | `/users`              | Listar todos los usuarios     |
+| [ ] | GET    | `/users/api/info`     | Obtener información del usuario|
+
+---
+
+### 📘 Home Controller
+
+| ✅ | Método | Endpoint | Descripción               |
+|-----|--------|----------|---------------------------|
+| [ ] | GET    | `/`      | Página raíz del backend    |
+
+---
+
+## 🧪 Pruebas manuales
+
+Puedes usar Postman o Swagger.
+
+---
+
+## 🔐 Seguridad
+
+- Autenticación vía JWT
+- Login por `POST /api/auth/login` con `username` y `password`
+- Acceso protegido a recursos según roles:
+  - `ADMIN`: acceso total
+  - `MENTOR`: acceso a mentorías asignadas
+  - `LEARNER`: acceso a cursos, evaluaciones y feedback recibido
+
+---
+
+## 📦 Frontend
+
+- Repositorio: `skilllink-frontend/`
+- Stack: Vite + React
+- Despliegue:
+  - En desarrollo: `npm run dev`
+  - En producción: `npm run build`, copiar contenido de `dist/` a `skilllink-backend/src/main/resources/static/`
+---
+
+## 📚 Documentación Externa
+•  	Notion: 
+	ttps://www.notion.so/211881067d6380cc8e00ce8612eca158?v=211881067d638024adf9000c81445bd8&p=216881067d6380dfb220d9ebac71df56&pm=s
+•  	trello: https://trello.com/b/VSbgAxW0/skill-link-alumnithon-2025
+
+Desarrollado por Mandalorian Team – Equipo 3 Alunithon ONE 2025✨
+Equipo De desarrollo: 4 Desarrolladores Backend y 3 desarrolladores Frontend: 
+•  	Elise Ortega (Elise Ortega) – Frontend. 
+•  	Alejandro Anchundia (Alejo) – Frontend. 
+•	       Alejandra Toloza – Frontend. 
+ • 	Luiggi (!Lviggi) – Backend. 
+• 	Cristian Yanes (Kazjael) – Backend.
+• 	Ignacio Navarro (Ignacio) – Backend.
+• 	Alejandro Quintana (haqui82) – Backend.
+
+---
+
+## 📚 Créditos
+
+Desarrollado por Mandalorian Team – Equipo 3 Alunithon ONE 2025✨
+Equipo De desarrollo: 4 Desarrolladores Backend y 3 desarrolladores Frontend: 
+•  	Elise Ortega (Elise Ortega) – Frontend. 
+•  	Alejandro Anchundia (Alejo) – Frontend. 
+•	       Alejandra Toloza – Frontend. 
+ • 	Luiggi (!Lviggi) – Backend. 
+• 	Cristian Yanes (Kazjael) – Backend.
+• 	Ignacio Navarro (Ignacio) – Backend.
+• 	Alejandro Quintana (haqui82) – Backend.
+
+---
+
+```
+
+---
 
