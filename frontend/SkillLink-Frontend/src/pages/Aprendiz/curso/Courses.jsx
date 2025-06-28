@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import NavbarInterno from "@/components/Main/NavbarInterno";
+import { Link, useNavigate } from "react-router-dom";
 import CourseCard from "@/components/Aprendiz/Curso/CourseCard";
 import FilterTabs from "@/components/comun/FilterTabs";
 import Pagination from "@/components/comun/Pagination";
@@ -7,6 +9,7 @@ import { Sparkles } from "lucide-react";
 import useDocumentTitle from "@/hooks/useDocumentTitle";
 import { getAllCourses } from "@/services/BackendServices";
 import SearchBar from "@/components/comun/SearchBar";
+import LayoutEstudiante from "@/components/comun/LayoutEstudiante";
 
 const availableCourses = [
   {
@@ -53,6 +56,7 @@ export default function Courses() {
   const [activeFilter, setActiveFilter] = useState("Cursos");
   const [currentPage, setCurrentPage] = useState(1); // Estado para la página actual
   const [isLoading, setIsLoading] = useState(false); // Estado de carga
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -121,71 +125,105 @@ export default function Courses() {
     }
   };
 
+  // Datos de ejemplo para el usuario (puedes reemplazar por los reales)
+  const nombre = "Nombre";
+  const apellido = "Apellido";
+  const rol = "Estudiante.";
+  const bio = "Apasionado por aprender y compartir tecnología.";
+
+  // Filtra los cursos inscritos (puedes ajustar los status según tu backend)
+  const cursosInscritos = courses.filter((c) =>
+    ["en progreso", "completados", "sin iniciar"].includes(
+      (c.status || "").toLowerCase()
+    )
+  );
+
   if (isLoading && courses.length === 0) {
     return <div className="text-center p-8">Cargando cursos...</div>;
   }
 
   return (
-    <div className="max-w-7xl mx-auto">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-header">Mis Cursos</h1>
-        <button className="bg-palette-steel-blue text-white flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-blue-500 transition-colors cursor-pointer">
-          <Sparkles className="h-5 w-5" />
-          Explorar nuevos cursos
-        </button>
-      </div>
-      {featuredCourse && (
-        <div className="mb-8">
-          <FeaturedCourse course={featuredCourse} />
+    <LayoutEstudiante active="Cursos">
+      {cursosInscritos.length === 0 ? (
+        <div className="flex flex-col items-center justify-center py-16">
+          <h2 className="text-2xl font-bold mb-2 text-gray-700">
+            ¡Aún no te has inscrito en ningún curso!
+          </h2>
+          <p className="text-gray-500 mb-4">
+            Explora nuestra oferta de cursos y comienza a aprender algo nuevo
+            hoy.
+          </p>
+          <button
+            className="bg-blue-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-600 transition"
+            onClick={() => navigate("/cursos-disponibles")}>
+            Explorar cursos
+          </button>
         </div>
-      )}
-
-      <FilterTabs
-        filters={filters}
-        activeFilter={activeFilter}
-        onFilterChange={handleFilterChange}
-      />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 min-h-[500px]">
-        {isLoading ? (
-          <div className="col-span-3 text-center py-10">
-            <p className="text-gray-500">Cargando cursos...</p>
+      ) : (
+        <>
+          <div className="max-w-7xl mx-auto">
+            <div className="flex justify-between items-center mb-6">
+              <h1 className="text-3xl font-bold text-header">Mis Cursos</h1>
+              <button className="bg-palette-steel-blue text-white flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-blue-500 transition-colors cursor-pointer"
+              onClick={() => navigate("/cursos-disponibles")}
+              >
+                <Sparkles className="h-5 w-5" />
+                Explorar nuevos cursos
+              </button>
+            </div>
+            {featuredCourse && (
+              <div className="mb-8">
+                <FeaturedCourse course={featuredCourse} />
+              </div>
+            )}
+            <FilterTabs
+              filters={filters}
+              activeFilter={activeFilter}
+              onFilterChange={handleFilterChange}
+            />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 min-h-[500px]">
+              {isLoading ? (
+                <div className="col-span-3 text-center py-10">
+                  <p className="text-gray-500">Cargando cursos...</p>
+                </div>
+              ) : (
+                paginatedCourses.map((course) => (
+                  <CourseCard
+                    key={course.id}
+                    course={course}
+                    type="enrolled"
+                    onEnroll={handleEnroll}
+                  />
+                ))
+              )}
+            </div>
+            <div className="my-12">
+              <h2 className="text-3xl font-bold text-header mb-6">
+                Cursos Destacados de la semana
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+                {availableCourses.map((course) => (
+                  <CourseCard
+                    key={course.id}
+                    course={course}
+                    type="available"
+                    onEnroll={handleEnroll}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className="flex justify-center mt-8 mb-12">
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+                totalItems={availableCourses.length}
+                itemsPerPage={ITEMS_PER_PAGE}
+              />
+            </div>
           </div>
-        ) : (
-          paginatedCourses.map((course) => (
-            <CourseCard
-              key={course.id}
-              course={course}
-              type="enrolled"
-              onEnroll={handleEnroll}
-            />
-          ))
-        )}
-      </div>
-
-      <div className="my-12">
-        <h2 className="text-3xl font-bold text-header mb-6">
-          Explora Nuevos Cursos y Mentorías
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-          {availableCourses.map((course) => (
-            <CourseCard
-              key={course.id}
-              course={course}
-              type="available"
-              onEnroll={handleEnroll}
-            />
-          ))}
-        </div>
-      </div>
-      <div className="flex justify-center mt-8 mb-12">
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
-          totalItems={availableCourses.length}
-          itemsPerPage={ITEMS_PER_PAGE}
-        />
-      </div>
-    </div>
+        </>
+      )}
+    </LayoutEstudiante>
   );
 }

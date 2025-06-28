@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { Plus } from "lucide-react";
+import { Link } from "react-router-dom";
+import NavbarInterno from "@/components/Main/NavbarInterno";
 import ProjectFilterTabs from "@/components/Aprendiz/Proyectos/ProjectFilterTabs";
 import SearchBar from "@/components/comun/SearchBar";
 import ProyectsCard from "@/components/Aprendiz/Proyectos/ProyectsCard";
 import useDocumentTitle from "@/hooks/useDocumentTitle";
 import ModalNuevoProyecto from "@/components/ui/ModalNuevoProyecto";
 import ModalDetalleProyecto from "@/components/ui/ModalDetalleProyecto";
+import ModalNuevaCategoria from "@/components/ui/ModalNuevaCategoria";
 import { useNavigate } from "react-router-dom";
+import LayoutEstudiante from "@/components/comun/LayoutEstudiante";
 
 // Se definen los datos de ejemplo para los proyectos.
 // En una aplicación real, estos datos vendrían de una API.
@@ -86,6 +90,7 @@ export default function ProyectsPage() {
   const [showModal, setShowModal] = useState(false);
   const [showDetalle, setShowDetalle] = useState(false);
   const [proyectoDetalle, setProyectoDetalle] = useState(null);
+  const [showModalNuevaCategoria, setShowModalNuevaCategoria] = useState(false);
   const navigate = useNavigate();
 
   // Re-introducimos la lógica de filtrado local
@@ -121,6 +126,7 @@ export default function ProyectsPage() {
         members: [],
       },
     ]);
+    setShowModal(false);
   };
 
   const handleVerDetalle = (proyecto) => {
@@ -139,62 +145,93 @@ export default function ProyectsPage() {
     setShowDetalle(false);
   };
 
+  const handleCreateCategoria = (nuevaCategoria) => {
+    // Aquí puedes agregar la lógica para crear una nueva categoría
+    console.log("Nueva categoría creada:", nuevaCategoria);
+    setShowModalNuevaCategoria(false);
+  };
+
+
+
   return (
-    <div className="p-6 bg-blue-200 min-h-screen">
-      {/* Encabezado de la página */}
-      <header className="flex justify-between items-center mb-6">
-        <h1 className="text-4xl font-bold text-black">Mis Proyectos</h1>
-        <button
-          className="bg-blue-400 text-black flex items-center px-4 py-2 rounded-lg hover:bg-blue-500 transition-colors"
-          onClick={() => setShowModal(true)}>
-          <Plus className="w-5 h-5 mr-2" />
-          Crear Nuevo Proyecto
-        </button>
-      </header>
+    <div className="flex flex-col min-h-screen bg-[#B8CFDF]">
+      {/* Header personalizado */}
+      <NavbarInterno />
 
-      {/* Volvemos a poner los filtros y la barra de búsqueda juntos */}
-      <div className="flex justify-between items-center mb-6">
-        <ProjectFilterTabs
-          tabs={tabs}
-          activeTab={activeTab}
-          onTabChange={setActiveTab}
-        />
-        <SearchBar
-          value={searchTerm}
-          onSearchChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </div>
 
-      {/* Cuadrícula para mostrar las tarjetas de proyecto */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {filteredProjects.length > 0 ? (
-          filteredProjects.map((project) => (
-            <ProyectsCard
-              key={project.id}
-              proyect={project}
-              onVerDetalle={handleVerDetalle}
-              onUnirse={handleUnirse}
+        {/* Sidebar personalizado */}
+        <LayoutEstudiante active="proyectos">
+
+        {/* Contenido principal */}
+        <main className="flex-1 p-6 bg-blue-200 min-h-screen">
+          {/* Encabezado de la página */}
+          <header className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
+            <h1 className="text-4xl font-bold text-black">Mis Proyectos</h1>
+            <button
+              className="bg-blue-400 text-black flex items-center px-4 py-2 rounded-lg hover:bg-blue-500 transition-colors w-full sm:w-auto"
+              onClick={() => setShowModal(true)}>
+              <Plus className="w-5 h-5 mr-2" />
+              Crear Nuevo Proyecto
+            </button>
+            <button
+              className="bg-blue-400 text-black flex items-center px-4 py-2 rounded-lg hover:bg-blue-500 transition-colors w-full sm:w-auto"
+              onClick={() => setShowModalNuevaCategoria(true)}>
+              <Plus className="w-5 h-5 mr-2" />
+              Crear una nueva categoría
+            </button>
+          </header>
+
+          {/* Filtros y barra de búsqueda */}
+          <div className="flex justify-between items-center mb-6">
+            <ProjectFilterTabs
+              tabs={tabs}
+              activeTab={activeTab}
+              onTabChange={setActiveTab}
             />
-          ))
-        ) : (
-          <div className="text-center text-gray-500 mt-20 col-span-full">
-            <p>No se encontraron proyectos para "{searchTerm}".</p>
+            <SearchBar
+              value={searchTerm}
+              onSearchChange={(e) => setSearchTerm(e.target.value)}
+            />
           </div>
-        )}
+
+          {/* Cuadrícula para mostrar las tarjetas de proyecto */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {filteredProjects.length > 0 ? (
+              filteredProjects.map((project) => (
+                <ProyectsCard
+                  key={project.id}
+                  proyect={project}
+                  onVerDetalle={handleVerDetalle}
+                  onUnirse={handleUnirse}
+                />
+              ))
+            ) : (
+              <div className="text-center text-gray-500 mt-20 col-span-full">
+                <p>No se encontraron proyectos para "{searchTerm}".</p>
+              </div>
+            )}
+          </div>
+
+          <ModalNuevoProyecto
+            isOpen={showModal}
+            onClose={() => setShowModal(false)}
+            onCreate={handleCreateProyecto}
+          />
+          <ModalDetalleProyecto
+            isOpen={showDetalle}
+            onClose={() => setShowDetalle(false)}
+            proyecto={proyectoDetalle}
+            onUnirse={handleUnirse}
+            onIrPaginaDetalle={handleIrPaginaDetalle}
+          />
+          <ModalNuevaCategoria
+            isOpen={showModalNuevaCategoria}
+            onClose={() => setShowModalNuevaCategoria(false)}
+            onCreate={handleCreateCategoria}
+          />
+        </main>
+        </LayoutEstudiante>
       </div>
 
-      <ModalNuevoProyecto
-        isOpen={showModal}
-        onClose={() => setShowModal(false)}
-        onCreate={handleCreateProyecto}
-      />
-      <ModalDetalleProyecto
-        isOpen={showDetalle}
-        onClose={() => setShowDetalle(false)}
-        proyecto={proyectoDetalle}
-        onUnirse={handleUnirse}
-        onIrPaginaDetalle={handleIrPaginaDetalle}
-      />
-    </div>
   );
 }

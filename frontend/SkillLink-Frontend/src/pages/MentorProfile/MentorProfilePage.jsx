@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState, useRef } from "react";
+
 import Sidebar from "../../components/MentorProfile/SidebarMentor";
 import "../../styles/MentorProfilePage.css";
-import mentorFoto from "../../assets/imagen/mentor-foto.png"
+import defaultFoto from "../../assets/imagen/mentor-foto.png"
 
 const MentorProfilePage = () => {
   const [mentorImage, setMentorImage] = useState(defaultFoto);
@@ -205,4 +206,3 @@ const MentorProfilePage = () => {
 };
 
 export default MentorProfilePage;
-

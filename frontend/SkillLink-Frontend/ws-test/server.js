@@ -12,12 +12,13 @@ wss.on('connection', (ws) => {
     console.log('🔌 Cliente conectado');
 
     ws.on('message', (message) => {
-        console.log('📨 Mensaje recibido:', message);
+        const messageStr = message.toString(); // 👈 CONVERSIÓN CRÍTICA
+        console.log('📨 Mensaje recibido:', messageStr);
 
         // reenviar a todos (broadcast)
         for (const client of clients) {
             if (client.readyState === WebSocket.OPEN) {
-                client.send(message);
+                client.send(messageStr); // 👈 ENVÍA COMO STRING
             }
         }
     });
