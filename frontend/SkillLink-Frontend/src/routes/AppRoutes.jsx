@@ -15,21 +15,42 @@ import DashboardPage from "@/pages/Aprendiz/DashboardPage";
 import LoginPage from "@/pages/Login/LoginPage";
 
 // Importar la nueva página de Mentor
+<<<<<<< Updated upstream
 import MentorDashboardPage from "@/pages/mentor/MentorDashboardPage";
 import MisAlumnosPage from "@/pages/mentor/MisAlumnosPage";
 import MisCursosPage from "@/pages/mentor/MisCursosPage";
 import AgendaPage from "@/pages/mentor/AgendaPage";
 import ChatPage from "@/pages/Chat/ChatPage";
 import ConfiguracionPage from "@/pages/mentor/ConfiguracionPage";
+||||||| Stash base
+import MentorDashboardPage from "@/pages/mentor/MentorDashboardPage";
+import MisAlumnosPage from "@/pages/mentor/MisAlumnosPage";
+import MisCursosPage from "@/pages/mentor/MisCursosPage";
+import AgendaPage from "@/pages/mentor/AgendaPage";
+import ChatPage from "@/pages/mentor/ChatPage";
+import ConfiguracionPage from "@/pages/mentor/ConfiguracionPage";
+=======
+import MentorRoutes from "./MentorRoutes";
+
+>>>>>>> Stashed changes
 
 // Importar desde Error404
 import Error404 from "@/pages/Error404/Error404";
 
+<<<<<<< Updated upstream
 // Importar desde MentorProfile
 import DashboardMentor from "@/pages/MentorProfile/DashboardMentor";
 import MentorProfilePage from "@/pages/MentorProfile/MentorProfilePage";
 import MentorPage from "@/pages/MentorProfile/MentorPage";
 import MentorSearchSection from "@/components/MentorProfile/MentorSearchSection";
+||||||| Stash base
+// Importar desde MentorProfile
+import DashboardMentor from "@/pages/MentorProfile/DashboardMentor";
+import MentorProfilePage from "@/pages/MentorProfile/MentorProfilePage";
+import MentorPage from "@/pages/MentorProfile/MentorPage";
+=======
+
+>>>>>>> Stashed changes
 
 // Componente ProtectedRoute temporalmente deshabilitado
 // const ProtectedRoute = ({ children }) => {
@@ -61,6 +82,7 @@ export default function AppRoutes() {
         <Route path="courses/:courseId" element={<CourseLayoutPage />}>
           {/* Rutas anidadas que se renderizarán dentro del Outlet de CourseLayoutPage */}
           <Route path="content" element={<CourseContentPage />} />
+<<<<<<< Updated upstream
           <Route path="/mentor" element={<MentorPage />} />{" "}
           {/* Esta página es Main Area de la Etapa 1 de Visily */}
           <Route path="course-mentorias" element={<CourseMentoriasPage />} />
@@ -68,6 +90,17 @@ export default function AppRoutes() {
           {/* Esta página es Main Area de la Etapa 1 de Visily */}
           <Route path="course-mentorias" element={<CourseMentoriasPage />} />
           <Route path="proyectos" element={<CourseProyectsPage />} />
+||||||| Stash base
+          <Route path="/mentor" element={<MentorPage />} />   {/* Esta página es Main Area de la Etapa 1 de Visily */}
+         
+          <Route path="course-mentorias" element={<CourseMentoriasPage />}
+
+          <Route path="proyectos" element={<CourseProyectsPage />} />
+=======
+       
+          <Route path="course-mentorias" element={<CourseMentoriasPage />}
+          <Route path="proyectos" element={<CourseProyectsPage/>} />
+>>>>>>> Stashed changes
           <Route path="leccion/:lessonId" element={<LessonPage />} />
         </Route>
 
@@ -77,6 +110,7 @@ export default function AppRoutes() {
         <Route path="search" element={<SearchPage />} />
 
         {/* Rutas de Mentor */}
+<<<<<<< Updated upstream
         <Route path="/mentor/profile" element={<MentorProfilePage />} />
         <Route path="/mentor/dashboard-mentor/" element={<DashboardMentor />} />
         <Route path="/mentor/mis-estudiantes" element={<MentorProfilePage />} />
@@ -85,6 +119,19 @@ export default function AppRoutes() {
         <Route path="mentor/agenda" element={<AgendaPage />} />
         <Route path="mentor/chat" element={<ChatPage />} />
         <Route path="mentor/configuracion" element={<ConfiguracionPage />} />
+||||||| Stash base
+        <Route path="/mentor/profile" element={<MentorProfilePage />} />
+        <Route path="/mentor/dashboard-mentor/" element={<DashboardMentor />} />
+        <Route path="/mentor/mis-estudiantes" element={<MentorProfilePage />} />
+      
+        <Route path="mentor/alumnos" element={<MisAlumnosPage />} />
+        <Route path="mentor/cursos" element={<MisCursosPage />} />
+        <Route path="mentor/agenda" element={<AgendaPage />} />
+        <Route path="mentor/chat" element={<ChatPage />} />
+        <Route path="mentor/configuracion" element={<ConfiguracionPage />} />
+=======
+
+>>>>>>> Stashed changes
 
         <Route
           path="*"
