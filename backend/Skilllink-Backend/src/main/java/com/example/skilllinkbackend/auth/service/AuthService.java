@@ -38,7 +38,7 @@ public class AuthService {
 
         String token = jwtUtils.generateToken(new UserPrincipal(user), user.getRole().toString(), user.getEmail());
         String refreshToken = jwtUtils.generateRefreshToken(new UserPrincipal(user));
-        return new AuthResponse(user.getId(), token, refreshToken);
+        return new AuthResponse(user.getUser_id(), token, refreshToken);
     }
 
     public AuthResponse register(RegisterRequest request) {
@@ -62,18 +62,18 @@ public class AuthService {
         log.info("Registering user with role: {}", role);
 
         if (role == Role.MENTOR) {
-            MentorRequest mentorRequest = mapToMentorRequest(request, user.getId());
+            MentorRequest mentorRequest = mapToMentorRequest(request, user.getUser_id());
             mentorService.createMentorProfile(mentorRequest);
             log.info("Mentor profile created successfully");
         } else if (role == Role.LEARNER) {
-            LearnerRequest learnerRequest = mapToLearnerRequest(request, user.getId());
+            LearnerRequest learnerRequest = mapToLearnerRequest(request, user.getUser_id());
             learnerService.createLearnerProfile(learnerRequest);
             log.info("Learner profile created successfully");
         }
 
         String token = jwtUtils.generateToken(new UserPrincipal(user), user.getRole().toString(), user.getEmail());
         String refreshToken = jwtUtils.generateRefreshToken(new UserPrincipal(user));
-        return new AuthResponse(user.getId(), token, refreshToken);
+        return new AuthResponse(user.getUser_id(), token, refreshToken);
     }
 
     private void validateRegisterRequest(RegisterRequest request) {

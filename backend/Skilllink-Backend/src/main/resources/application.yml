@@ -7,7 +7,7 @@ spring:
     # To set enviorments profile (dev, prod and test)
   profiles:
 
-    active: ${SPRING_PROFILES_ACTIVE:dev}
+    active: ${SPRING_PROFILES_ACTIVE:default}
 
 
   datasource:

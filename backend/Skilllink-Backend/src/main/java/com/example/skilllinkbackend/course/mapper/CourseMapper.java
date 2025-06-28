@@ -20,7 +20,7 @@ public class CourseMapper {
                 .descripcion(course.getDescripcion())
                 .duracionHoras(course.getDuracionHoras())
                 .nivel(course.getNivel())
-                .instructorId(course.getInstructor() != null ? course.getInstructor().getId() : null)
+                .instructorId(course.getInstructor() != null ? course.getInstructor().getUser_id() : null)
                 .certificacionId(course.getCertificacion() != null ? course.getCertificacion().getId() : null)
                 .build();
     }
