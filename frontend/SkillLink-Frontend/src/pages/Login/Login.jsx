@@ -44,7 +44,7 @@ export default function Login() {
 
       // Llamar a la función centralizada
       const userInfo = await getUserInfo();
-      console.log("Info del usuario:", userInfo);
+      console.log(userInfo.role);
 
       // Redirigir según rol
       switch (userInfo.role) {
@@ -59,7 +59,7 @@ export default function Login() {
           break;
         default:
           console.warn("Rol no reconocido:", userInfo.role);
-          navigate("/perfil");
+          navigate("/");
       }
     } catch (err) {
       console.log(err);
