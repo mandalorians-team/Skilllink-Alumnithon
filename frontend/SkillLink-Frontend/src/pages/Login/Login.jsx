@@ -1,22 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-<<<<<<< Updated upstream
 import Navbar from "../../components/Main/Navbar";
 import Footer from "../../components/Main/Footer";
-||||||| Stash base
-import Navbar from "../../components/Main/Navbar";  // Asegúrate que esta ruta es la correcta
-import Footer from "../../components/Main/Footer";  // O ajusta la ruta real
-=======
-import Navbar from "../../components/Main/Navbar"; // Asegúrate que esta ruta es la correcta
-import Footer from "../../components/Main/Footer"; // O ajusta la ruta real
->>>>>>> Stashed changes
 import "../../index.css";
-<<<<<<< Updated upstream
 import { getUserInfo } from "@/services/BackendServices";
-||||||| Stash base
-=======
-import { jwtDecode } from "jwt-decode";
->>>>>>> Stashed changes
 
 export default function Login() {
   const navigate = useNavigate();
@@ -50,7 +37,6 @@ export default function Login() {
       const token = data.token;
       const role = data.role;
 
-<<<<<<< Updated upstream
       if (!token) throw new Error("Token no recibido desde el backend");
 
       // Guardamos el token
@@ -79,34 +65,6 @@ export default function Login() {
           console.warn("Rol no reconocido:", userInfo.role);
           navigate("/");
       }
-||||||| Stash base
-      // Redirige al perfil (o ajusta según tu flujo)
-      navigate("/perfil");
-=======
-      localStorage.setItem("token", data.token);
-
-      const decoded = jwtDecode(data.token);
-      console.log("Decoded:", decoded);
-
-      const role = decoded.role;
-      console.log("Rol extraído:", role, "Tipo:", typeof role);
-      localStorage.setItem("role", role);
-
-      if (role === "LEARNER") {
-        console.log("Redirigiendo a dashboard (LEARNER)");
-        navigate("/dashboard");
-      } else if (role === "MENTOR") {
-        console.log("Redirigiendo a mentor panel (MENTOR)");
-        navigate("/mentor/panel");
-      } else {
-        console.log(
-          "Rol no reconocido:",
-          role,
-          "- Redirigiendo a landing page"
-        );
-        navigate("/");
-      }
->>>>>>> Stashed changes
     } catch (err) {
       console.log(err);
 
@@ -149,19 +107,10 @@ export default function Login() {
                 required
               />
               <button
-
                 type="submit"
-<<<<<<< Updated upstream
                 className="w-full py-2 bg-gradient-to-r from-[#799EB8] to-[#678a9d] text-white rounded-md mb-4 text-sm font-semibold hover:scale-105 hover:brightness-110 transition-all duration-500 relative overflow-hidden">
                 Iniciar Sesion
-||||||| Stash base
-                className="w-full py-2 bg-gradient-to-r from-[#799EB8] to-[#678a9d] text-white rounded-md mb-4 text-sm font-semibold hover:scale-105 hover:brightness-110 transition-all duration-500 relative overflow-hidden"
-              >
-                Iniciar Sesión
-=======
-                className="w-full py-2 bg-gradient-to-r from-[#799EB8] to-[#678a9d] text-white rounded-md mb-4 text-sm font-semibold hover:scale-105 hover:brightness-110 transition-all duration-500 relative overflow-hidden">
-                Iniciar Sesión
->>>>>>> Stashed changes
+
               </button>
             </form>
 
