@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instance-profile
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
+
+<instance-profile id="HI-1"
+                 name="Documentation"
+                 start-page="starter-topic.md">
+
+    <toc-element topic="Application-Configuration.md"/>
+    <toc-element topic="SRS.md"/>
+    <toc-element topic="Functional-Requirements.md"/>
+    <toc-element topic="Uses-Cases.md"/>
+    <toc-element topic="starter-topic.md"/>
+</instance-profile>

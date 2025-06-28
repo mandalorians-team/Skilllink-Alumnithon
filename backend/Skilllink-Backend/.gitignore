@@ -31,3 +31,16 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+### Application Configuration ###
+# Hide the main configuration with sensitive data
+src/main/resources/application.yml
+
+## Hide specific profile configurations
+src/main/resources/application-dev.yml
+src/main/resources/application-prod.yml
+
+# Keep these files
+src/main/resources/application.yml.example
+src/test/resources/application-test.yml

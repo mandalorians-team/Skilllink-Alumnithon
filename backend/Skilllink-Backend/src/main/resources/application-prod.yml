@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/skilllink_db}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:Alejo123}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+server:
+  port: 8080
+
+skilllink:
+  cors:
+    allowed-origins: "*"
+    allowed-methods: "GET,POST,PUT,DELETE,OPTIONS"
+    allowed-headers: "*"
+
+jwt:
+  secret: "R+/oZtXwywdF7ALsliLi1gdWN0BLc3xYu3wl/Vn2jxGpTsAAAHokSgZs8EbwRpP5v1MY/LZygG/4Z38OfQOFpw=="  # Get from env vars
+  expiration-ms: ${JWT_EXPIRATION_MS:86400000}
