@@ -1,157 +1,88 @@
-# 🛡️ Guía Git Mandalorians
+# 🧑‍🏫 Skilllink - Página del Mentor
 
-## 💥 Convención de Nombres de Ramas y Commits para Frontend y Backend
+<div align="left">
+    <img src="https://img.shields.io/badge/JavaScript-FEFF01?logo=javascript&logoColor=000000&style=for-the-badge"/>
+    <img src="https://img.shields.io/badge/HTML-EC6231?logo=html5&logoColor=FFFFFF&style=for-the-badge" />
+    <img src="https://img.shields.io/badge/CSS-01A3D8?logo=css3&logoColor=FFFFFF&style=for-the-badge" />
+    <img src="https://img.shields.io/badge/Node.js-08AC0A?logo=node.js&logoColor=000000&style=for-the-badge" />
+    <img src="https://img.shields.io/badge/OpenAI-98d4bc?logo=openai&logoColor=000000&style=for-the-badge" />
+    <img src="https://img.shields.io/badge/React-61dbfb?logo=react&logoColor=000000&style=for-the-badge" />
 
-> *"Así es el camino."* — Mandalorians Dev Team
-
----
-
-## 🚀 Parte 1: Nombres de Ramas (Branch Naming)
-
-### 🧑‍🎨 **Frontend**
-Usar este formato para ramas de frontend: 
-`frontend/<tipo>/<id-opcional>-<descripcion>`
+</div>
 
 
-#### ✅ Ejemplos:
-- `frontend/feature/102-login-form`
-- `frontend/fix/203-header-bug`
-- `frontend/hotfix/999-css-break-navbar`
-- `frontend/docs/actualizar-readme`
-
+Este módulo forma parte del proyecto **Skilllink**, una plataforma que conecta estudiantes con mentores especializados. Esta sección está dedicada al **panel del mentor**, permitiéndole gestionar sus cursos y comunicarse directamente con estudiantes mediante un sistema de mensajería en tiempo real.
 
 ---
 
-### 🧑‍💻 **Backend**
+## 📌 Funcionalidades implementadas
 
-Usar este formato para ramas de backend:
-`backend/<tipo>/<id-opcional>-<descripcion>`
+### 1. Dashboard del Mentor
+- Visualización de mentorías o cursos en formato de tarjetas.
+- Estado de cada curso: **Activo** / **Inactivo** con botón para alternar.
+- Opción para **eliminar cursos**, con validación:
+  - No se puede eliminar si el curso tiene estudiantes inscritos.
+  - Modal de confirmación antes de eliminar.
 
-#### ✅ Ejemplos:
-- `backend/feature/101-auth-service`
-- `backend/fix/205-null-user-error`
-- `backend/hotfix/998-db-connection-issue`
-- `backend/chore/configurar-hibernate`
+### 2. Chat en tiempo real
+- Sistema de mensajería entre mentor y estudiantes.
+- Lista de contactos con contador de mensajes no leídos.
+- Notificaciones con ícono personalizado al recibir un nuevo mensaje.
+- Scroll automático dentro del área de chat (sin afectar el scroll global).
 
-
----
-
-### 📚 Tipos de rama válidos
-
-| Tipo       | ¿Para qué sirve?                                  |
-| ---------- | ------------------------------------------------- |
-| `feature/` | Nueva funcionalidad                               |
-| `fix/`     | Corrección de errores menores                     |
-| `hotfix/`  | Fix urgente en producción                         |
-| `release/` | Preparar una versión                              |
-| `docs/`    | Cambios en documentación (`README`, `wiki`, etc.) |
-| `chore/`   | Configuraciones, scripts, tareas no funcionales   |
-| `test/`    | Nuevas pruebas o actualizaciones a los tests      |
+### 3. Diseño e Interacción
+- Diseño adaptable con componentes reutilizables (`CourseCard`, `ChatBox`, etc).
+- Animaciones y estilos visuales para mejorar la experiencia del usuario.
+- Estados visuales activos/inactivos, resaltado de nuevos mensajes.
 
 ---
 
-## ✅ Buenas prácticas para ramas
+## 🧱 Estructura del Proyecto
 
-- Usar guiones `-` entre palabras
-- Nada de mayúsculas, espacios o acentos
-- Agrega ID de la tarea si usás Trello/Jira/Notion
-- Que el nombre diga claramente qué estás haciendo
+```bash
+src/
+├── App.jsx
+├── AppRoutes.jsx
+├── main.jsx
+├── index.css
 
----
+├── assets/               # Imágenes y recursos estáticos
+│   └── icons/
+│   └── logos/
 
-## 📝 Parte 2: Convención para Commits
+├── pages/                # Páginas principales
+│   ├── Home.jsx
+│   ├── Login.jsx
+│   ├── Register.jsx
+│   └── MentorDashboard.jsx
 
-Usamos **Conventional Commits** para que sea fácil de leer, mantener, y automatizar.
+├── components/           # Componentes reutilizables
+│   ├── Navbar.jsx
+│   ├── Footer.jsx
+│   └── MentorProfile/
+│       ├── DashboardMentor.jsx
+│       ├── CourseCard.jsx
+│       ├── ChatBox.jsx
+│       └── ContactList.jsx
 
-### 🎯 Formato
-`<tipo>(<scope>): <descripción>`
+├── layouts/              # Layouts generales
+│   ├── MainLayout.jsx
+│   └── MentorLayout.jsx
 
----
+├── hooks/                # Hooks personalizados
+│   ├── useAuth.js
+│   ├── useFetch.js
+│   └── useScrollLock.js
 
-### 🧠 Alcances (scope)
+├── routes/               # Definición de rutas privadas/públicas
+│   ├── PrivateRoute.jsx
+│   └── MentorRoutes.jsx
 
-Usar scopes claros para identificar si estás tocando el frontend o backend y qué parte del sistema:
-
-**Frontend scopes**
-- `ui`
-- `navbar`
-- `login`
-- `home`
-- `profile`
-- `form`
-- `theme`
-- `layout`
-
-
-**Backend scopes**
-- `auth`
-- `user`
-- `db`
-- `service`
-- `api`
-- `security`
-- `payment`
-
-
----
-
-### ✨ Tipos de commits y ejemplos
-
-| Tipo       | ¿Cuándo se usa?                                | Ejemplo Frontend                           | Ejemplo Backend                             |
-| ---------- | ---------------------------------------------- | ------------------------------------------ | ------------------------------------------- |
-| `feat`     | Nueva funcionalidad                            | `feat(ui): add dark mode toggle`           | `feat(auth): implement JWT middleware`      |
-| `fix`      | Bug o error corregido                          | `fix(form): fix required field validation` | `fix(db): correct query syntax for reports` |
-| `docs`     | Documentación (README, comentarios, wiki)      | `docs(home): update usage section`         | `docs(api): add OpenAPI spec`               |
-| `style`    | Formato, sin lógica (espacios, comas)          | `style(layout): fix indentation`           | `style(api): reorder imports`               |
-| `refactor` | Reestructuración del código                    | `refactor(navbar): simplify render logic`  | `refactor(user): extract role-check method` |
-| `test`     | Agregar o modificar pruebas                    | `test(login): add validation unit tests`   | `test(auth): create token expiration tests` |
-| `chore`    | Tareas varias (config, dependencias, CI/CD...) | `chore: update React version`              | `chore: setup docker-compose`               |
-
----
-
-### ⛔ Ejemplos de commits malos
-
-No uses mensajes como:
-
-- ❌ `arreglé cosas`
-- ❌ `final final`
-- ❌ `fix`
-- ❌ `actualización`
-- ❌ `YA FUNCIONA`
-
----
-
-## 🧭 Ejemplo de flujo real: Frontend
-- `git checkout develop`
-- `git checkout -b frontend/feature/103-navbar-component`
-- Haces tus cambios ✍️
-- `git add .`
-- `git commit -m "feat(navbar): add navbar with responsive design"`
-- `git push -u origin frontend/feature/103-navbar-component`
-
-
-## Ejemplo de flujo real: Backend
-- `git checkout develop`
-- `git checkout -b backend/fix/207-auth-token-expiration`
-- Haces tus cambios ✍️
-- `git add .`
-- `git commit -m "fix(auth): correct token expiration logic"`
-- `git push -u origin backend/fix/207-auth-token-expiration`
+├── ws-test/              # Pruebas WebSocket / Sockets
+│   ├── socket-client.js
+│   └── TestSocket.jsx
 
 
 
----
 
-📌 **Reglas de oro del equipo Mandalorians**
-
-- 🔒 Nadie hace push directo a `main` ni `develop`
-- 🚀 Todo cambio se hace desde ramas `frontend/` o `backend/`
-- 🧪 Todo va con PR (Pull Request), revisión y test
-- 📋 Commits claros con tipo y scope
-- 🔥 `hotfix/` solo para bugs urgentes en `main`
-- ✅ El nombre de la rama debe reflejar su propósito
-
----
-
-
-
+*Alejandra Toloza*
