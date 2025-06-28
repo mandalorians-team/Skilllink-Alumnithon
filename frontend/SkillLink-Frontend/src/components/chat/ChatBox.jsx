@@ -3,20 +3,19 @@ import React, { useState, useEffect, useRef } from 'react';
 export default function ChatBox({ selectedContact, messages, onSendMessage, currentUserId }) {
     const [input, setInput] = useState('');
     const messageEndRef = useRef(null);
+    const messageContainerRef = useRef(null); // ✅ nuevo ref
 
     useEffect(() => {
-        scrollToBottom();
+        if (messageContainerRef.current) {
+            messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
+        }
     }, [messages]);
-
-    const scrollToBottom = () => {
-        messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    };
 
     const handleSend = () => {
         if (!input.trim() || !selectedContact) return;
 
         const newMessage = {
-            id: Date.now().toString(), // ID simple para evitar duplicados
+            id: Date.now().toString(),
             from: currentUserId,
             to: selectedContact,
             content: input.trim(),
@@ -40,9 +39,28 @@ export default function ChatBox({ selectedContact, messages, onSendMessage, curr
     }
 
     return (
-        <div className="chat">
-            <div className="chat-header">Conversación con <strong>{selectedContact}</strong></div>
-            <div className="chat-messages">
+        <div
+            className="chat"
+            style={{
+                height: '80%',
+                display: 'flex',
+                flexDirection: 'column',
+                overflow: 'hidden'
+            }}
+        >
+            <div className="chat-header">
+                Conversación con <strong>{selectedContact}</strong>
+            </div>
+
+            <div
+                className="chat-messages"
+                ref={messageContainerRef}
+                style={{
+                    flex: 1,
+                    overflowY: 'auto',
+                    padding: '1rem'
+                }}
+            >
                 {messages.map((msg, index) => (
                     <div
                         key={`${msg.id}-${index}`}
@@ -53,6 +71,7 @@ export default function ChatBox({ selectedContact, messages, onSendMessage, curr
                 ))}
                 <div ref={messageEndRef} />
             </div>
+
             <div className="chat-footer">
                 <input
                     type="text"

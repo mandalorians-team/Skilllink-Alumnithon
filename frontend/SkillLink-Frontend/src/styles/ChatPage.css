@@ -129,7 +129,6 @@ body {
     display: flex;
     flex-direction: column;
     height: 300px;
-    overflow-y: auto;
     margin-bottom: 1rem;
     padding-right: 12px;
 }
