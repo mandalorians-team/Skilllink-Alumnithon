@@ -3,8 +3,19 @@ import { Routes, Route, Outlet, useLocation } from "react-router-dom";
 
 // Layouts y componentes comunes
 import Header from "./components/comun/Header";
+<<<<<<< Updated upstream
 import NavbarInterno from "./components/Main/NavbarInterno";
 import Footer from "./components/Main/Footer";
+||||||| Stash base
+import Navbar from "./components/Main/Navbar";
+import Footer from "./components/comun/Footer";
+import Sidebar from "./components/comun/Sidebar";
+=======
+import Navbar from "./components/Main/Navbar";
+import NavbarInterno from "./components/Main/NavbarInterno";
+import Footer from "./components/comun/Footer";
+
+>>>>>>> Stashed changes
 import CurseTabs from "./components/Aprendiz/Curso/CourseTabs";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -31,6 +42,7 @@ import SearchPage from "./pages/SearchPage";
 import DashboardPage from "./pages/Aprendiz/DashboardPage";
 import PerfilEstudiante from "./pages/Aprendiz/PerfilEstudiante";
 import PanelEstudiante from "./pages/Aprendiz/PanelEstudiante";
+<<<<<<< Updated upstream
 
 // Páginas nuevas
 import CursosDisponibles from "./pages/CursosDisponibles";
@@ -45,6 +57,13 @@ import DashboardMentor from "./pages/MentorProfile/DashboardMentor";
 import MentorProfilePage from "./pages/MentorProfile/MentorProfilePage";
 import MisEstudiantes from "./pages/MentorProfile/MisEstudiantes";
 import MentorPage from "./pages/MentorProfile/MentorPage";
+||||||| Stash base
+import TestCertificacion from "./components/TestCertificacion";
+import NavbarInterno from "./components/Main/NavbarInterno";
+=======
+
+
+import Error404 from "./pages/Error404/Error404";
 
 function Layout() {
   const location = useLocation();
@@ -61,6 +80,7 @@ function Layout() {
   const showFooter = showHeader || showNavbar;
   const isCourseTabs = /^\/courses\/[^/]+(\/.*)?$/.test(location.pathname);
 
+<<<<<<< Updated upstream
   // Ocultamos el sidebar y header en la ruta de proyectos
   const isProyectsPage = location.pathname.startsWith("/proyectos");
   const isCoursesPage = location.pathname.startsWith("/courses");
@@ -77,11 +97,29 @@ function Layout() {
     isProyectsPage ||
     isCoursesPage ||
     isMentoriasPage;
+||||||| Stash base
+  const hideSidebar = /^\/(perfil|panel)$/.test(location.pathname);
+  const hideHeader = /^\/perfil$/.test(location.pathname); // 👈 Oculta header solo en /perfil
+=======
+  // 👈 Oculta header para dependiendo la pestaña
+  const hideNavbar = /^\/(perfil|panel|)$/.test(location.pathname);
+  const hideHeader = /^\/perfil|proyectos|$/.test(location.pathname); // 👈 Oculta header solo en /perfil
+>>>>>>> Stashed changes
 
   return (
     <div className="flex min-h-screen bg-page-background-color">
+<<<<<<< Updated upstream
       {!hideNavbar && <NavbarInterno />}
       <div className={`flex-1 flex flex-col ${!hideNavbar ? "ml-60" : ""}`}>
+||||||| Stash base
+      {!hideSidebar && <Sidebar />}
+      <div className={`flex-1 flex flex-col ${!hideSidebar ? "ml-64" : ""}`}>
+        {showNavbar && <Navbar />}
+=======
+      {!hideNavbar && <NavbarInterno />}
+      <div className={`flex-1 flex flex-col ${!hideNavbar ? "ml-60" : ""}`}>
+
+>>>>>>> Stashed changes
         {!hideHeader && showHeader && <Header />}
         {isCourseTabs && <CurseTabs />}
         <main className="p-6 bg-blue-200 flex-grow">
@@ -95,6 +133,7 @@ function Layout() {
 
 export default function App() {
   return (
+<<<<<<< Updated upstream
     <>
       <ToastContainer position="bottom-right" autoClose={4000} />
       <Routes>
@@ -224,10 +263,80 @@ export default function App() {
               // </RutaProtegidaLearner>
             }
           />
+||||||| Stash base
+    <Routes>
+      {/* Rutas sin Layout */}
+      <Route path="/" element={<MainPage />} />
+      <Route path="/formularioregistro" element={<FormularioRegistro />} />
+      <Route path="/registro" element={<Registro />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/restablecer" element={<ResetPassword />} />
+      <Route path="/cambiar-password" element={<ChangePassword />} />
+      <Route path="/test-cert" element={<TestCertificacion />} />
+      <Route path="/navbar-interno" element={<NavbarInterno />} />
+
+      {/* Rutas con Layout */}
+      <Route element={<Layout />}>
+        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/courses" element={<Courses />} />
+        <Route path="/courses/:courseId" element={<CourseLayoutPage />}>
+          <Route path="content" element={<CourseContentPage />} />
+          <Route path="course-mentorias" element={<CourseMentoriasPage />} />
+          <Route path="proyectos" element={<CourseProyectsPage />} />
+=======
+    <Routes>
+      {/* Rutas sin Layout */}
+      <Route path="/" element={<MainPage />} />
+      <Route path="/formularioregistro" element={<FormularioRegistro />} />
+      <Route path="/registro" element={<Registro />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/restablecer" element={<ResetPassword />} />
+      <Route path="/cambiar-password" element={<ChangePassword />} />
+      <Route path="/navbar-interno" element={<NavbarInterno />} />
+
+      {/* Rutas con Layout */}
+      <Route element={<Layout />}>
+      {/*Rutas Para el rol LEARNER CON SUS DIFERENTE SIDEBAR
+       */}
+        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/courses" element={<Courses />} />
+        <Route path="/courses/:courseId" element={<CourseLayoutPage />}>
+          <Route path="content" element={<CourseContentPage />} />
+          <Route path="course-mentorias" element={<CourseMentoriasPage />} />
+          <Route path="proyectos" element={<CourseProyectsPage />} />
+>>>>>>> Stashed changes
         </Route>
+<<<<<<< Updated upstream
         {/* Ruta 404 */}
         <Route path="*" element={<Error404 />} />
       </Routes>
     </>
+||||||| Stash base
+
+        <Route path="mentorias" element={<MentoriasPage />} />
+        <Route path="proyectos" element={<ProyectsPage />} />
+        <Route path="search" element={<SearchPage />} />
+        <Route path="perfil" element={<PerfilEstudiante />} />
+        <Route path="panel" element={<PanelEstudiante />} />
+      </Route>
+
+      {/* 404 */}
+      <Route path="*" element={<div>Página no encontrada</div>} />
+    </Routes>
+=======
+
+        <Route path="mentorias" element={<MentoriasPage />} />
+        <Route path="proyectos" element={<ProyectsPage />} />
+        <Route path="search" element={<SearchPage />} />
+        <Route path="perfil" element={<PerfilEstudiante />} />
+        <Route path="panel" element={<PanelEstudiante />} />
+
+
+      </Route>
+
+      {/* 404 */}
+      <Route path="*" element={<Error404/>} />
+    </Routes>
+>>>>>>> Stashed changes
   );
 }
