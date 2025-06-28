@@ -15,15 +15,11 @@ export const checkServerHealth = async () => {
 }
 
 // ===== FUNCIONES PARA OBTENER INFO DEL USUARIO Y PODER INICIAR SECION DEPENDIENDO EL ROL=====
-
 export async function getUserInfo() {
   const token = localStorage.getItem("token");
   if (!token) {
     throw new Error("No hay token disponible");
-
-
   }
-
 
   const response = await fetch("http://localhost:8080/users/api/info", {
     method: "GET",
@@ -32,16 +28,23 @@ export async function getUserInfo() {
     },
   });
 
-
-
-
   if (!response.ok) {
     const errorText = await response.text();
     throw new Error(`Error al obtener datos: ${errorText}`);
   }
 
+  const text = await response.text();
 
-  return await response.text();
+  // Parsear el string para extraer nombre, rol y email
+  const nameMatch = text.match(/User info for:\s*(.*?),/);
+  const roleMatch = text.match(/Role:\s*(\w+),/);
+  const emailMatch = text.match(/Email:\s*(.+)/);
+
+  return {
+    name: nameMatch ? nameMatch[1] : null,
+    role: roleMatch ? roleMatch[1] : null,
+    email: emailMatch ? emailMatch[1] : null
+  };
 }
 
 
