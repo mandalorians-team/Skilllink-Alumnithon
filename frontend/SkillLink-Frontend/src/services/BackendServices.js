@@ -21,7 +21,7 @@ export async function getUserInfo() {
     throw new Error("No hay token disponible");
   }
 
-  const response = await fetch("http://localhost:8080/users/api/info", {
+  const response = await fetch(`${API_URL}/users/api/info`, {
     method: "GET",
     headers: {
       "Authorization": `Bearer ${token}`
