@@ -6,7 +6,7 @@ export default function Navbar() {
   const navLinks = [
     { name: "Inicio", path: "/" },
     { name: "Cursos", path: "/cursos-disponibles" },      // CAMBIADO a /courses
-    { name: "Mentores", path: "/mentorias" },  // CAMBIADO a /mentorias
+    { name: "Mentores", path: "/mentores-disponibles" },  // CAMBIADO a /mentorias
     { name: "Registrarse", path: "/registro" },
     { name: "Login", path: "/login" },
     { name: "Restablecer Contraseña", path: "/restablecer" }
@@ -17,7 +17,7 @@ export default function Navbar() {
       <div className="flex items-center gap-3">
         <Link to="/" className="flex items-center gap-3">
           <img
-            src="/images/logo.jpg"
+            src="/images/logo1.png"
             alt="SkillLink"
             className="h-10 w-auto rounded-md"
           />

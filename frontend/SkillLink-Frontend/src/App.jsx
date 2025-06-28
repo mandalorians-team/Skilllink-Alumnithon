@@ -8,10 +8,11 @@ import {
 
 // Layouts y componentes comunes
 import Header from "./components/comun/Header";
-import Navbar from "./components/Main/Navbar";
 import NavbarInterno from "./components/Main/NavbarInterno";
 import Footer from "./components/Main/Footer";
 import CurseTabs from "./components/Aprendiz/Curso/CourseTabs";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // Páginas públicas
 import MainPage from "./pages/LandingPage/MainPage";
@@ -33,28 +34,14 @@ import SearchPage from "./pages/SearchPage";
 import DashboardPage from "./pages/Aprendiz/DashboardPage";
 import PerfilEstudiante from "./pages/Aprendiz/PerfilEstudiante";
 import PanelEstudiante from "./pages/Aprendiz/PanelEstudiante";
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-import MentorProfilePage from "./pages/MentorProfile/MentorProfilePage";
-=======
 
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
->>>>>>> 213c2b09297b575afb3be296e89ae02614e0c1d1
-import Error404 from "./pages/Error404/Error404";
-
-
-=======
-
-// Página nueva de cursos disponibles
+// Páginas nuevas
 import CursosDisponibles from "./pages/CursosDisponibles";
+import MentoresDisponibles from "./pages/MentoresDisponibles";
 
 // Página de error
 import Error404 from "./pages/Error404/Error404";
 
-// Layout general
->>>>>>> Stashed changes
 function Layout() {
   const location = useLocation();
 
@@ -63,8 +50,8 @@ function Layout() {
   const showFooter = showHeader || showNavbar;
   const isCourseTabs = /^\/courses\/[^/]+(\/.*)?$/.test(location.pathname);
 
-  // ✅ Ocultamos el sidebar (NavbarInterno) para rutas específicas como cursos-disponibles
-  const hideNavbar = /^\/(perfil|panel|cursos-disponibles)$/.test(location.pathname);
+  // ✅ Ocultamos el sidebar en estas rutas
+  const hideNavbar = /^\/(perfil|panel|cursos-disponibles|mentores-disponibles)$/.test(location.pathname);
   const hideHeader = /^\/(perfil|proyectos)$/.test(location.pathname);
 
   return (
@@ -82,63 +69,40 @@ function Layout() {
   );
 }
 
-// Rutas principales
 export default function App() {
   return (
-    <Routes>
-<<<<<<< HEAD
-      {/* Rutas públicas (sin Layout) */}
-=======
-      {/* Ruta para Chat */}      
-      <ToastContainer position="bottom-right" autoClose={4000} hideProgressBar={false} newestOnTop />
+    <>
+      <ToastContainer position="bottom-right" autoClose={4000} />
+      <Routes>
+        {/* Rutas públicas */}
+        <Route path="/" element={<MainPage />} />
+        <Route path="/formularioregistro" element={<FormularioRegistro />} />
+        <Route path="/registro" element={<Registro />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/restablecer" element={<ResetPassword />} />
+        <Route path="/cambiar-password" element={<ChangePassword />} />
 
-      {/* Ruta para AppRoutes */}      
-      <div className="app-container">
-        <AppRoutes />
-      </div>
-
-      {/* Rutas sin Layout */}
->>>>>>> 213c2b09297b575afb3be296e89ae02614e0c1d1
-      <Route path="/" element={<MainPage />} />
-      <Route path="/formularioregistro" element={<FormularioRegistro />} />
-      <Route path="/registro" element={<Registro />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/restablecer" element={<ResetPassword />} />
-      <Route path="/cambiar-password" element={<ChangePassword />} />
-      <Route path="/navbar-interno" element={<NavbarInterno />} />
-
-      {/* Rutas protegidas con Layout */}
-      <Route element={<Layout />}>
-        {/* Rutas para estudiantes */}
-        <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/courses" element={<Courses />} />
-        <Route path="/courses/:courseId" element={<CourseLayoutPage />}>
-          <Route path="content" element={<CourseContentPage />} />
-          <Route path="course-mentorias" element={<CourseMentoriasPage />} />
-          <Route path="proyectos" element={<CourseProyectsPage />} />
-        
+        {/* Rutas con Layout */}
+        <Route element={<Layout />}>
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/courses" element={<Courses />} />
+          <Route path="/courses/:courseId" element={<CourseLayoutPage />}>
+            <Route path="content" element={<CourseContentPage />} />
+            <Route path="course-mentorias" element={<CourseMentoriasPage />} />
+            <Route path="proyectos" element={<CourseProyectsPage />} />
+          </Route>
+          <Route path="/mentorias" element={<MentoriasPage />} />
+          <Route path="/proyectos" element={<ProyectsPage />} />
+          <Route path="/search" element={<SearchPage />} />
+          <Route path="/perfil" element={<PerfilEstudiante />} />
+          <Route path="/panel" element={<PanelEstudiante />} />
+          <Route path="/cursos-disponibles" element={<CursosDisponibles />} />
+          <Route path="/mentores-disponibles" element={<MentoresDisponibles />} />
         </Route>
-        <Route path="/mentorias" element={<MentoriasPage />} />
-        <Route path="/proyectos" element={<ProyectsPage />} />
-        <Route path="/search" element={<SearchPage />} />
-        <Route path="/perfil" element={<PerfilEstudiante />} />
-        <Route path="/panel" element={<PanelEstudiante />} />
 
-<<<<<<< Updated upstream
-        <Route path="mentorias" element={<MentoriasPage />} />
-        <Route path="proyectos" element={<ProyectsPage />} />
-        <Route path="search" element={<SearchPage />} />
-        <Route path="perfil" element={<PerfilEstudiante />} />
-        <Route path="panel" element={<PanelEstudiante />} />
-       {/* <Route path="mentor/profile" element={<MentorProfilePage />} /> */}
-=======
-        {/* ✅ Cursos disponibles sin sidebar */}
-        <Route path="/cursos-disponibles" element={<CursosDisponibles />} />
->>>>>>> Stashed changes
-      </Route>
-
-      {/* Página no encontrada */}
-      <Route path="*" element={<Error404 />} />
-    </Routes>
+        {/* Ruta 404 */}
+        <Route path="*" element={<Error404 />} />
+      </Routes>
+    </>
   );
 }
