@@ -61,8 +61,15 @@ export default function AppRoutes() {
         <Route path="courses/:courseId" element={<CourseLayoutPage />}>
           {/* Rutas anidadas que se renderizarán dentro del Outlet de CourseLayoutPage */}
           <Route path="content" element={<CourseContentPage />} />
+<<<<<<< Updated upstream
           <Route path="/mentor" element={<MentorPage />} /> {/* Esta página es Main Area de la Etapa 1 de Visily */}
           <Route path="course-mentorias" element={<CourseMentoriasPage />} />
+=======
+          <Route path="/mentor" element={<MentorPage />} />   {/* Esta página es Main Area de la Etapa 1 de Visily */}
+         
+          <Route path="course-mentorias" element={<CourseMentoriasPage />} />
+
+>>>>>>> Stashed changes
           <Route path="proyectos" element={<CourseProyectsPage />} />
           <Route path="leccion/:lessonId" element={<LessonPage />} />
         </Route>

@@ -5,7 +5,7 @@ export default function Navbar() {
 
   const navLinks = [
     { name: "Inicio", path: "/" },
-    { name: "Cursos", path: "/courses" },      // CAMBIADO a /courses
+    { name: "Cursos", path: "/cursos-disponibles" },      // CAMBIADO a /courses
     { name: "Mentores", path: "/mentorias" },  // CAMBIADO a /mentorias
     { name: "Registrarse", path: "/registro" },
     { name: "Login", path: "/login" },
