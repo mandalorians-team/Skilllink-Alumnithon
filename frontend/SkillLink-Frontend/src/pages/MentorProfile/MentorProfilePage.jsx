@@ -1,8 +1,7 @@
 import React, { useState, useRef } from "react";
-
 import Sidebar from "../../components/MentorProfile/SidebarMentor";
 import "../../styles/MentorProfilePage.css";
-import defaultFoto from "../../assets/imagen/mentor-foto.png"
+import defaultFoto from "../../assets/imagen/mentor-foto.png";
 
 const MentorProfilePage = () => {
   const [mentorImage, setMentorImage] = useState(defaultFoto);
@@ -14,34 +13,33 @@ const MentorProfilePage = () => {
   const [courseDuration, setCourseDuration] = useState("");
 
   const [showModal, setShowModal] = useState(false);
-
   const fileInputRef = useRef(null);
 
   const handleSkillKeyDown = (e) => {
-    if (e.key === "Enter" && skillInput.trim() !== "") {
+    if (e.key === "Enter" && skillInput.trim()) {
       e.preventDefault();
       const newSkill = skillInput.trim();
       if (!skills.includes(newSkill)) {
-        setSkills([...skills, newSkill]);
+        setSkills((prev) => [...prev, newSkill]);
       }
       setSkillInput("");
     }
   };
 
   const handleRemoveSkill = (skillToRemove) => {
-    setSkills(skills.filter((skill) => skill !== skillToRemove));
+    setSkills((prev) => prev.filter((skill) => skill !== skillToRemove));
   };
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
-    if (file && file.type.startsWith("image/")) {
+    if (file?.type.startsWith("image/")) {
       const imageURL = URL.createObjectURL(file);
       setMentorImage(imageURL);
     }
   };
 
   const handlePublish = () => {
-    setShowModal(true); // Solo muestra el modal, no guarda nada aún
+    setShowModal(true);
   };
 
   const confirmPublish = () => {
@@ -49,7 +47,7 @@ const MentorProfilePage = () => {
       title: courseName,
       description: courseDescription,
       duration: courseDuration,
-      skills: skills,
+      skills,
     };
 
     const existingCourses = JSON.parse(localStorage.getItem("mentorCourses")) || [];
@@ -58,12 +56,10 @@ const MentorProfilePage = () => {
 
     alert("¡Curso publicado con éxito!");
 
-    // Resetear campos
     setCourseName("");
     setCourseDescription("");
     setCourseDuration("");
     setSkills([]);
-
     setShowModal(false);
   };
 
@@ -79,7 +75,7 @@ const MentorProfilePage = () => {
                 <img src={mentorImage} alt="mentor" className="mentor-photo" />
                 <button
                   className="upload-btn"
-                  onClick={() => fileInputRef.current.click()}
+                  onClick={() => fileInputRef.current?.click()}
                 >
                   ⬆ Cargar nueva foto
                 </button>
@@ -91,6 +87,7 @@ const MentorProfilePage = () => {
                   onChange={handleImageUpload}
                 />
               </div>
+
               <div className="right">
                 <label>Nombre</label>
                 <input type="text" value="Gabriel Santos" readOnly />
@@ -100,10 +97,9 @@ const MentorProfilePage = () => {
 
                 <label>Biografía</label>
                 <textarea rows="4" readOnly>
-                  Experto en ingeniería de software, con grande pasión por la
-                  docencia. Desarrollador Web y tecnología cloud. Más de 10 años
-                  de experiencia en la industria, especialista en React, Next.js y
-                  escalabilidad en soluciones backend.
+                  Experto en ingeniería de software, con gran pasión por la docencia.
+                  Desarrollador web y tecnología cloud. Más de 10 años de experiencia,
+                  especialista en React, Next.js y escalabilidad en soluciones backend.
                 </textarea>
 
                 <button className="save-btn">Guardar cambios</button>
@@ -183,11 +179,10 @@ const MentorProfilePage = () => {
         </div>
       </div>
 
-      {/* MODAL */}
       {showModal && (
         <div className="modal-overlay">
           <div className="modal-box">
-            <h2>¿Estás seguro de que deseas publicar el curso {courseName}?</h2>
+            <h2>¿Estás seguro de que deseas publicar el curso "{courseName}"?</h2>
             <p>
               Verifica que toda la información sea correcta antes de publicar tu
               mentoría.

@@ -100,7 +100,7 @@ const FormularioRegistro = () => {
       };
 
       try {
-        const response = await fetch(`https://skilllink-alumnithon.onrender.com/api/auth/register`, {
+        const response = await fetch(`http://localhost:8080/api/auth/register`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

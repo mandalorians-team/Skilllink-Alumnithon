@@ -15,7 +15,7 @@ const mentores = [
   { id: 4, nombre: "Cristian Yanes", especialidad: "Backend con Node.js" },
   { id: 5, nombre: "Luigi Yantas", especialidad: "Diseño UX/UI" },
   { id: 6, nombre: "Alejandro Anchundia", especialidad: "Full-Stack Web Dev" },
-  { id: 7, nombre: "Natalia López", especialidad: "Machine Learning" },
+  { id: 7, nombre: "Alejandro Quintana", especialidad: "Machine Learning" },
   { id: 8, nombre: "Esteban Rocha", especialidad: "Data Engineering" },
   { id: 9, nombre: "Luis Jiménez", especialidad: "Inteligencia Artificial" },
   { id: 10, nombre: "Mirian Beltrán", especialidad: "Ciberseguridad" },

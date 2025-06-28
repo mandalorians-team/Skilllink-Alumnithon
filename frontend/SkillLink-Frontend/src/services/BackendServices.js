@@ -11,7 +11,6 @@ export const checkServerHealth = async () => {
   }catch(error){
     return false;
   }
-<<<<<<< Updated upstream
 
 }
 
@@ -48,20 +47,7 @@ export async function getUserInfo() {
   };
 }
 
-
-
-||||||| Stash base
-};
-=======
-
-}
-
-
-
->>>>>>> Stashed changes
-
-
-// ===== FUNCIONES PARA CURSOS =====
+// FUNCIONES PARA CURSOS
 export const getAllCourses = async () => {
   try {
     const response = await fetch(`${API_URL}/courses`);
@@ -116,7 +102,7 @@ export const searchCourses = async (query) => {
   }
 };
 
-// ===== FUNCIONES PARA USUARIOS =====
+// FUNCIONES PARA USUARIOS 
 export const getAllUsers = async () => {
   try {
     const response = await fetch(`${API_URL}/users`);
@@ -156,7 +142,7 @@ export const getUsersByRole = async (role) => {
   }
 };
 
-// ===== FUNCIONES PARA PROYECTOS =====
+// FUNCIONES PARA PROYECTOS
 export const getAllProjects = async () => {
   try {
     const response = await fetch(`${API_URL}/projects`);
@@ -209,7 +195,7 @@ export const getProjectsByCategory = async (category) => {
   }
 };
 
-// ===== FUNCIONES PARA MENTORÍAS =====
+// FUNCIONES PARA MENTORÍAS
 export const getAllMentorships = async () => {
   try {
     const response = await fetch(`${API_URL}/mentorships`);
@@ -264,7 +250,7 @@ export const getMentorshipsByStudent = async (studentId) => {
   }
 };
 
-// ===== FUNCIONES PARA LECCIONES Y MÓDULOS =====
+// FUNCIONES PARA LECCIONES Y MÓDULOS
 export const getLessonsByCourse = async (courseId) => {
   try {
     const response = await fetch(`${API_URL}/courses/${courseId}/lessons`);
@@ -326,7 +312,7 @@ export const enrollInCourse = async (userId, courseId) => {
   }
 };
 
-// ===== FUNCIONES PARA PROGRESO =====
+// FUNCIONES PARA PROGRESO
 export const updateLessonProgress = async (
   userId,
   courseId,
@@ -472,21 +458,9 @@ export const loginUser = async (username, password) => {
 export async function registerUser(userData) {
   try {
     console.log("Enviando datos de registro:", userData);
-<<<<<<< Updated upstream
     console.log("URL de la API:", `https://skilllink-alumnithon.onrender.com/api/auth/register`);
-||||||| Stash base
-    console.log("URL de la API:", `${API_URL}/register`);
-=======
-    console.log("URL de la API:", `${API_URL}/auth/register`);
->>>>>>> Stashed changes
 
-<<<<<<< Updated upstream
     const response = await fetch(`$https://skilllink-alumnithon.onrender.com/api/auth/register`, {
-||||||| Stash base
-    const response = await fetch(`${API_URL}/register`, {
-=======
-    const response = await fetch(`${API_URL}/auth/register`, {
->>>>>>> Stashed changes
       method: "POST",
       headers: {
         "Content-Type": "application/json",

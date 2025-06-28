@@ -11,11 +11,9 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
-
   const handleLogin = async (e) => {
     e.preventDefault();
     setError(null);
-
 
     try {
       const response = await fetch("http://localhost:8080/api/auth/login", {
@@ -23,10 +21,7 @@ export default function Login() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          username,
-          password,
-        }),
+        body: JSON.stringify({ username, password }),
       });
 
       if (!response.ok) {
@@ -35,28 +30,24 @@ export default function Login() {
 
       const data = await response.json();
       const token = data.token;
-      const role = data.role;
 
       if (!token) throw new Error("Token no recibido desde el backend");
 
-      // Guardamos el token
       localStorage.setItem("token", token);
       console.log("Token guardado:", token);
 
-      console.log("Login exitoso. Token guardado.");
-
-      // Llamar a la función centralizada
       const userInfo = await getUserInfo();
-      console.log(userInfo.role);
+      console.log("Rol:", userInfo.role);
 
-      // Redirección según el rol
-      // Redirigir según rol
+      // ✅ Redirección con delay para evitar problemas de render de rutas
       switch (userInfo.role) {
         case "ADMIN":
           navigate("/admin/dashboard");
           break;
         case "MENTOR":
-          navigate("/mentor/perfil");
+          setTimeout(() => {
+            navigate("/mentor/profile");
+          }, 0);
           break;
         case "LEARNER":
           navigate("/perfil");
@@ -65,13 +56,10 @@ export default function Login() {
           console.warn("Rol no reconocido:", userInfo.role);
           navigate("/");
       }
+
     } catch (err) {
-      console.log(err);
-
-      setError(
-        "Credencial incorrecta o problema al conectarse con el servidor"
-      );
-
+      console.error(err);
+      setError("Credencial incorrecta o problema al conectarse con el servidor");
     }
   };
 
@@ -95,6 +83,7 @@ export default function Login() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Nombre de usuario"
+                autoComplete="username"
                 className="w-full mb-3 px-4 py-2 rounded bg-black border border-[#393D47] text-[#8C8D8B] text-sm focus:outline-none focus:ring-2 focus:ring-[#799EB8] focus:border-[#799EB8] transition duration-300"
                 required
               />
@@ -103,14 +92,14 @@ export default function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Contraseña"
+                autoComplete="current-password"
                 className="w-full mb-4 px-4 py-2 rounded bg-black border border-[#393D47] text-[#8C8D8B] text-sm focus:outline-none focus:ring-2 focus:ring-[#799EB8] focus:border-[#799EB8] transition duration-300"
                 required
               />
               <button
                 type="submit"
                 className="w-full py-2 bg-gradient-to-r from-[#799EB8] to-[#678a9d] text-white rounded-md mb-4 text-sm font-semibold hover:scale-105 hover:brightness-110 transition-all duration-500 relative overflow-hidden">
-                Iniciar Sesion
-
+                Iniciar Sesión
               </button>
             </form>
 

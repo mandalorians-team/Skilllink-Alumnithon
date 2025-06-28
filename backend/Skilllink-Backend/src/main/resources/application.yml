@@ -10,7 +10,7 @@ spring:
   datasource:
     url: ${DB_URL:jdbc:postgresql://localhost:5432/skilllinkdb}
     username: ${DB_USERNAME:postgres}
-    password: ${DB_PASSWORD:Alejo123]
+    password: ${DB_PASSWORD:123456]
     driver-class-name: ${DB_DRIVER:org.postgresql.Driver}
   jpa:
     hibernate:
