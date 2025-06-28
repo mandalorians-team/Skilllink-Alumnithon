@@ -1,6 +1,6 @@
 import React from 'react';
-import '../../styles/MentorPage.css';
-import '../../styles/App.css';
+import '@/styles/MentorPage.css';
+
 
 const MentorCard = ({ name, title, rating, skills, description, image }) => {
     return (
@@ -16,7 +16,7 @@ const MentorCard = ({ name, title, rating, skills, description, image }) => {
                     ))}
                 </div>
             <p className="mentor-description">{description}</p>
-            
+
             <div className="mentor-buttons">
                 <button className="view-profile">Ver Perfil</button>
                 <button className="contact">Contacto</button>
