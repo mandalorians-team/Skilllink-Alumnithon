@@ -46,10 +46,10 @@ import DashboardMentor from "./pages/MentorProfile/DashboardMentor";
 import MentorProfilePage from "./pages/MentorProfile/MentorProfilePage";
 import MisEstudiantes from "./pages/MentorProfile/MisEstudiantes";
 import MentorPage from "./pages/MentorProfile/MentorPage";
-import TestCertificacion from "./components/TestCertificacion";
 
 
-import Error404 from "./pages/Error404/Error404";
+
+
 
 function Layout() {
   const location = useLocation();
