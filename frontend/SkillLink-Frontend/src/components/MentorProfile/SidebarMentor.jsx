@@ -1,9 +1,3 @@
-
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import '../../styles/SidebarMentor.css';
-
-
 // Importar SVGs como URLs
 import houseIcon from "../../assets/icons/house.svg";
 import usersIcon from "../../assets/icons/users.svg";
@@ -101,4 +95,4 @@ function SidebarMentor() {
   );
 }
 
-export default SidebarMentor;
+export default SidebarMentor;

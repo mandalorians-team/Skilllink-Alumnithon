@@ -29,7 +29,6 @@ import Error404 from "@/pages/Error404/Error404";
 import DashboardMentor from "@/pages/MentorProfile/DashboardMentor";
 import MentorProfilePage from "@/pages/MentorProfile/MentorProfilePage";
 import MentorPage from "@/pages/MentorProfile/MentorPage";
-import MisEstudiantes from "@/pages/MentorProfile/MisEstudiantes";
 
 
 const ProtectedRoute = ({ children }) => {
@@ -50,21 +49,23 @@ export default function AppRoutes() {
           <ProtectedRoute>
             <Layout />
           </ProtectedRoute>
-        }>
+        }
+      >
         <Route index element={<Navigate to="/dashboard" replace />} />
         <Route path="*" element={<Error404 />} />
         <Route path="dashboard" element={<DashboardPage />} />
         <Route path="courses" element={<Courses />} />
         <Route path="/chat" element={<ChatPage />} />
 
-
         {/* Ruta Layout para un curso específico */}
         <Route path="courses/:courseId" element={<CourseLayoutPage />}>
           {/* Rutas anidadas que se renderizarán dentro del Outlet de CourseLayoutPage */}
           <Route path="content" element={<CourseContentPage />} />
+          <Route path="/mentor" element={<MentorPage />} /> {/* Esta página es Main Area de la Etapa 1 de Visily */}
+          <Route path="course-mentorias" element={<CourseMentoriasPage />} />
           <Route path="/mentor" element={<MentorPage />} />   {/* Esta página es Main Area de la Etapa 1 de Visily */}
-
-          <Route path="course-mentorias" element={<CourseMentoriasPage />}
+         
+          <Route path="course-mentorias" element={<CourseMentoriasPage />} />
 
           <Route path="proyectos" element={<CourseProyectsPage />} />
           <Route path="leccion/:lessonId" element={<LessonPage />} />
@@ -78,7 +79,6 @@ export default function AppRoutes() {
         <Route path="/mentor/profile" element={<MentorProfilePage />} />
         <Route path="/mentor/dashboard-mentor/" element={<DashboardMentor />} />
         <Route path="/mentor/mis-estudiantes" element={<MentorProfilePage />} />
-
         <Route path="mentor/alumnos" element={<MisAlumnosPage />} />
         <Route path="mentor/cursos" element={<MisCursosPage />} />
         <Route path="mentor/agenda" element={<AgendaPage />} />

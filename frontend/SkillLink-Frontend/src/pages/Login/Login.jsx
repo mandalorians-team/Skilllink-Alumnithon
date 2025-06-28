@@ -35,24 +35,28 @@ export default function Login() {
 
       const data = await response.json();
       const token = data.token;
+      const role = data.role;
 
       if (!token) throw new Error("Token no recibido desde el backend");
 
-      // Guardar token local
+      // Guardamos el token
       localStorage.setItem("token", token);
       console.log("Token guardado:", token);
+
+      console.log("Login exitoso. Token guardado.");
 
       // Llamar a la función centralizada
       const userInfo = await getUserInfo();
       console.log(userInfo.role);
 
+      // Redirección según el rol
       // Redirigir según rol
       switch (userInfo.role) {
         case "ADMIN":
           navigate("/admin/dashboard");
           break;
         case "MENTOR":
-          navigate("/mentor/panel");
+          navigate("/mentor/profile");
           break;
         case "LEARNER":
           navigate("/perfil");

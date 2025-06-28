@@ -113,10 +113,11 @@ const FormularioRegistro = () => {
           setShowPopup(true);
           setTimeout(() => {
             setShowPopup(false);
+            // ✅ Redirección según rol
             if (formData.rol === "Mentor") {
-              navigate('/perfil');
+              navigate('/login');
             } else if (formData.rol === "Estudiante") {
-              navigate('/perfil');
+              navigate('/login');
             }
           }, 3000);
 

@@ -39,9 +39,7 @@ export default function PerfilEstudiante() {
 
         const resUsuarios = await fetch("http://localhost:8080/users");
         const users = await resUsuarios.json();
-        console.log("Usuarios obtenidos:", users);
         const usuarioActual = users.find(u => u.username === usernameFromToken);
-        console.log(usernameFromToken);
         if (!usuarioActual) return console.error("Usuario no encontrado en lista de usuarios");
 
         setUsuario(usuarioActual);
@@ -49,10 +47,7 @@ export default function PerfilEstudiante() {
         const resDetalles = await fetch(`http://localhost:8080/api/learners/${usuarioActual.id}`);
         if (resDetalles.ok) {
           const detalleData = await resDetalles.json();
-          console.log ("Detalles del usuario:", detalleData);
           setDetalles(detalleData);
-        } else {
-          console.warn("No se encontraron detalles adicionales del usuario.");
         }
       } catch (err) {
         console.error("Error en fetch usuario:", err);
@@ -70,7 +65,6 @@ export default function PerfilEstudiante() {
       ).join(''));
       return JSON.parse(jsonPayload);
     } catch (e) {
-      console.error("Error parseando el token", e);
       return {};
     }
   };
@@ -80,7 +74,7 @@ export default function PerfilEstudiante() {
   const telefono = detalles?.telefono || "0909090909";
   const pais = detalles?.pais || "Colombia";
   const bio = detalles?.bio || "Apasionado por aprender y compartir tecnología.";
-  const rol =  "Estudiante.";
+  const rol = "Estudiante.";
 
   return (
     <div className="flex flex-col min-h-screen bg-[#B8CFDF]">
@@ -91,12 +85,22 @@ export default function PerfilEstudiante() {
           <div>
             <nav className="space-y-2">
               {["Perfil", "Panel", "Cursos", "Mentorías", "Proyectos", "Chat", "Configuración"].map((item, i) => (
-                <div
-                  key={i}
-                  className={`p-2 rounded ${item === "Perfil" ? "bg-primary text-white font-bold font-orbitron" : "hover:bg-gray-800 text-[#8C8D8B]"}`}
-                >
-                  {item}
-                </div>
+                item === "Panel" ? (
+                  <Link
+                    to="/panel"
+                    key={i}
+                    className="block p-2 rounded hover:bg-gray-800 text-[#8C8D8B] hover:text-white transition-all"
+                  >
+                    {item}
+                  </Link>
+                ) : (
+                  <div
+                    key={i}
+                    className={`p-2 rounded ${item === "Perfil" ? "bg-primary text-white font-bold font-orbitron" : "hover:bg-gray-800 text-[#8C8D8B]"} transition-all`}
+                  >
+                    {item}
+                  </div>
+                )
               ))}
             </nav>
           </div>
@@ -133,7 +137,7 @@ export default function PerfilEstudiante() {
               <h2 className="text-lg mb-2 text-white font-bold font-orbitron">Detalles Personales</h2>
               <ul className="text-sm text-gray-300 space-y-1">
                 <li><strong>Email:</strong> {usuario?.email || "No especificado"}</li>
-                <li><strong>Teléfono:</strong> {usuario?.telefono || "No especificado"}</li>
+                <li><strong>Teléfono:</strong> {telefono}</li>
                 <li><strong>Ubicación:</strong> {pais}</li>
               </ul>
             </section>

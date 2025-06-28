@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom"; // Asegúrate de importar esto
 import MentorCard from "./MentorCard";
 
 export default function MentorList() {
@@ -63,16 +64,19 @@ export default function MentorList() {
           </motion.div>
         ))}
       </div>
-      <motion.button
-        whileHover={{
-          scale: 1.05,
-          boxShadow: "0 0 15px rgba(0,0,0,0.5)",
-        }}
-        whileTap={{ scale: 0.95 }}
-        className="mt-10 bg-[#007be5] hover:bg-black text-white font-bold px-6 py-3 rounded-md transition-all"
-      >
-        Encuentra a tu Mentor
-      </motion.button>
+
+      <Link to="/mentores-disponibles">
+        <motion.button
+          whileHover={{
+            scale: 1.05,
+            boxShadow: "0 0 15px rgba(0,0,0,0.5)",
+          }}
+          whileTap={{ scale: 0.95 }}
+          className="mt-10 bg-[#007be5] hover:bg-black text-white font-bold px-6 py-3 rounded-md transition-all"
+        >
+          Encuentra a tu Mentor
+        </motion.button>
+      </Link>
     </section>
   );
 }

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import CourseCard from "./CourseCard";
 
 export default function CourseList() {
@@ -50,9 +51,13 @@ export default function CourseList() {
           <CourseCard key={index} {...curso} />
         ))}
       </div>
-      <button className="mt-10 bg-black text-white px-6 py-3 rounded-md font-medium hover:bg-gray-800 transition">
-        Ver Todos los Cursos
-      </button>
+
+      {/* ✅ Botón con redirección */}
+      <Link to="/cursos-disponibles">
+        <button className="mt-10 bg-black text-white px-6 py-3 rounded-md font-medium hover:bg-gray-800 transition">
+          Ver Todos los Cursos
+        </button>
+      </Link>
     </section>
   );
 }
