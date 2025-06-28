@@ -11,7 +11,7 @@ export default function Conversations({
     return (
         <div className="conversations">
             <h3>Conversaciones</h3>
-            <ul className="contact-list">
+            <ul>
                 {contacts.map((contact) => {
                     const lastMsg = lastMessages[contact]?.content || '';
                     const unread = unreadCounts[contact] || 0;
@@ -19,15 +19,23 @@ export default function Conversations({
                     return (
                         <li
                             key={contact}
-                            className={`contact-item ${selectedContact === contact ? 'selected' : ''}`}
                             onClick={() => onSelectContact(contact)}
+                            className={selectedContact === contact ? 'selected' : ''}
+                            style={{
+                                cursor: 'pointer',
+                                padding: '10px',
+                                borderBottom: '1px solid #ccc',
+                                listStyle: 'none',
+                                backgroundColor: selectedContact === contact ? ' #bae9ff59' : 'transparent',
+                                position: 'relative', borderRadius: '8px'
+                            }}
                         >
-                            <div className="contact-header">
-                                <strong>{contact}</strong>
-                                {unread > 0 && <span className="unread-badge">{unread}</span>}
-                            </div>
-                            <div className="last-message">
-                                {lastMsg.length > 40 ? lastMsg.slice(0, 40) + '...' : lastMsg}
+                            <strong>{contact}</strong>
+                            {unread > 0 && (
+                                <span className="unread-tooltip">{unread}</span>
+                            )}
+                            <div style={{ fontSize: '0.85em', color: '#dbdbdb', marginTop: '4px' }}>
+                                {lastMsg.length > 30 ? lastMsg.slice(0, 30) + '...' : lastMsg}
                             </div>
                         </li>
                     );
