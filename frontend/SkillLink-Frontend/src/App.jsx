@@ -33,8 +33,15 @@ import SearchPage from "./pages/SearchPage";
 import DashboardPage from "./pages/Aprendiz/DashboardPage";
 import PerfilEstudiante from "./pages/Aprendiz/PerfilEstudiante";
 import PanelEstudiante from "./pages/Aprendiz/PanelEstudiante";
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 import MentorProfilePage from "./pages/MentorProfile/MentorProfilePage";
+=======
+
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+>>>>>>> 213c2b09297b575afb3be296e89ae02614e0c1d1
 import Error404 from "./pages/Error404/Error404";
 
 
@@ -79,7 +86,19 @@ function Layout() {
 export default function App() {
   return (
     <Routes>
+<<<<<<< HEAD
       {/* Rutas públicas (sin Layout) */}
+=======
+      {/* Ruta para Chat */}      
+      <ToastContainer position="bottom-right" autoClose={4000} hideProgressBar={false} newestOnTop />
+
+      {/* Ruta para AppRoutes */}      
+      <div className="app-container">
+        <AppRoutes />
+      </div>
+
+      {/* Rutas sin Layout */}
+>>>>>>> 213c2b09297b575afb3be296e89ae02614e0c1d1
       <Route path="/" element={<MainPage />} />
       <Route path="/formularioregistro" element={<FormularioRegistro />} />
       <Route path="/registro" element={<Registro />} />
