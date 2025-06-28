@@ -46,8 +46,14 @@ import DashboardMentor from "./pages/MentorProfile/DashboardMentor";
 import MentorProfilePage from "./pages/MentorProfile/MentorProfilePage";
 import MisEstudiantes from "./pages/MentorProfile/MisEstudiantes";
 import MentorPage from "./pages/MentorProfile/MentorPage";
-import TestCertificacion from "./components/TestCertificacion";
 
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> 4a10caf35abd715ed311790f9a58e81d123d4d65
 function Layout() {
   const location = useLocation();
 

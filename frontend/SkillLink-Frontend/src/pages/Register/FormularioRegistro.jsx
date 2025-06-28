@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Main/Navbar';
 import Footer from '../../components/Main/Footer';
-
+import { API_URL } from '@/services/api';
 
 
 const paises = [
@@ -100,7 +100,7 @@ const FormularioRegistro = () => {
       };
 
       try {
-        const response = await fetch(`https://skilllink-alumnithon.onrender.com/api/auth/register`, {
+        const response = await fetch(`${API_URL}/api/auth/register`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
