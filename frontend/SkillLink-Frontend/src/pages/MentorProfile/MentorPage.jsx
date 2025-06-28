@@ -1,6 +1,4 @@
 import React from "react";
-import Sidebar from '@/components/MentorProfile/SidebarMentor';
-
 import FeaturedMentor from "@/components/MentorProfile/FeaturedMentor";
 import MentorList from "@/components/MentorProfile/MentorList";
 import TrendingSkills from "@/components/MentorProfile/TrendingSkills";
@@ -10,10 +8,7 @@ import "@/styles/MentorPage.css";
 
 const MentorPage = () => {
   return (
-    <div className="container">
-      <Sidebar />
       <div className="main">
-
         <div className="mentor-page-container">
           <div className="main-content">
             <MentorSearchSection />
@@ -35,7 +30,6 @@ const MentorPage = () => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
