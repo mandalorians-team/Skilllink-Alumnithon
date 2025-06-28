@@ -1,19 +1,19 @@
 import React from "react";
-import Sidebar from '../../components/Sidebar';
-import Topbar from '../../components/Topbar';
-import FeaturedMentor from "../../components/MentorProfile/FeaturedMentor";
-import MentorList from "../../components/MentorProfile/MentorList";
-import TrendingSkills from "../../components/MentorProfile/TrendingSkills";
-import MentorSearchSection from "../../components/MentorProfile/MentorSearchSection";
-import "../../styles/MentorPage.css";
-import "../../styles/App.css";
+import Sidebar from '@/components/MentorProfile/SidebarMentor';
+
+import FeaturedMentor from "@/components/MentorProfile/FeaturedMentor";
+import MentorList from "@/components/MentorProfile/MentorList";
+import TrendingSkills from "@/components/MentorProfile/TrendingSkills";
+import MentorSearchSection from "@/components/MentorProfile/MentorSearchSection";
+import "@/styles/MentorPage.css";
+
 
 const MentorPage = () => {
   return (
     <div className="container">
       <Sidebar />
       <div className="main">
-        <Topbar />
+
         <div className="mentor-page-container">
           <div className="main-content">
             <MentorSearchSection />

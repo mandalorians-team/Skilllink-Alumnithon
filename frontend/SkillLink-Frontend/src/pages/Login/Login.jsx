@@ -56,7 +56,7 @@ export default function Login() {
           navigate("/admin/dashboard");
           break;
         case "MENTOR":
-          navigate("/mentor/profile");
+          navigate("/mentor/perfil");
           break;
         case "LEARNER":
           navigate("/perfil");

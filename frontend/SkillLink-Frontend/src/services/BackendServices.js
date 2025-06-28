@@ -462,9 +462,9 @@ export const loginUser = async (username, password) => {
 export async function registerUser(userData) {
   try {
     console.log("Enviando datos de registro:", userData);
-    console.log("URL de la API:", `${API_URL}/auth/register`);
+    console.log("URL de la API:", `https://skilllink-alumnithon.onrender.com/api/auth/register`);
 
-    const response = await fetch(`${API_URL}/auth/register`, {
+    const response = await fetch(`$https://skilllink-alumnithon.onrender.com/api/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
