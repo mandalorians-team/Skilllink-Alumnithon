@@ -3,10 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Main/Navbar';
 import Footer from '../../components/Main/Footer';
 
-
-
 const paises = [
-  "Colombia", "Argentina", "México", "Chile", "Perú", "España", "Estados Unidos", "Canadá", "Brasil", "Uruguay"
+  "Colombia", "Argentina", "México", "Chile", "Perú", "España", "Estados Unidos", "Canadá", "Brasil", "Uruguay","Venezuela"
 ];
 
 const habilidadesIT = [
@@ -22,6 +20,7 @@ const FormularioRegistro = () => {
   const [formData, setFormData] = useState({
     nombres: '',
     apellidos: '',
+    username: '',
     correo: '',
     contraseña: '',
     confirmarContraseña: '',
@@ -67,6 +66,7 @@ const FormularioRegistro = () => {
     if (!formData.rol) nuevosErrores.rol = 'Selecciona un rol';
     if (!formData.nombres) nuevosErrores.nombres = 'Campo requerido';
     if (!formData.apellidos) nuevosErrores.apellidos = 'Campo requerido';
+    if (!formData.username) nuevosErrores.username = 'Campo requerido';
     if (!formData.correo) nuevosErrores.correo = 'Campo requerido';
     if (!formData.contraseña) nuevosErrores.contraseña = 'Campo requerido';
     if (formData.contraseña !== formData.confirmarContraseña)
@@ -86,7 +86,7 @@ const FormularioRegistro = () => {
       setIsLoading(true);
 
       const payload = {
-        username: formData.nombres,
+        username: formData.username,
         password: formData.contraseña,
         email: formData.correo,
         role: formData.rol === "Mentor" ? "MENTOR" : formData.rol === "Estudiante" ? "LEARNER" : "",
@@ -107,23 +107,18 @@ const FormularioRegistro = () => {
           },
           body: JSON.stringify(payload)
         });
-        console.log(response);
 
         if (response.ok) {
           setShowPopup(true);
           setTimeout(() => {
             setShowPopup(false);
-            // ✅ Redirección según rol
-            if (formData.rol === "Mentor") {
-              navigate('/login');
-            } else if (formData.rol === "Estudiante") {
-              navigate('/login');
-            }
+            navigate('/login');
           }, 3000);
 
           setFormData({
             nombres: '',
             apellidos: '',
+            username: '',
             correo: '',
             contraseña: '',
             confirmarContraseña: '',
@@ -138,14 +133,12 @@ const FormularioRegistro = () => {
           });
         } else {
           const errorData = await response.json();
-          alert(
-            errorData.message ||
-            "Error en el registro. Verifica los datos ingresados o intenta más tarde."
-          );
+          alert(errorData.message || "Error en el registro. Verifica los datos ingresados o intenta más tarde.");
         }
       } catch (err) {
         alert("Error de conexión con el servidor.");
       }
+
       setIsLoading(false);
     }
   };
@@ -156,18 +149,10 @@ const FormularioRegistro = () => {
       <main className="flex-grow flex justify-center items-start px-4 py-8 pt-20">
         <div className="flex w-full max-w-6xl gap-4 items-stretch">
           <div className="hidden md:flex">
-            <img
-              src="/images/mandalorian2.jpg"
-              alt="Decoración izquierda"
-              style={{ height: formHeight }}
-              className="rounded-lg shadow-lg object-cover"
-            />
+            <img src="/images/mandalorian2.jpg" alt="Decoración izquierda" style={{ height: formHeight }} className="rounded-lg shadow-lg object-cover" />
           </div>
 
-          <div
-            ref={formRef}
-            className="bg-[#19191F] text-white rounded-2xl shadow-2xl p-8 w-full max-w-3xl border border-white/20"
-          >
+          <div ref={formRef} className="bg-[#19191F] text-white rounded-2xl shadow-2xl p-8 w-full max-w-3xl border border-white/20">
             <h2 className="text-2xl md:text-3xl font-bold text-[#799EB8] mb-6 text-center">Registro en SkillLink</h2>
 
             <div className="flex justify-center mb-4 gap-4">
@@ -176,11 +161,7 @@ const FormularioRegistro = () => {
                   key={rol}
                   type="button"
                   onClick={() => setFormData({ ...formData, rol })}
-                  className={`py-1 px-3 rounded ${
-                    formData.rol === rol
-                      ? "bg-[#799EB8] text-white"
-                      : "bg-white/10 text-white border border-white/20"
-                  } transition duration-300`}
+                  className={`py-1 px-3 rounded ${formData.rol === rol ? "bg-[#799EB8] text-white" : "bg-white/10 text-white border border-white/20"} transition duration-300`}
                 >
                   {rol}
                 </button>
@@ -189,13 +170,30 @@ const FormularioRegistro = () => {
             {errores.rol && <p className="text-red-400 text-sm text-center mb-2">{errores.rol}</p>}
 
             <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {[
-                { name: 'nombres', label: 'Nombres' },
+              {/* Nombre de usuario personalizado */}
+              <div className="md:col-span-2">
+                <label className="block mb-1 font-medium">Nombre de usuario</label>
+                <input
+                  type="text"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  placeholder="Ej: juan.dev | Este será tu nombre visible y para iniciar sesión"
+                  className="w-full p-2 rounded bg-white/10 text-white border border-white/20 focus:border-[#799EB8] focus:ring-2 focus:ring-[#799EB8] placeholder-white/60"
+                />
+                <p className="text-xs text-gray-400 mt-1">
+                  Este será el nombre con el que iniciarás sesión y aparecerá en tu perfil.
+                </p>
+                {errores.username && <p className="text-red-400 text-sm mt-1">{errores.username}</p>}
+              </div>
+
+              {/* Campos principales */}
+              {[{ name: 'nombres', label: 'Nombres' },
                 { name: 'apellidos', label: 'Apellidos' },
                 { name: 'correo', label: 'Correo electrónico', type: 'email' },
                 { name: 'telefono', label: 'Teléfono', type: 'tel' },
                 { name: 'contraseña', label: 'Contraseña', type: 'password' },
-                { name: 'confirmarContraseña', label: 'Confirmar contraseña', type: 'password' },
+                { name: 'confirmarContraseña', label: 'Confirmar contraseña', type: 'password' }
               ].map(({ name, label, type = 'text' }) => (
                 <div key={name}>
                   <label>{label}</label>
@@ -240,6 +238,7 @@ const FormularioRegistro = () => {
                 </select>
               </div>
 
+              {/* Habilidades */}
               <div className="md:col-span-2">
                 <label>Habilidades</label>
                 <div className="flex flex-wrap gap-2">
@@ -252,6 +251,7 @@ const FormularioRegistro = () => {
                 </div>
               </div>
 
+              {/* Intereses */}
               <div className="md:col-span-2">
                 <label>Intereses</label>
                 <div className="flex flex-wrap gap-2">
@@ -264,6 +264,7 @@ const FormularioRegistro = () => {
                 </div>
               </div>
 
+              {/* Suscripción y términos */}
               <div className="md:col-span-2 flex flex-col gap-2">
                 <label className="flex items-center gap-2">
                   <input type="checkbox" name="suscripcion" onChange={handleChange} /> Suscribirme al boletín
@@ -285,12 +286,7 @@ const FormularioRegistro = () => {
           </div>
 
           <div className="hidden md:flex">
-            <img
-              src="/images/mandalorian2.jpg"
-              alt="Decoración derecha"
-              style={{ height: formHeight }}
-              className="rounded-lg shadow-lg object-cover"
-            />
+            <img src="/images/mandalorian2.jpg" alt="Decoración derecha" style={{ height: formHeight }} className="rounded-lg shadow-lg object-cover" />
           </div>
         </div>
       </main>
