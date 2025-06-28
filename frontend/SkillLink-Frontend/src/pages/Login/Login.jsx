@@ -56,7 +56,7 @@ export default function Login() {
           navigate("/admin/dashboard");
           break;
         case "MENTOR":
-          navigate("/mentor/profile");
+          navigate("/mentor/perfil");
           break;
         case "LEARNER":
           navigate("/perfil");
@@ -107,10 +107,10 @@ export default function Login() {
                 required
               />
               <button
-
                 type="submit"
                 className="w-full py-2 bg-gradient-to-r from-[#799EB8] to-[#678a9d] text-white rounded-md mb-4 text-sm font-semibold hover:scale-105 hover:brightness-110 transition-all duration-500 relative overflow-hidden">
                 Iniciar Sesion
+
               </button>
             </form>
 

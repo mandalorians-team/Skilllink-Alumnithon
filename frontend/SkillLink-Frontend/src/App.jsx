@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Routes,
-  Route,
-  Outlet,
-  useLocation
-} from "react-router-dom";
+import { Routes, Route, Outlet, useLocation } from "react-router-dom";
 
 // Layouts y componentes comunes
 import Header from "./components/comun/Header";
@@ -13,6 +8,8 @@ import Footer from "./components/Main/Footer";
 import CurseTabs from "./components/Aprendiz/Curso/CourseTabs";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+// import RutaProtegidaMentor from "./components/comun/RutaProtegidaMentor";
+// import RutaProtegidaLearner from "./components/comun/RutaProtegidaLearner";
 
 // Páginas públicas
 import MainPage from "./pages/LandingPage/MainPage";
@@ -35,24 +32,56 @@ import DashboardPage from "./pages/Aprendiz/DashboardPage";
 import PerfilEstudiante from "./pages/Aprendiz/PerfilEstudiante";
 import PanelEstudiante from "./pages/Aprendiz/PanelEstudiante";
 
+
 // Páginas nuevas
 import CursosDisponibles from "./pages/CursosDisponibles";
 import MentoresDisponibles from "./pages/MentoresDisponibles";
+import CursoDetalleDisponible from "./pages/CursoDetalleDisponible";
 
 // Página de error
+import Error404 from "./pages/Error404/Error404";
+
+// Páginas de MentorProfile
+import DashboardMentor from "./pages/MentorProfile/DashboardMentor";
+import MentorProfilePage from "./pages/MentorProfile/MentorProfilePage";
+import MisEstudiantes from "./pages/MentorProfile/MisEstudiantes";
+import MentorPage from "./pages/MentorProfile/MentorPage";
+import TestCertificacion from "./components/TestCertificacion";
+
+
 import Error404 from "./pages/Error404/Error404";
 
 function Layout() {
   const location = useLocation();
 
-  const showNavbar = /^(\/|\/registro|\/registro-basico|\/login|\/restablecer)$/.test(location.pathname);
-  const showHeader = !showNavbar && /^\/(dashboard|courses|mentorias|proyectos|panel)(\/\d+)?$/.test(location.pathname);
+  const showNavbar =
+    /^(\/|\/registro|\/registro-basico|\/login|\/restablecer)$/.test(
+      location.pathname
+    );
+  const showHeader =
+    !showNavbar &&
+    /^\/(dashboard|courses|mentorias|proyectos|panel)(\/\d+)?$/.test(
+      location.pathname
+    );
   const showFooter = showHeader || showNavbar;
   const isCourseTabs = /^\/courses\/[^/]+(\/.*)?$/.test(location.pathname);
 
-  // ✅ Ocultamos el sidebar en estas rutas
-  const hideNavbar = /^\/(perfil|panel|cursos-disponibles|mentores-disponibles)$/.test(location.pathname);
-  const hideHeader = /^\/(perfil|proyectos)$/.test(location.pathname);
+  // Ocultamos el sidebar y header en la ruta de proyectos
+  const isProyectsPage = location.pathname.startsWith("/proyectos");
+  const isCoursesPage = location.pathname.startsWith("/courses");
+  const isMentoriasPage = location.pathname.startsWith("/mentorias");
+  const hideNavbar =
+    /^\/(perfil|panel|cursos-disponibles|mentores-disponibles)$/.test(
+      location.pathname
+    ) ||
+    isProyectsPage ||
+    isCoursesPage ||
+    isMentoriasPage;
+  const hideHeader =
+    /^\/(perfil|proyectos|courses)$/.test(location.pathname) ||
+    isProyectsPage ||
+    isCoursesPage ||
+    isMentoriasPage;
 
   return (
     <div className="flex min-h-screen bg-page-background-color">
@@ -81,25 +110,126 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/restablecer" element={<ResetPassword />} />
         <Route path="/cambiar-password" element={<ChangePassword />} />
-
+        <Route
+          path="/cursos-disponibles/:id"
+          element={<CursoDetalleDisponible />}
+        />
+        {/* Rutas MentorProfile */}
+        <Route
+          path="/mentor/dashboard"
+          element={
+            // <RutaProtegidaMentor>
+            <DashboardMentor />
+            // </RutaProtegidaMentor>
+          }
+        />
+        <Route
+          path="/mentor/perfil"
+          element={
+            // <RutaProtegidaMentor>
+            <MentorProfilePage />
+            // </RutaProtegidaMentor>
+          }
+        />
+        <Route
+          path="/mentor/mis-estudiantes"
+          element={
+            // <RutaProtegidaMentor>
+            <MisEstudiantes />
+            // </RutaProtegidaMentor>
+          }
+        />
+        <Route
+          path="/mentor"
+          element={
+            // <RutaProtegidaMentor>
+            <MentorPage />
+            // </RutaProtegidaMentor>
+          }
+        />
         {/* Rutas con Layout */}
         <Route element={<Layout />}>
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/courses" element={<Courses />} />
-          <Route path="/courses/:courseId" element={<CourseLayoutPage />}>
-            <Route path="content" element={<CourseContentPage />} />
-            <Route path="course-mentorias" element={<CourseMentoriasPage />} />
-            <Route path="proyectos" element={<CourseProyectsPage />} />
-          </Route>
-          <Route path="/mentorias" element={<MentoriasPage />} />
-          <Route path="/proyectos" element={<ProyectsPage />} />
-          <Route path="/search" element={<SearchPage />} />
-          <Route path="/perfil" element={<PerfilEstudiante />} />
-          <Route path="/panel" element={<PanelEstudiante />} />
-          <Route path="/cursos-disponibles" element={<CursosDisponibles />} />
-          <Route path="/mentores-disponibles" element={<MentoresDisponibles />} />
+          <Route
+            path="/dashboard"
+            element={
+              // <RutaProtegidaLearner>
+              <DashboardPage />
+              // </RutaProtegidaLearner>
+            }
+          />
+          <Route
+            path="/courses"
+            element={
+              // <RutaProtegidaLearner>
+              <Courses />
+              // </RutaProtegidaLearner>
+            }
+          />
+          <Route
+            path="/courses/:courseId"
+            element={
+              // <RutaProtegidaLearner>
+              <CourseLayoutPage />
+              // </RutaProtegidaLearner>
+            }
+          />
+          <Route
+            path="/mentorias"
+            element={
+              // <RutaProtegidaLearner>
+              <MentoriasPage />
+              // </RutaProtegidaLearner>
+            }
+          />
+          <Route
+            path="/proyectos"
+            element={
+              // <RutaProtegidaLearner>
+              <ProyectsPage />
+              // </RutaProtegidaLearner>
+            }
+          />
+          <Route
+            path="/search"
+            element={
+              // <RutaProtegidaLearner>
+              <SearchPage />
+              // </RutaProtegidaLearner>
+            }
+          />
+          <Route
+            path="/perfil"
+            element={
+              // <RutaProtegidaLearner>
+              <PerfilEstudiante />
+              // </RutaProtegidaLearner>
+            }
+          />
+          <Route
+            path="/panel"
+            element={
+              // <RutaProtegidaLearner>
+              <PanelEstudiante />
+              // </RutaProtegidaLearner>
+            }
+          />
+          <Route
+            path="/cursos-disponibles"
+            element={
+              // <RutaProtegidaLearner>
+              <CursosDisponibles />
+              // </RutaProtegidaLearner>
+            }
+          />
+          <Route
+            path="/mentores-disponibles"
+            element={
+              // <RutaProtegidaLearner>
+              <MentoresDisponibles />
+              // </RutaProtegidaLearner>
+            }
+          />
         </Route>
-
         {/* Ruta 404 */}
         <Route path="*" element={<Error404 />} />
       </Routes>

@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { useAuth } from "@/context/AuthContext";
+// import { useAuth } from "@/context/AuthContext";
 import { Layout } from "../App";
 import Courses from "../pages/Aprendiz/curso/Courses";
 import CourseLayoutPage from "../pages/Aprendiz/curso/CourseLayoutPage";
@@ -29,15 +29,16 @@ import Error404 from "@/pages/Error404/Error404";
 import DashboardMentor from "@/pages/MentorProfile/DashboardMentor";
 import MentorProfilePage from "@/pages/MentorProfile/MentorProfilePage";
 import MentorPage from "@/pages/MentorProfile/MentorPage";
+import MentorSearchSection from "@/components/MentorProfile/MentorSearchSection";
 
-
-const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated } = useAuth();
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
-  }
-  return children;
-};
+// Componente ProtectedRoute temporalmente deshabilitado
+// const ProtectedRoute = ({ children }) => {
+//   const { isAuthenticated } = useAuth();
+//   if (!isAuthenticated) {
+//     return <Navigate to="/login" replace />;
+//   }
+//   return children;
+// };
 
 export default function AppRoutes() {
   return (
@@ -46,11 +47,10 @@ export default function AppRoutes() {
       <Route
         path="/"
         element={
-          <ProtectedRoute>
-            <Layout />
-          </ProtectedRoute>
-        }
-      >
+          // <ProtectedRoute>
+          <Layout />
+          // </ProtectedRoute>
+        }>
         <Route index element={<Navigate to="/dashboard" replace />} />
         <Route path="*" element={<Error404 />} />
         <Route path="dashboard" element={<DashboardPage />} />
@@ -61,18 +61,19 @@ export default function AppRoutes() {
         <Route path="courses/:courseId" element={<CourseLayoutPage />}>
           {/* Rutas anidadas que se renderizarán dentro del Outlet de CourseLayoutPage */}
           <Route path="content" element={<CourseContentPage />} />
-          <Route path="/mentor" element={<MentorPage />} /> {/* Esta página es Main Area de la Etapa 1 de Visily */}
+          <Route path="/mentor" element={<MentorPage />} />{" "}
+          {/* Esta página es Main Area de la Etapa 1 de Visily */}
           <Route path="course-mentorias" element={<CourseMentoriasPage />} />
-          <Route path="/mentor" element={<MentorPage />} />   {/* Esta página es Main Area de la Etapa 1 de Visily */}
-         
+          <Route path="/mentor" element={<MentorPage />} />{" "}
+          {/* Esta página es Main Area de la Etapa 1 de Visily */}
           <Route path="course-mentorias" element={<CourseMentoriasPage />} />
-
           <Route path="proyectos" element={<CourseProyectsPage />} />
           <Route path="leccion/:lessonId" element={<LessonPage />} />
         </Route>
 
         <Route path="mentorias" element={<MentoriasPage />} />
         <Route path="proyectos" element={<ProyectsPage />} />
+        <Route path="mentor" element={<MentorSearchSection/>} />
         <Route path="search" element={<SearchPage />} />
 
         {/* Rutas de Mentor */}
