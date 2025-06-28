@@ -5,22 +5,25 @@ import { FaCode, FaChartLine, FaPaintBrush, FaBullhorn } from 'react-icons/fa';
 import EditCourseModal from '../../components/MentorProfile/EditCourseModal';
 import '../../styles/DashboardMentor.css';
 
+
 const iconList = [<FaCode />, <FaChartLine />, <FaPaintBrush />, <FaBullhorn />];
 
 const initialCourses = [
   {
     id: 1,
     title: 'Web Development Basics',
-    description: 'Total enrolled students and average progress.',
+    description: 'Total estudiantes inscritos y progreso.',
     students: 120,
     percentage: 85,
     icon: <FaCode />,
     status: null,
     isActive: true,
     scores: [5, 4, 4, 5, 3, 4, 5, 5, 4],
-    enrolled: [ // contiene estudiantes
-      { name: 'Ana García' },
-      { name: 'Juan Pérez' },
+    enrolled: [
+      { name: 'Nicolás Ortiz' },
+      { name: 'Alejandra Thomas' },
+      { name: 'Miguel Pérez' },
+      { name: 'Angel Henao' },
     ],
   },
   {
