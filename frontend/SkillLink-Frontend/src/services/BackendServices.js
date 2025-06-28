@@ -11,7 +11,6 @@ export const checkServerHealth = async () => {
   }catch(error){
     return false;
   }
-<<<<<<< Updated upstream
 
 }
 
@@ -50,15 +49,6 @@ export async function getUserInfo() {
 
 
 
-||||||| Stash base
-};
-=======
-
-}
-
-
-
->>>>>>> Stashed changes
 
 
 // ===== FUNCIONES PARA CURSOS =====
@@ -472,21 +462,9 @@ export const loginUser = async (username, password) => {
 export async function registerUser(userData) {
   try {
     console.log("Enviando datos de registro:", userData);
-<<<<<<< Updated upstream
-    console.log("URL de la API:", `https://skilllink-alumnithon.onrender.com/api/auth/register`);
-||||||| Stash base
-    console.log("URL de la API:", `${API_URL}/register`);
-=======
     console.log("URL de la API:", `${API_URL}/auth/register`);
->>>>>>> Stashed changes
 
-<<<<<<< Updated upstream
-    const response = await fetch(`$https://skilllink-alumnithon.onrender.com/api/auth/register`, {
-||||||| Stash base
-    const response = await fetch(`${API_URL}/register`, {
-=======
     const response = await fetch(`${API_URL}/auth/register`, {
->>>>>>> Stashed changes
       method: "POST",
       headers: {
         "Content-Type": "application/json",
