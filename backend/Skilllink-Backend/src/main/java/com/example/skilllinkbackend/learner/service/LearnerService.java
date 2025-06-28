@@ -4,16 +4,13 @@ import com.example.skilllinkbackend.learner.dto.LearnerRequest;
 import com.example.skilllinkbackend.learner.dto.LearnerResponse;
 import com.example.skilllinkbackend.learner.entity.Learner;
 import com.example.skilllinkbackend.learner.repository.LearnerRepository;
-import com.example.skilllinkbackend.mentor.entity.Mentor;
 import com.example.skilllinkbackend.user.entity.User;
-import com.example.skilllinkbackend.user.model.Role;
 import com.example.skilllinkbackend.user.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class LearnerService {
@@ -40,7 +37,7 @@ public class LearnerService {
         User user = userRepository.findById(learnerRequest.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        System.out.println("Creating learner profile for user ID: " + user.getId()); // Debug Log
+        System.out.println("Creating learner profile for user ID: " + user.getUser_id()); // Debug Log
 
         Learner learner = mapToLearnerEntity(learnerRequest, user);
         learnerRepository.save(learner);

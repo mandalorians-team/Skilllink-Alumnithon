@@ -44,7 +44,7 @@ public class MentorService {
         User user = userRepository.findById(mentorRequest.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        System.out.println("Creating mentor profile for user ID: " + user.getId()); // Debug Log
+        System.out.println("Creating mentor profile for user ID: " + user.getUser_id()); // Debug Log
 
         Mentor mentor = mapToMentorEntity(mentorRequest, user);
         mentorRepository.save(mentor);
@@ -68,7 +68,7 @@ public class MentorService {
         User user = userRepository.findById(mentorRequest.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        System.out.println("Saving mentor for user ID: " + user.getId()); // Debug log
+        System.out.println("Saving mentor for user ID: " + user.getUser_id()); // Debug log
         if (user.getRole() == null || user.getRole() != Role.MENTOR) {
             user.setRole(Role.MENTOR);
             userRepository.save(user);
