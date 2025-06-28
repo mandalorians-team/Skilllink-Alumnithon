@@ -1,5 +1,5 @@
 // ChatPage.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from '../../components/Sidebar';
 import Topbar from '../../components/Topbar';
 import Conversations from '../../components/chat/Conversations';
@@ -9,12 +9,24 @@ import '../../styles/ChatPage.css';
 
 export default function ChatPage() {
     const [selectedContact, setSelectedContact] = useState(null);
+    const [contacts] = useState(['maya', 'luis', 'andrea', 'carlos']); // contactos simulados
 
-    // Simulación de usuario actual (puedes reemplazar esto con un contexto o autenticación real)
-    const currentUserId = 'user'; // o 'maya', etc.
+    const currentUserId = 'user'; // simula usuario logueado
 
-    // Hook personalizado de WebSocket
-    const { messages, sendMessage } = useChatSocket(currentUserId, selectedContact);
+    const {
+        messages,
+        sendMessage,
+        unreadCounts,
+        lastMessages,
+        clearConversation
+    } = useChatSocket(currentUserId, selectedContact);
+
+    // Solicitar permiso de notificaciones si aún no está otorgado
+    useEffect(() => {
+        if (Notification && Notification.permission !== 'granted') {
+            Notification.requestPermission();
+        }
+    }, []);
 
     return (
         <div className="container">
@@ -23,12 +35,19 @@ export default function ChatPage() {
                 <Topbar />
                 <div className="chat-container">
                     <div className="chat-content">
-                        <Conversations onSelectContact={setSelectedContact} />
+                        <Conversations
+                            contacts={contacts.filter((c) => c !== currentUserId)}
+                            selectedContact={selectedContact}
+                            onSelectContact={setSelectedContact}
+                            unreadCounts={unreadCounts}
+                            lastMessages={lastMessages}
+                        />
                         <ChatBox
                             selectedContact={selectedContact}
                             messages={messages}
                             onSendMessage={sendMessage}
                             currentUserId={currentUserId}
+                            onClearConversation={() => clearConversation(selectedContact)}
                         />
                     </div>
                 </div>

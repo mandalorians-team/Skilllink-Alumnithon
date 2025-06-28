@@ -31,6 +31,8 @@ import DashboardPage from "./pages/Aprendiz/DashboardPage";
 import PerfilEstudiante from "./pages/Aprendiz/PerfilEstudiante";
 import PanelEstudiante from "./pages/Aprendiz/PanelEstudiante";
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Error404 from "./pages/Error404/Error404";
 
@@ -65,6 +67,14 @@ function Layout() {
 export default function App() {
   return (
     <Routes>
+      {/* Ruta para Chat */}      
+      <ToastContainer position="bottom-right" autoClose={4000} hideProgressBar={false} newestOnTop />
+
+      {/* Ruta para AppRoutes */}      
+      <div className="app-container">
+        <AppRoutes />
+      </div>
+
       {/* Rutas sin Layout */}
       <Route path="/" element={<MainPage />} />
       <Route path="/formularioregistro" element={<FormularioRegistro />} />

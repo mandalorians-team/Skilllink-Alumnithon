@@ -132,7 +132,6 @@ body {
     overflow-y: auto;
     margin-bottom: 1rem;
     padding-right: 12px;
-    scroll-behavior: smooth;
 }
 
 .chat-messages img {
