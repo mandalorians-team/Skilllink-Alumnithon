@@ -84,6 +84,7 @@ export default function App() {
           <Route path="content" element={<CourseContentPage />} />
           <Route path="course-mentorias" element={<CourseMentoriasPage />} />
           <Route path="proyectos" element={<CourseProyectsPage />} />
+        
         </Route>
 
         <Route path="mentorias" element={<MentoriasPage />} />
@@ -91,7 +92,7 @@ export default function App() {
         <Route path="search" element={<SearchPage />} />
         <Route path="perfil" element={<PerfilEstudiante />} />
         <Route path="panel" element={<PanelEstudiante />} />
-        <Route path="mentor/profile" element={<MentorProfilePage />} />
+       {/* <Route path="mentor/profile" element={<MentorProfilePage />} /> */}
       </Route>
 
       {/* 404 */}

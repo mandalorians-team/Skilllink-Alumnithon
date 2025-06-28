@@ -45,6 +45,10 @@ export default function Login() {
 
       console.log("Login exitoso. Token guardado.");
 
+      // Llamar a la función centralizada
+      const userInfo = await getUserInfo();
+      console.log("Info del usuario:", userInfo);
+
       // Redirección según el rol
       // Redirigir según rol
       switch (userInfo.role) {
@@ -59,7 +63,7 @@ export default function Login() {
           break;
         default:
           console.warn("Rol no reconocido:", userInfo.role);
-          navigate("/");
+          navigate("/perfil");
       }
     } catch (err) {
       console.log(err);
