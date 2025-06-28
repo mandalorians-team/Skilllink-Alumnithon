@@ -49,9 +49,9 @@ import MentorPage from "./pages/MentorProfile/MentorPage";
 import TestCertificacion from "./components/TestCertificacion";
 
 
-import Error404 from "./pages/Error404/Error404";
 
-function Layout() {
+
+function Layout() { 
   const location = useLocation();
 
   const showNavbar =
