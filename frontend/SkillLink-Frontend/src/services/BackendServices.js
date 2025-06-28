@@ -6,7 +6,7 @@ import { API_URL } from "./api";
 export const checkServerHealth = async () => {
 
   try{
-    const response = await fetch(`$(API_URL)/users`);
+    const response = await fetch(`${API_URL}/users`);
     return response.ok
   }catch(error){
     return false;
@@ -21,7 +21,7 @@ export async function getUserInfo() {
     throw new Error("No hay token disponible");
   }
 
-  const response = await fetch("http://localhost:8080/users/api/info", {
+  const response = await fetch(`${API_URL}/users/api/info`, {
     method: "GET",
     headers: {
       "Authorization": `Bearer ${token}`

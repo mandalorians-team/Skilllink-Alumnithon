@@ -4,6 +4,7 @@ import Navbar from "../../components/Main/Navbar";
 import Footer from "../../components/Main/Footer";
 import "../../index.css";
 import { getUserInfo } from "@/services/BackendServices";
+import { API_URL } from "@/services/api";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ export default function Login() {
     setError(null);
 
     try {
-      const response = await fetch("http://localhost:8080/api/auth/login", {
+      const response = await fetch(`${API_URL}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

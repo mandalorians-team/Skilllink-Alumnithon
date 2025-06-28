@@ -13,7 +13,7 @@
 
 ### Variables de Entorno
 
-Asegúrate de tener configurado el archivo `.env`:
+Asegúrate de tener configurado el archivo `.env.example`:
 
 ```env
 VITE_API_URL=http://localhost:8080
