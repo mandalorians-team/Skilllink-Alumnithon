@@ -101,7 +101,7 @@ function Layout() {
 export default function App() {
   return (
     <>
-      <ToastContainer position="bottom-right" autoClose={4000} />
+    <ToastContainer position="bottom-right" autoClose={4000} hideProgressBar={false} newestOnTop />
       <Routes>
         {/* Rutas públicas */}
         <Route path="/" element={<MainPage />} />
