@@ -1,16 +1,51 @@
+import { Await } from "react-router-dom";
 import { API_URL } from "./api";
 
 // Función para verificar si el servidor está disponible
 
 export const checkServerHealth = async () => {
-  try {
-    const response = await fetch(`${API_URL}/courses`);
-    return response.ok;
-  } catch (error) {
-    console.error("Error checking server health:", error);
+
+  try{
+    const response = await fetch(`$(API_URL)/users`);
+    return response.ok
+  }catch(error){
     return false;
   }
-};
+
+}
+
+// ===== FUNCIONES PARA OBTENER INFO DEL USUARIO Y PODER INICIAR SECION DEPENDIENDO EL ROL=====
+
+export async function getUserInfo() {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    throw new Error("No hay token disponible");
+
+
+  }
+
+
+  const response = await fetch("http://localhost:8080/users/api/info", {
+    method: "GET",
+    headers: {
+      "Authorization": `Bearer ${token}`
+    },
+  });
+
+
+
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Error al obtener datos: ${errorText}`);
+  }
+
+
+  return await response.text();
+}
+
+
+
 
 
 // ===== FUNCIONES PARA CURSOS =====
@@ -424,9 +459,9 @@ export const loginUser = async (username, password) => {
 export async function registerUser(userData) {
   try {
     console.log("Enviando datos de registro:", userData);
-    console.log("URL de la API:", `${API_URL}/register`);
+    console.log("URL de la API:", `${API_URL}/auth/register`);
 
-    const response = await fetch(`${API_URL}/register`, {
+    const response = await fetch(`${API_URL}/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -459,7 +494,7 @@ export async function registerUser(userData) {
     const responseText = await response.text();
     console.log("Success response text:", responseText);
     if (!responseText) {
-      return { success: true, message: "Usuario registrado exitosamente" };
+      return { success: true, message:  "Usuario registrado exitosamente" };
     }
 
     return JSON.parse(responseText);

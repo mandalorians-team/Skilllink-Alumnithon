@@ -1,11 +1,9 @@
 package com.example.skilllinkbackend.mentor.entity;
 
 
+import com.example.skilllinkbackend.mentorship.entity.Mentorship;
 import com.example.skilllinkbackend.user.entity.User;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,4 +32,7 @@ public class Mentor {
     private String education;
 //    private List<String> skills;
     private String linkedinProfile;
+
+    @ManyToMany(mappedBy = "mentors")
+    private List<Mentorship> mentorships;
 }
