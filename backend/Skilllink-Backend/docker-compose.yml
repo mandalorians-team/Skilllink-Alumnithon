@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_DB: skilllinkdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    build: .
+    depends_on:
+      - db
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/skilllinkdb
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      JWT_SECRET: 7JLpbTIxdJnIbNfInqVk+KPleHEcEOFd+3o+OjSm4Wd065Iwi+OfciVfB5yNXf2PjTlhuHK498GqDkUXW5/fRA==
+      # You can add more env vars as needed
+    ports:
+      - "8080:8080"
+    restart: always
+
+volumes:
+  pgdata:
