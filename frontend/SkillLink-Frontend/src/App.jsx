@@ -3,19 +3,8 @@ import { Routes, Route, Outlet, useLocation } from "react-router-dom";
 
 // Layouts y componentes comunes
 import Header from "./components/comun/Header";
-<<<<<<< Updated upstream
 import NavbarInterno from "./components/Main/NavbarInterno";
 import Footer from "./components/Main/Footer";
-||||||| Stash base
-import Navbar from "./components/Main/Navbar";
-import Footer from "./components/comun/Footer";
-import Sidebar from "./components/comun/Sidebar";
-=======
-import Navbar from "./components/Main/Navbar";
-import NavbarInterno from "./components/Main/NavbarInterno";
-import Footer from "./components/comun/Footer";
-
->>>>>>> Stashed changes
 import CurseTabs from "./components/Aprendiz/Curso/CourseTabs";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
