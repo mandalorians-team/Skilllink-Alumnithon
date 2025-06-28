@@ -1,3 +1,5 @@
+import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 // Importar SVGs como URLs
 import houseIcon from "../../assets/icons/house.svg";
 import usersIcon from "../../assets/icons/users.svg";
@@ -7,6 +9,7 @@ import projectIcon from "../../assets/icons/code-xml.svg";
 import chatIcon from "../../assets/icons/chat.svg";
 import userIcon from "../../assets/icons/user.svg";
 import settingsIcon from "../../assets/icons/settings.svg";
+import "../../styles/SidebarMentor.css";
 
 // Componentes de iconos simples
 const HouseIcon = () => (
@@ -38,39 +41,27 @@ function SidebarMentor() {
   const location = useLocation();
 
   const menuItems = [
-    { path: "/", label: "Panel", icon: <HouseIcon /> },
+    { path: "/mentor/dashboard", label: "Panel", icon: <HouseIcon /> },
     {
-      path: "/mis-estudiantes",
+      path: "/mentor/mis-estudiantes",
       label: "Mis Estudiantes",
       icon: <UsersIcon />,
     },
     {
-      path: "/mis-mentorias",
+      path: "/mentor/mis-mentorias",
       label: "Mis Mentorías",
       icon: <BookIcon />,
     },
     {
-      path: "/buscar-estudiantes",
+      path: "/mentor/buscar-estudiantes",
       label: "Buscar Estudiantes",
       icon: <MentorIcon />,
     },
+    { path: "/mentor/proyectos", label: "Proyectos", icon: <ProjectIcon /> },
+    { path: "/mentor/chat", label: "Chat", icon: <ChatIcon /> },
+    { path: "/mentor/perfil", label: "Perfiles", icon: <UserIcon /> },
     {
-      path: "/proyectos",
-      label: "Proyectos",
-      icon: <ProjectIcon />,
-    },
-    {
-      path: "/chat",
-      label: "Chat",
-      icon: <ChatIcon />,
-    },
-    {
-      path: "/perfil",
-      label: "Perfiles",
-      icon: <UserIcon />,
-    },
-    {
-      path: "/configuracion",
+      path: "/mentor/configuracion",
       label: "Configuración",
       icon: <SettingsIcon />,
     },
@@ -95,4 +86,4 @@ function SidebarMentor() {
   );
 }
 
-export default SidebarMentor;
+export default SidebarMentor;
