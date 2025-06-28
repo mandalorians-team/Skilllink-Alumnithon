@@ -1,5 +1,5 @@
 import React from 'react';
-import './ContactList.css'; // Opcional: para estilos personalizados
+import '../../styles/ContactList.css';
 
 export const ContactList = ({
   contacts = [],
@@ -20,13 +20,17 @@ export const ContactList = ({
             className={`contact-item ${selectedContact === contact.id ? 'selected' : ''}`}
             onClick={() => onSelect(contact.id)}
           >
+
             <div className="contact-header">
               <strong>{contact.name}</strong>
                 {unread > 0 && (
                 <div className="unread-tooltip">
-                    Nuevo mensaje
+                    {unread}
                 </div>
-                )}            </div>
+                
+                )}
+              </div>
+                
             <div className="last-message">
               {lastMsg.length > 40 ? lastMsg.slice(0, 40) + '...' : lastMsg}
             </div>
