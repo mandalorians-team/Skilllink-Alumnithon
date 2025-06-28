@@ -29,7 +29,10 @@ import Error404 from "@/pages/Error404/Error404";
 import DashboardMentor from "@/pages/MentorProfile/DashboardMentor";
 import MentorProfilePage from "@/pages/MentorProfile/MentorProfilePage";
 import MentorPage from "@/pages/MentorProfile/MentorPage";
+import MisEstudiantes from "@/pages/MentorProfile/MisEstudiantes";
 import MentorSearchSection from "@/components/MentorProfile/MentorSearchSection";
+import MentorLayout from "@/layouts/MentorLayout";
+
 
 // Componente ProtectedRoute temporalmente deshabilitado
 // const ProtectedRoute = ({ children }) => {
@@ -78,9 +81,9 @@ export default function AppRoutes() {
 
         {/* Rutas de Mentor */}
         <Route path="/mentor/profile" element={<MentorProfilePage />} />
-        <Route path="/mentor/dashboard-mentor/" element={<DashboardMentor />} />
+        <Route path="/mentor/dashboard" element={<DashboardMentor />} />
         <Route path="/mentor/mis-estudiantes" element={<MentorProfilePage />} />
-        <Route path="mentor/alumnos" element={<MisAlumnosPage />} />
+        <Route path="mentor/mis-estudiantes" element={<MisAlumnosPage />} />
         <Route path="mentor/cursos" element={<MisCursosPage />} />
         <Route path="mentor/agenda" element={<AgendaPage />} />
         <Route path="mentor/chat" element={<ChatPage />} />
