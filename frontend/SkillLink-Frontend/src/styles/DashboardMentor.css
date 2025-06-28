@@ -6,13 +6,6 @@
     box-sizing: border-box;
 }
 
-.app-container {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--color-background);
-    align-items: center;
-    overflow: hidden;
-}
 
 .dashboardMentor-container {
     display: flex;
