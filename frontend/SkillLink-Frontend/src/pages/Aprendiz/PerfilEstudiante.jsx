@@ -77,7 +77,7 @@ export default function PerfilEstudiante() {
 
   const nombre = detalles?.firstName || "Nombre";
   const apellido = detalles?.lastName || "Apellido";
-  const telefono = detalles?.telefono || "No especificado";
+  const telefono = detalles?.telefono || "0909090909";
   const pais = detalles?.pais || "Colombia";
   const bio = detalles?.bio || "Apasionado por aprender y compartir tecnología.";
   const rol =  "Estudiante.";
