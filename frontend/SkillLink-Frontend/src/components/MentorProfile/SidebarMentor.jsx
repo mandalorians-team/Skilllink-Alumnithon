@@ -19,9 +19,10 @@ function SidebarMentor() {
         { path: '/', label: 'Panel', icon: <HouseIcon className="sidebar-icon" /> },
         { path: '/mentor/mis-estudiantes', label: 'Mis Estudiantes', icon: <UsersIcon className="sidebar-icon" /> },
         { path: '/mentor/dashboard', label: 'Mis Mentorías', icon: <BookIcon className="sidebar-icon" /> },
+        { path: '/mentores', label: 'Buscar Mentores', icon: <MentorIcon className="sidebar-icon" /> },
         { path: '/proyectos', label: 'Proyectos', icon: <ProjectIcon className="sidebar-icon" /> },
         { path: '/chat', label: 'Chat', icon: <ChatIcon className="sidebar-icon" /> },
-        { path: '/perfil', label: 'Perfiles', icon: <UserIcon className="sidebar-icon" /> },
+        { path: '/mentor/profile', label: 'Perfil', icon: <UserIcon className="sidebar-icon" /> },
         { path: '/configuracion', label: 'Configuración', icon: <SettingsIcon className="sidebar-icon" /> },
     ];
 
