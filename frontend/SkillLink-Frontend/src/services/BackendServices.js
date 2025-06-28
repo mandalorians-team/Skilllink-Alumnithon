@@ -6,7 +6,7 @@ import { API_URL } from "./api";
 export const checkServerHealth = async () => {
 
   try{
-    const response = await fetch(`$(API_URL)/users`);
+    const response = await fetch(`${API_URL}/users`);
     return response.ok
   }catch(error){
     return false;
