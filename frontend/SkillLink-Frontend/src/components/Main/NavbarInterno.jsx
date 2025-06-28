@@ -17,7 +17,7 @@ export default function NavbarInterno() {
       <div className="flex items-center gap-3">
         <Link to="/" className="flex items-center gap-2">
           <img
-            src="/images/logo1.jpg"
+            src="/images/logo1.png"
             alt="SkillLink"
             className="h-8 w-8 rounded-md"
           />

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import NavbarInterno from "../../components/Main/NavbarInterno";
 
 export default function PanelEstudiante() {
@@ -11,20 +12,32 @@ export default function PanelEstudiante() {
         <aside className="w-64 bg-[#19191F] p-4 hidden sm:flex flex-col justify-between border-2 border-primary shadow-2xl rounded-lg">
           <div>
             <nav className="space-y-2">
-              {["Perfil", "Panel", "Cursos", "Mentorías", "Proyectos", "Chat", "Configuración"].map((item, i) => (
-                <div
-                  key={i}
-                  className={`p-2 rounded ${
-                    item === "Panel"
-                      ? "bg-primary text-white font-bold font-orbitron"
-                      : "hover:bg-gray-800 text-[#8C8D8B]"
-                  }`}
-                >
-                  {item}
-                </div>
-              ))}
+              {["Perfil", "Panel", "Cursos", "Mentorías", "Proyectos", "Chat", "Configuración"].map((item, i) => {
+                const isActive = item === "Panel";
+                const route =
+                  item === "Perfil"
+                    ? "/perfil"
+                    : item === "Panel"
+                    ? "/panel-estudiante"
+                    : "#";
+
+                return (
+                  <Link
+                    to={route}
+                    key={i}
+                    className={`block p-2 rounded transition-all ${
+                      isActive
+                        ? "bg-primary text-white font-bold font-orbitron"
+                        : "hover:bg-gray-800 text-[#8C8D8B]"
+                    }`}
+                  >
+                    {item}
+                  </Link>
+                );
+              })}
             </nav>
           </div>
+
           <div className="mt-4 text-xs text-gray-400 flex flex-col items-center text-center">
             <img
               src="/images/Mentor 3.jpg"
