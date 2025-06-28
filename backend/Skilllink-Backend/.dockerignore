@@ -1,0 +1,11 @@
+# Ignore files/folders not needed in the image
+target/
+.mvn/
+!.mvn/wrapper/
+.git/
+.gitignore
+Dockerfile
+README.md
+*.iml
+.idea/
+*.log
