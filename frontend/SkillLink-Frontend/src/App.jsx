@@ -31,7 +31,7 @@ import SearchPage from "./pages/SearchPage";
 import DashboardPage from "./pages/Aprendiz/DashboardPage";
 import PerfilEstudiante from "./pages/Aprendiz/PerfilEstudiante";
 import PanelEstudiante from "./pages/Aprendiz/PanelEstudiante";
-<<<<<<< Updated upstream
+
 
 // Páginas nuevas
 import CursosDisponibles from "./pages/CursosDisponibles";
@@ -69,7 +69,6 @@ function Layout() {
   const showFooter = showHeader || showNavbar;
   const isCourseTabs = /^\/courses\/[^/]+(\/.*)?$/.test(location.pathname);
 
-<<<<<<< Updated upstream
   // Ocultamos el sidebar y header en la ruta de proyectos
   const isProyectsPage = location.pathname.startsWith("/proyectos");
   const isCoursesPage = location.pathname.startsWith("/courses");
@@ -86,14 +85,6 @@ function Layout() {
     isProyectsPage ||
     isCoursesPage ||
     isMentoriasPage;
-||||||| Stash base
-  const hideSidebar = /^\/(perfil|panel)$/.test(location.pathname);
-  const hideHeader = /^\/perfil$/.test(location.pathname); // 👈 Oculta header solo en /perfil
-=======
-  // 👈 Oculta header para dependiendo la pestaña
-  const hideNavbar = /^\/(perfil|panel|)$/.test(location.pathname);
-  const hideHeader = /^\/perfil|proyectos|$/.test(location.pathname); // 👈 Oculta header solo en /perfil
->>>>>>> Stashed changes
 
   return (
     <div className="flex min-h-screen bg-page-background-color">
