@@ -9,16 +9,16 @@
 ## 🚀 Parte 1: Nombres de Ramas (Branch Naming)
 
 ### 🧑‍🎨 **Frontend**
-Usar este formato para ramas de frontend: 
+
+Usar este formato para ramas de frontend:
 `frontend/<tipo>/<id-opcional>-<descripcion>`
 
+#### ✅ Ejemplos Frontend
 
-#### ✅ Ejemplos:
 - `frontend/feature/102-login-form`
 - `frontend/fix/203-header-bug`
 - `frontend/hotfix/999-css-break-navbar`
 - `frontend/docs/actualizar-readme`
-
 
 ---
 
@@ -27,12 +27,12 @@ Usar este formato para ramas de frontend:
 Usar este formato para ramas de backend:
 `backend/<tipo>/<id-opcional>-<descripcion>`
 
-#### ✅ Ejemplos:
+#### ✅ Ejemplos Backend
+
 - `backend/feature/101-auth-service`
 - `backend/fix/205-null-user-error`
 - `backend/hotfix/998-db-connection-issue`
 - `backend/chore/configurar-hibernate`
-
 
 ---
 
@@ -64,6 +64,7 @@ Usar este formato para ramas de backend:
 Usamos **Conventional Commits** para que sea fácil de leer, mantener, y automatizar.
 
 ### 🎯 Formato
+
 `<tipo>(<scope>): <descripción>`
 
 ---
@@ -72,7 +73,8 @@ Usamos **Conventional Commits** para que sea fácil de leer, mantener, y automat
 
 Usar scopes claros para identificar si estás tocando el frontend o backend y qué parte del sistema:
 
-**Frontend scopes**
+### Frontend scopes
+
 - `ui`
 - `navbar`
 - `login`
@@ -82,8 +84,8 @@ Usar scopes claros para identificar si estás tocando el frontend o backend y qu
 - `theme`
 - `layout`
 
+### Backend scopes
 
-**Backend scopes**
 - `auth`
 - `user`
 - `db`
@@ -91,7 +93,6 @@ Usar scopes claros para identificar si estás tocando el frontend o backend y qu
 - `api`
 - `security`
 - `payment`
-
 
 ---
 
@@ -122,6 +123,7 @@ No uses mensajes como:
 ---
 
 ## 🧭 Ejemplo de flujo real: Frontend
+
 - `git checkout develop`
 - `git checkout -b frontend/feature/103-navbar-component`
 - Haces tus cambios ✍️
@@ -129,16 +131,14 @@ No uses mensajes como:
 - `git commit -m "feat(navbar): add navbar with responsive design"`
 - `git push -u origin frontend/feature/103-navbar-component`
 
-
 ## Ejemplo de flujo real: Backend
+
 - `git checkout develop`
 - `git checkout -b backend/fix/207-auth-token-expiration`
 - Haces tus cambios ✍️
 - `git add .`
 - `git commit -m "fix(auth): correct token expiration logic"`
 - `git push -u origin backend/fix/207-auth-token-expiration`
-
-
 
 ---
 
@@ -152,6 +152,3 @@ No uses mensajes como:
 - ✅ El nombre de la rama debe reflejar su propósito
 
 ---
-
-
-
