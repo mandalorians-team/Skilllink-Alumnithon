@@ -4,9 +4,7 @@ Skilllink es una plataforma de mentorías colaborativas que conecta a usuarios c
 
 > **Rama principal: [`develop`](https://github.com/mandalorians-team/Skilllink-Alumnithon/tree/develop)**
 
----
 
-## ⚙️ Características principales
 
 ## 🚀 Características implementadas
 
@@ -18,14 +16,17 @@ Skilllink es una plataforma de mentorías colaborativas que conecta a usuarios c
 - [ ] Notificaciones (pendiente)
 - [x] Documentación con Swagger
 
----
+
 
 ## 🧱 Estructura del proyecto (Backend)
+
+
 
 ```
 skilllink-backend/
 └── src/main/java/com/example/skilllinkbackend/
 ```
+
 
 | Módulo           | Descripción                                                                 |
 |------------------|-----------------------------------------------------------------------------|
@@ -51,12 +52,26 @@ skilllink-backend/
 | **DTOs**         | Objetos para exponer datos de forma segura al cliente                       |
 | **Repositories** | Interfaces basadas en `JpaRepository` para operaciones CRUD                 |
 | **Services**     | Capa de negocio: validaciones, flujos de datos y procesos internos          |
-| **Controllers**  | Endpoints REST: entrada/salida documentada con Swagger                     |
+| **Controllers**  | Endpoints REST: entrada/salida documentada con Swagger                      |
 | **Security**     | Lógica de autenticación/autorización con Spring Security + JWT              |
 | **mapper/**      | Transformación entre entidades ↔ DTOs usando MapStruct o lógica manual      |
 | **specification/**| Filtros dinámicos con JPA Specification para búsquedas personalizadas      |
 
----
+
+
+### 🧑‍🎨 Frontend
+
+Usar este formato para ramas de frontend:  
+`frontend/<tipo>/<id-opcional>-<descripcion>`
+
+#### ✅ Ejemplos Frontend
+
+- `frontend/feature/102-login-form`
+- `frontend/fix/203-header-bug`
+- `frontend/hotfix/999-css-break-navbar`
+- `frontend/docs/actualizar-readme`
+
+
 
 ## ⚙️ Tech Stack
 
@@ -80,35 +95,39 @@ skilllink-backend/
 - **React Router**
 - **Jest** / **React Testing Library**
 
----
+
 
 ## 🗂️ Project Structure
 
 ### Frontend (simplificado)
 
+
+
 ```
 frontend/SkillLink-Frontend/
 ├── src/
-│   ├── assets/         # Imágenes y logotipos
-│   ├── components/     # Componentes reutilizables por dominio
-│   ├── context/        # Estado global (Auth, etc.)
-│   ├── data/           # Datos de prueba
-│   ├── hooks/          # Custom hooks
-│   ├── interfaces/     # Tipos/interfaces TypeScript
-│   ├── pages/          # Páginas principales por módulo
-│   ├── routes/         # Rutas generales
-│   ├── services/       # Conexiones al backend/API
-│   ├── styles/         # Estilos globales (Tailwind)
-│   ├── tests/          # Pruebas unitarias
-│   ├── main.jsx        # Entry point
-│   └── App.jsx         # Root component
+│ ├── assets/ # Imágenes y logotipos
+│ ├── components/ # Componentes reutilizables por dominio
+│ ├── context/ # Estado global (Auth, etc.)
+│ ├── data/ # Datos de prueba
+│ ├── hooks/ # Custom hooks
+│ ├── interfaces/ # Tipos/interfaces TypeScript
+│ ├── pages/ # Páginas principales por módulo
+│ ├── routes/ # Rutas generales
+│ ├── services/ # Conexiones al backend/API
+│ ├── styles/ # Estilos globales (Tailwind)
+│ ├── tests/ # Pruebas unitarias
+│ ├── main.jsx # Entry point
+│ └── App.jsx # Root component
 ```
 
 ### Backend (resumido)
 
 Ver tabla de módulos arriba.
 
----
+
+
+
 
 ## 🛠️ Instalación local
 
@@ -122,11 +141,12 @@ Ver tabla de módulos arriba.
 
 ### Backend
 
-```sh
+```bash
 cd backend/Skilllink-Backend
 cp application.yml.example application.yml
 # Configura las variables de entorno según perfil (dev/prod)
 ./mvnw spring-boot:run
+
 ```
 
 - El perfil `dev` usa H2 por defecto; para PostgreSQL usa `SPRING_PROFILES_ACTIVE=prod` y define tus credenciales.
@@ -137,10 +157,33 @@ cp application.yml.example application.yml
 cd frontend/SkillLink-Frontend
 npm install
 npm run dev
+
 ```
 - Servidor en [http://localhost:5173](http://localhost:5173)
 
----
+
+### Frontend scopes
+
+- `ui`
+- `navbar`
+- `login`
+- `home`
+- `profile`
+- `form`
+- `theme`
+- `layout`
+
+### Backend scopes
+
+- `auth`
+- `user`
+- `db`
+- `service`
+- `api`
+- `security`
+- `payment`
+
+
 
 ## 🐳 Docker
 
@@ -184,6 +227,7 @@ services:
 
 volumes:
   db_data:
+
 ```
 
 - Levanta todo con: `docker-compose up --build`
@@ -198,13 +242,12 @@ volumes:
 
 ---
 
+
 ## 📚 Documentación interna
 
 - Documentos Writerside en `backend/Skilllink-Backend/Writerside/topics/`
   - `SRS.md`, `Functional-Requirements.md`, `Application-Configuration.md`
 - API Swagger en `/swagger-ui/` al levantar el backend
-
----
 
 ## 🤝 Contribución
 
@@ -213,12 +256,32 @@ volumes:
 - Pull requests obligatorios
 - Flujo y buenas prácticas en este README
 
----
+
+## 🧭 Ejemplo de flujo real: Frontend
+
+- `git checkout develop`
+- `git checkout -b frontend/feature/103-navbar-component`
+- Haces tus cambios ✍️
+- `git add .`
+- `git commit -m "feat(navbar): add navbar with responsive design"`
+- `git push -u origin frontend/feature/103-navbar-component`
+
+## Ejemplo de flujo real: Backend
+
+- `git checkout develop`
+- `git checkout -b backend/fix/207-auth-token-expiration`
+- Haces tus cambios ✍️
+- `git add .`
+- `git commit -m "fix(auth): correct token expiration logic"`
+- `git push -u origin backend/fix/207-auth-token-expiration`
+
+
 
 ## 📝 Licencia
 
 MIT © Equipo Mandalorians
 
----
+
 
 **“Así es el camino.” — Mandalorians Dev Team**
+

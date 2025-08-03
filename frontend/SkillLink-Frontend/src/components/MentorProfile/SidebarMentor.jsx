@@ -1,7 +1,9 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
-import { BookOpen, House, Users, MessageCircle, CodeXml, User, Settings } from "lucide-react";
+import { BookOpen, House, Users, MessageCircle, CodeXml, User, Settings, Mail } from "lucide-react";
+import "../../styles/SidebarMentor.css";
+
 
 function SidebarMentor() {
   const location = useLocation();
@@ -21,7 +23,7 @@ function SidebarMentor() {
     {
       path: "/buscar-estudiantes",
       label: "Buscar Estudiantes",
-      icon: <Message className="sidebar-icon" />,
+      icon: <Mail className="sidebar-icon" />,
     },
     {
       path: "/proyectos",
